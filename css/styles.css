@@ -1,4 +1,5 @@
-/* Default styles for desktop */
+/* /css/styles.css */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,52 +8,58 @@ body {
 }
 
 .background {
-    background: url('../assets/background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    position: fixed;
-    width: 100%;
-    height: 120%;
-    transition: filter 0.5s ease-in-out;
     z-index: -1;
-    top: -20px;
+    background-color: #FFFFFF;
 }
 
 header {
     position: fixed;
     top: 0;
     width: 100%;
-    background-image: url('../assets/black-texture.jpg'); /* Replace with the path to your image */
     background-size: cover;
     background-position: center;
-    color: white;
+    background-color: #FFFFFF;
     z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Dark shadow for depth */
-    background-color: rgba(0, 0, 0, 0.3); /* Adds a slight shade */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-
 
 .toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 30px;
+    position: relative;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo-image {
+    height: 40px;
+    margin-right: 10px;
 }
 
 .logo {
-    font-family: 'Jura', sans-serif;
-    font-size: 42px; /* Adjust the size as needed */
-    font-weight: 600; /* Slightly bolder version */
-    letter-spacing: 0.125em; /* Add spacing between letters */
-    background: url('../assets/brushed-gold-texture.jpg') no-repeat; /* Brushed gold texture */
+    font-family: 'Arial', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    background-color: #111111;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-size: cover; /* Ensure the image covers the text properly */
-    background-position: center; /* Center the background image */
-    margin-top: -10px;
+    background-size: cover;
+    background-position: center;
+    margin-top: -5px;
     margin-bottom: -5px;
 }
 
-
+.navigation {
+    margin-left: auto;
+}
 
 .navigation ul {
     list-style: none;
@@ -67,14 +74,15 @@ header {
 
 .navigation ul li a {
     font-family: 'Oswald', sans-serif;
-    font-weight: 400; /* Bold */
-    font-size: 18px; /* Adjust the size as needed */
-    background: url('../assets/brushed-gold-texture.jpg') no-repeat; /* Brushed gold texture */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: cover; /* Ensure the image covers the text properly */
-    background-position: center; /* Center the background image */
+    font-weight: 400;
+    font-size: 18px;
+    color: #607d8b;
     text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navigation ul li a:hover {
+    color: #2a6f97;
 }
 
 .menu-icon {
@@ -84,8 +92,8 @@ header {
 }
 
 .menu-icon span {
-    background: url('../assets/brushed-gold-texture.jpg') no-repeat; /* Brushed gold texture */
     height: 3px;
+    background-color: #111111;
     width: 30px;
     margin: 5px 0;
 }
@@ -96,12 +104,11 @@ header {
     justify-content: center;
     height: 75vh;
     text-align: center;
-    color: white;
+    color: #111111;
     font-family: 'Montserrat', sans-serif;
     font-size: 56px;
     font-weight: 300px;
     box-sizing: border-box;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
     margin-bottom: 200px;
 }
 
@@ -141,10 +148,10 @@ h2 {
 }
 
 .our-mission {
-    background-image: url('../assets/black-texture.jpg'); /* Replace with the path to your image */
     background-size: cover;
     background-position: center;
-    color: white;
+    background-color: #f0e3c2;
+    color: #111111;
     padding: 175px 40px;
     width: 100vw;
     position: relative;
@@ -174,14 +181,14 @@ h2 {
 
 .mission-text {
     width: 65%;
-    padding-left: 20px; /* Padding to the left of the text */
-    padding-right: 20px; /* Equal padding to the right */
-    font-size: 24px; /* Increased paragraph text size */
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 24px;
 }
 
 .mission-image-container {
     width: 35%;
-    padding-left: 20px; /* Equal padding to the right */
+    padding-left: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -206,7 +213,7 @@ h2 {
 .card {
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Increased shadow size */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
     padding: 30px;
     width: 40%;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -214,17 +221,17 @@ h2 {
 
 .card:hover {
     transform: scale(1.05);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6); /* Even bigger shadow on hover */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
 }
 
 .card h2 {
     font-family: 'Oswald', sans-serif;
-    font-weight: 700; /* Bold */
-    background: url('../assets/black-texture.jpg') no-repeat; /* Black textured background */
+    font-weight: 700;
+    background-color: #111111;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-size: cover; /* Ensure the image covers the text properly */
-    background-position: center; /* Center the background image */
+    background-size: cover;
+    background-position: center;
 }
 
 .card p {
@@ -233,7 +240,6 @@ h2 {
     line-height: 1.6;
 }
 
-/* Styles for mobile devices */
 @media (max-width: 768px) {
     .logo {
         font-size: 30px;
@@ -243,14 +249,28 @@ h2 {
         justify-content: space-between;
         align-items: center;
         padding: 20px 30px;
-        flex-wrap: wrap; /* Allow wrapping */
+        flex-wrap: wrap;
     }
 
     .navigation {
-        display: none; /* Initially hide the navigation links */
+        display: none;
         width: 100%;
         text-align: center;
         margin-top: 10px;
+    }
+
+    .navigation.active {
+        display: block;
+    }
+
+    .navigation ul {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .navigation ul li {
+        margin-left: 15px;
+        margin-right: 15px;
     }
 
     .menu-icon {
@@ -260,31 +280,24 @@ h2 {
     }
 
     .menu-icon span {
-        background: url('../assets/brushed-gold-texture.jpg') no-repeat; /* Brushed gold texture */
+        background-color: #111111;
         height: 3px;
         width: 30px;
-        margin: 5px 0;
+        margin: 2px 0;
     }
 
-    .navigation.active {
-        display: block; /* Display the navigation when the 'active' class is added */
-    }
-
-    /* Impact statement adjustments */
     .impact-statement {
         font-size: 30px;
         text-align: center;
         padding: 0 20px;
     }
 
-    /* Background image fit */
     .background {
-        background-attachment: scroll; /* Disable fixed background on mobile */
-        background-size: cover; /* Ensure the image scales well */
-        background-position: center center; /* Keep the image centered */
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
     }
 
-    /* Our mission section adjustments */
     .our-mission {
         padding: 60px 20px;
         background-size: cover;
@@ -294,7 +307,6 @@ h2 {
         margin-right: 0;
     }
 
-    /* Mission content layout adjustments */
     .mission-content {
         flex-direction: column;
         text-align: center;
@@ -309,10 +321,9 @@ h2 {
         width: 100%;
         padding-left: 0;
         padding-right: 0;
-        font-size: 18px; /* Adjusted for readability on small screens */
+        font-size: 18px;
     }
 
-    /* Content and cards adjustments */
     .content {
         flex-direction: column;
         padding-right: 40px;
@@ -322,10 +333,10 @@ h2 {
         width: 100%;
         margin-bottom: 20px;
         padding: 20px;
-        font-size: 16px; /* Adjusted for better readability */
+        font-size: 16px;
     }
 
     .card h2 {
-        font-size: 24px; /* Adjusted for better readability */
+        font-size: 24px;
     }
 }
