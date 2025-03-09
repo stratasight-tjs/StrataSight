@@ -1,15 +1,9 @@
-// Add scroll animation for services
-const services = document.querySelectorAll('.service');
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = 1;
-      entry.target.style.transform = 'translateX(0)';
-    }
+// script.js
+document.addEventListener('DOMContentLoaded', function () {
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const mobileNavButtons = document.querySelector('.nav-buttons-mobile');
+  
+    hamburgerMenu.addEventListener('click', function () {
+      mobileNavButtons.classList.toggle('active');
+    });
   });
-}, { threshold: 0.5 });
-
-services.forEach((service) => {
-  observer.observe(service);
-});
