@@ -1,87 +1,1756 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StrataSight</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fortune Financial Planning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
 
-    <link rel="icon" href="/assets/favicon.png" type="image/png">
-    <meta property="og:image" content="/assets/favicon.png">
-    <meta property="og:title" content="StrataSight">
-    <meta property="og:description" content="Empowering Businesses with Data-Driven Insights">
-    <meta property="og:url" content="https://stratasight.net">
-    
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@500&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════════════════
+       TOKENS & RESET
+    ══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white:   #ffffff;
+      --dark:    #39341e;
+      --green:   #5b7747;
+      --tan:     #bebdae;
+      --sage:    #707b61;
+      --green-lt:#7a9666;
+      --bg-off:  #f7f6f2;
+      --dark-80: rgba(57,52,30,0.80);
+      --tan-20:  rgba(190,189,174,0.20);
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+      --nav-h: 70px;
+      --ease: cubic-bezier(0.22,1,0.36,1);
+      --max-w: 1200px;
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      color: var(--dark);
+      background: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    /* ══════════════════════════════════════════
+       SCROLLBAR
+    ══════════════════════════════════════════ */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-off); }
+    ::-webkit-scrollbar-thumb { background: var(--sage); border-radius: 3px; }
+
+    /* ══════════════════════════════════════════
+       NAV
+    ══════════════════════════════════════════ */
+    #mainNav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.25rem, 5vw, 3.5rem);
+      transition: background 0.45s var(--ease), box-shadow 0.45s;
+    }
+    #mainNav.scrolled {
+      background: rgba(57,52,30,0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 2px 40px rgba(0,0,0,0.22);
+    }
+    /* always dark after hero */
+    #mainNav.solid {
+      background: rgba(57,52,30,0.98);
+      box-shadow: 0 2px 40px rgba(0,0,0,0.22);
+    }
+
+    /* Logo */
+    .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
+    .nav-logo-mark {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--green); display: grid; place-items: center;
+      font-family: var(--font-display); font-size: 1.25rem;
+      color: var(--white); font-weight: 600; letter-spacing: -0.5px;
+      flex-shrink: 0; box-shadow: 0 0 0 2px rgba(255,255,255,0.15);
+    }
+    .nav-logo-text {
+      font-family: var(--font-display); font-size: 1.1rem;
+      font-weight: 400; color: var(--white); line-height: 1.2; letter-spacing: 0.01em;
+    }
+    .nav-logo-text span {
+      display: block; font-size: 0.65rem; letter-spacing: 0.14em;
+      text-transform: uppercase; opacity: 0.65;
+      font-family: var(--font-body); font-weight: 300;
+    }
+
+    /* Links */
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.78);
+      text-decoration: none; transition: color 0.2s;
+      position: relative; cursor: pointer;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--tan);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s var(--ease);
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--tan); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-cta {
+      font-size: 0.74rem !important; font-weight: 600 !important;
+      color: var(--white) !important; background: var(--green);
+      padding: 9px 20px; border-radius: 3px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s !important;
+      white-space: nowrap; letter-spacing: 0.1em !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--green-lt) !important; color: var(--white) !important; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(91,119,71,0.4); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 6px;
+      z-index: 210;
+    }
+    .hamburger span {
+      display: block; width: 23px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: transform 0.3s var(--ease), opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .mobile-drawer {
+      position: fixed; inset: 0; z-index: 190;
+      background: rgba(57,52,30,0.98);
+      display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: center;
+      padding: 2rem clamp(1.5rem, 7vw, 3rem);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s var(--ease);
+    }
+    .mobile-drawer.open { opacity: 1; pointer-events: all; }
+    .mobile-drawer a {
+      font-family: var(--font-display); font-size: clamp(1.8rem, 6vw, 2.6rem);
+      font-weight: 300; color: rgba(255,255,255,0.85); text-decoration: none;
+      padding: 0.5rem 0; display: block; cursor: pointer;
+      transition: color 0.2s, padding-left 0.25s var(--ease);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      width: 100%;
+    }
+    .mobile-drawer a:hover { color: var(--tan); padding-left: 12px; }
+    .mobile-drawer .drawer-cta {
+      display: inline-block; margin-top: 2rem;
+      font-family: var(--font-body) !important; font-size: 0.82rem !important;
+      font-weight: 600 !important; letter-spacing: 0.12em !important;
+      text-transform: uppercase; background: var(--green);
+      padding: 13px 28px !important; border-radius: 3px;
+      color: var(--white) !important; border: none;
+      transition: background 0.2s !important;
+    }
+    .mobile-drawer .drawer-cta:hover { background: var(--green-lt) !important; padding-left: 28px !important; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ══════════════════════════════════════════
+       PAGE / VIEW SYSTEM
+    ══════════════════════════════════════════ */
+    .page-view {
+      display: none;
+      animation: pageFadeIn 0.4s var(--ease) forwards;
+    }
+    .page-view.active { display: block; }
+    @keyframes pageFadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    /* ══════════════════════════════════════════
+       SHARED LAYOUT HELPERS
+    ══════════════════════════════════════════ */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 3.5rem); }
+    .section { padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 3.5rem); }
+    .section-inner { max-width: var(--max-w); margin: 0 auto; }
+
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--sage); margin-bottom: 0.75rem;
+    }
+    .display-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 300; line-height: 1.15; color: var(--dark);
+      margin-bottom: 1.1rem; letter-spacing: -0.01em;
+    }
+    .display-title em { font-style: italic; color: var(--green); }
+    .body-copy {
+      font-size: clamp(0.9rem, 1.5vw, 1.02rem);
+      font-weight: 300; line-height: 1.8; color: rgba(57,52,30,0.72);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block; text-decoration: none; cursor: pointer; border: none;
+      font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; border-radius: 3px;
+      padding: 13px 26px; transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-green { background: var(--green); color: var(--white); }
+    .btn-green:hover { background: var(--green-lt); box-shadow: 0 8px 24px rgba(91,119,71,0.4); }
+    .btn-outline-dark { background: transparent; color: var(--dark); border: 1px solid rgba(57,52,30,0.3); }
+    .btn-outline-dark:hover { border-color: var(--dark); box-shadow: 0 4px 16px rgba(57,52,30,0.12); }
+    .btn-outline-light { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.4); }
+    .btn-outline-light:hover { border-color: var(--tan); background: rgba(190,189,174,0.1); }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; } .d4 { transition-delay: 0.32s; }
+    .d5 { transition-delay: 0.40s; }
+
+    /* ══════════════════════════════════════════
+       HOME — HERO
+    ══════════════════════════════════════════ */
+    #hero {
+      position: relative; height: 100svh; min-height: 560px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(160deg, #2e2a14 0%, #4a6039 45%, #39341e 100%);
+    }
+    .hero-bg video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0.55;
+    }
+    /* Geometric texture overlay */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='none'/%3E%3Cpath d='M0 0l80 80M80 0L0 80' stroke='rgba(255,255,255,0.025)' stroke-width='1'/%3E%3C/svg%3E");
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to bottom, rgba(57,52,30,0.35) 0%, rgba(57,52,30,0.55) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; max-width: 800px;
+      padding: 0 clamp(1.25rem, 5vw, 3rem);
+    }
+    .hero-eyebrow {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--tan);
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.9s var(--ease) 0.2s both;
+    }
+    .hero-title {
+      font-family: var(--font-display); font-size: clamp(2.8rem, 6.5vw, 5.4rem);
+      font-weight: 300; line-height: 1.1; color: var(--white);
+      margin-bottom: 1.4rem; letter-spacing: -0.02em;
+      animation: fadeUp 0.9s var(--ease) 0.38s both;
+    }
+    .hero-title em { font-style: italic; color: var(--tan); }
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.8vw, 1.1rem); font-weight: 300; line-height: 1.75;
+      color: rgba(255,255,255,0.75); max-width: 540px; margin: 0 auto 2.2rem;
+      animation: fadeUp 0.9s var(--ease) 0.54s both;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.9s var(--ease) 0.68s both;
+    }
+    .hero-scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      cursor: pointer; opacity: 0; animation: fadeUp 0.8s var(--ease) 1.2s forwards;
+    }
+    .hero-scroll-hint span { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .scroll-line { width: 1px; height: 36px; background: rgba(255,255,255,0.2); overflow: hidden; position: relative; }
+    .scroll-line::after {
+      content: ''; position: absolute; top: -100%; width: 100%; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--tan));
+      animation: scrollDrop 2s ease-in-out 1.5s infinite;
+    }
+    @keyframes scrollDrop { 0%{top:-100%} 100%{top:100%} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+
+    /* ── Home: Purpose Strip ── */
+    .purpose-strip {
+      background: var(--dark);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: center;
+    }
+    .purpose-strip .eyebrow { color: var(--tan); }
+    .purpose-strip .display-title { color: var(--white); }
+    .purpose-strip .body-copy { color: rgba(255,255,255,0.6); }
+    .purpose-quote {
+      font-family: var(--font-display); font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+      font-weight: 300; font-style: italic; color: var(--tan); line-height: 1.35;
+      border-left: 2px solid var(--green); padding-left: 2rem;
+    }
+    @media (max-width: 720px) {
+      .purpose-strip { grid-template-columns: 1fr; }
+      .purpose-quote { display: none; }
+    }
+
+    /* ── Home: Services Preview ── */
+    .services-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(190,189,174,0.35);
+      border: 1px solid rgba(190,189,174,0.35);
+      border-radius: 6px; overflow: hidden;
+      margin-top: 2.5rem;
+    }
+    .svc-card {
+      background: var(--white);
+      padding: clamp(1.5rem, 3vw, 2.2rem) clamp(1.2rem, 2.5vw, 1.8rem);
+      position: relative; overflow: hidden;
+      transition: background 0.3s, transform 0.3s var(--ease);
+    }
+    .svc-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: var(--green); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s var(--ease);
+    }
+    .svc-card:hover { background: #fdfcf9; }
+    .svc-card:hover::after { transform: scaleX(1); }
+    .svc-number {
+      font-family: var(--font-display); font-size: 1.8rem; font-weight: 300;
+      color: rgba(190,189,174,0.6); line-height: 1; margin-bottom: 0.8rem;
+      user-select: none;
+    }
+    .svc-card h3 {
+      font-family: var(--font-display); font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+      font-weight: 400; color: var(--dark); margin-bottom: 0.55rem;
+    }
+    .svc-card p {
+      font-size: clamp(0.8rem, 1.2vw, 0.88rem); line-height: 1.7;
+      color: rgba(57,52,30,0.6); font-weight: 300;
+    }
+    @media (max-width: 860px) { .services-preview-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .services-preview-grid { grid-template-columns: 1fr; } }
+
+    /* ── Home: Why strip ── */
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 7vw, 6rem); align-items: center;
+    }
+    .pillar-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.8rem; }
+    .pillar {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.1rem 1.2rem; border-radius: 6px;
+      border: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .pillar:hover { border-color: rgba(190,189,174,0.5); background: var(--bg-off); }
+    .pillar-num {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 300;
+      color: var(--green); min-width: 2rem; line-height: 1; padding-top: 2px;
+    }
+    .pillar h4 { font-size: 0.9rem; font-weight: 500; color: var(--dark); margin-bottom: 0.2rem; }
+    .pillar p { font-size: 0.84rem; font-weight: 300; line-height: 1.65; color: rgba(57,52,30,0.6); }
+    /* Stats visual block */
+    .why-visual {
+      position: relative; aspect-ratio: 4/5;
+      background: linear-gradient(150deg, var(--dark) 0%, var(--sage) 100%);
+      border-radius: 6px; overflow: visible;
+    }
+    .why-visual-inner {
+      position: absolute; inset: 0; border-radius: 6px; overflow: hidden;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='0.8' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E");
+    }
+    .why-stat {
+      position: absolute; background: var(--white);
+      border-radius: 6px; padding: 1rem 1.4rem;
+      box-shadow: 0 8px 32px rgba(57,52,30,0.18);
+    }
+    .why-stat:nth-child(2) { bottom: 1.8rem; left: -1.8rem; }
+    .why-stat:nth-child(3) { top: 1.8rem; right: -1.8rem; }
+    .why-stat .s-num {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 300;
+      color: var(--green); line-height: 1;
+    }
+    .why-stat .s-label { font-size: 0.72rem; color: var(--sage); margin-top: 3px; font-weight: 400; white-space: nowrap; }
+    @media (max-width: 820px) {
+      .why-grid { grid-template-columns: 1fr; }
+      .why-visual { display: none; }
+    }
+
+    /* ── Home: Testimonials ── */
+    .testi-track {
+      display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 1rem;
+      margin: 2rem -clamp(1.25rem,5vw,3.5rem) 0;
+      padding-left: clamp(1.25rem,5vw,3.5rem);
+      padding-right: clamp(1.25rem,5vw,3.5rem);
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .testi-track::-webkit-scrollbar { display: none; }
+    .testi-card {
+      background: var(--bg-off); border-radius: 6px; padding: 1.6rem;
+      min-width: 290px; max-width: 320px; flex-shrink: 0;
+      border: 1px solid rgba(190,189,174,0.4);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s;
+    }
+    .testi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(57,52,30,0.1); }
+    .testi-stars { color: var(--green); font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 0.75rem; }
+    .testi-card blockquote { font-size: 0.88rem; line-height: 1.72; color: rgba(57,52,30,0.72); font-weight: 300; font-style: italic; }
+    .testi-name { font-size: 0.76rem; font-weight: 600; color: var(--dark); margin-top: 0.9rem; letter-spacing: 0.03em; }
+    .testi-sub { font-size: 0.68rem; color: var(--sage); }
+
+    /* ══════════════════════════════════════════
+       ABOUT PAGE
+    ══════════════════════════════════════════ */
+    .about-hero {
+      background: var(--dark); padding: clamp(7rem, 14vw, 10rem) clamp(1.25rem, 5vw, 3.5rem) clamp(4rem, 8vw, 6rem);
+    }
+    .about-hero-inner { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
+    .about-hero .eyebrow { color: var(--tan); }
+    .about-hero .display-title { color: var(--white); font-size: clamp(2.2rem, 5vw, 4rem); }
+    .about-hero .body-copy { color: rgba(255,255,255,0.62); }
+    .about-hero-right { padding-bottom: 0.5rem; }
+    .about-values { display: flex; flex-direction: column; gap: 1rem; }
+    .about-value {
+      display: flex; align-items: center; gap: 1rem;
+      color: rgba(255,255,255,0.7); font-size: 0.9rem;
+    }
+    .about-value-line { width: 24px; height: 1px; background: var(--green); flex-shrink: 0; }
+    @media (max-width: 720px) {
+      .about-hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* Team grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .team-card {
+      background: var(--white); border-radius: 6px; overflow: hidden;
+      border: 1px solid rgba(190,189,174,0.35);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s;
+    }
+    .team-card:hover { transform: translateY(-5px); box-shadow: 0 16px 44px rgba(57,52,30,0.11); border-color: rgba(190,189,174,0.6); }
+
+    /* Square photo area */
+    .team-photo {
+      width: 100%; aspect-ratio: 1 / 1; overflow: hidden;
+      background: var(--bg-off); position: relative;
+    }
+    .team-photo img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center;
+      transition: transform 0.5s var(--ease);
+    }
+    .team-card:hover .team-photo img { transform: scale(1.04); }
+    /* Placeholder shown when no photo supplied */
+    .team-photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: linear-gradient(145deg, var(--bg-off) 0%, rgba(190,189,174,0.4) 100%);
+      gap: 0.5rem;
+    }
+    .team-photo-placeholder .initials {
+      font-family: var(--font-display); font-size: 3.5rem; font-weight: 300;
+      color: rgba(112,123,97,0.5); line-height: 1;
+    }
+    .team-photo-placeholder .ph-label {
+      font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(112,123,97,0.5);
+    }
+
+    .team-body { padding: 1.4rem 1.3rem 1.3rem; }
+    .team-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--dark); }
+    .team-role { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sage); margin: 3px 0 0.75rem; }
+    .team-bio { font-size: 0.83rem; line-height: 1.68; color: rgba(57,52,30,0.63); font-weight: 300; }
+    .team-links {
+      display: flex; align-items: center; gap: 0;
+      margin-top: 1.1rem; border-top: 1px solid rgba(190,189,174,0.35);
+      padding-top: 1rem;
+    }
+    .team-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.74rem; font-weight: 500; color: var(--sage);
+      text-decoration: none; padding: 5px 0;
+      transition: color 0.2s;
+      flex: 1;
+    }
+    .team-link + .team-link { border-left: 1px solid rgba(190,189,174,0.4); padding-left: 14px; }
+    .team-link:hover { color: var(--green); }
+    .team-link svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .team-link-arrow { margin-left: auto; opacity: 0; transform: translateX(-4px); transition: opacity 0.2s, transform 0.2s; font-size: 0.8rem; }
+    .team-link:hover .team-link-arrow { opacity: 1; transform: none; }
+
+    /* ══════════════════════════════════════════
+       SOLUTIONS PAGE
+    ══════════════════════════════════════════ */
+    .solutions-hero {
+      background: var(--bg-off);
+      padding: clamp(7rem, 14vw, 10rem) clamp(1.25rem, 5vw, 3.5rem) clamp(3rem, 6vw, 5rem);
+    }
+    .solutions-hero-inner { max-width: var(--max-w); margin: 0 auto; }
+    .solutions-detail-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .sol-card {
+      background: var(--white); border-radius: 6px;
+      border: 1px solid rgba(190,189,174,0.4);
+      padding: clamp(1.8rem, 3vw, 2.5rem) clamp(1.5rem, 2.5vw, 2rem);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease);
+      position: relative; overflow: hidden;
+    }
+    .sol-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 3px; bottom: 0;
+      background: var(--green); transform: scaleY(0); transform-origin: top;
+      transition: transform 0.35s var(--ease);
+    }
+    .sol-card:hover { border-color: rgba(91,119,71,0.3); box-shadow: 0 8px 32px rgba(57,52,30,0.08); transform: translateY(-3px); }
+    .sol-card:hover::before { transform: scaleY(1); }
+    .sol-num {
+      font-family: var(--font-display); font-size: 3rem; font-weight: 300;
+      color: rgba(190,189,174,0.5); line-height: 1; margin-bottom: 0.8rem;
+    }
+    .sol-card h3 { font-family: var(--font-display); font-size: clamp(1.3rem, 2vw, 1.6rem); font-weight: 400; color: var(--dark); margin-bottom: 0.75rem; }
+    .sol-card p { font-size: 0.88rem; line-height: 1.75; color: rgba(57,52,30,0.65); font-weight: 300; }
+    .sol-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.2rem; }
+    .sol-tag {
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--sage);
+      border: 1px solid rgba(112,123,97,0.35); border-radius: 2px; padding: 3px 8px;
+    }
+    @media (max-width: 680px) { .solutions-detail-grid { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════════════
+       INSIGHTS PAGE
+    ══════════════════════════════════════════ */
+    .insights-hero {
+      background: var(--dark);
+      padding: clamp(7rem, 14vw, 10rem) clamp(1.25rem, 5vw, 3.5rem) clamp(3rem, 6vw, 5rem);
+    }
+    .insights-hero .eyebrow { color: var(--tan); }
+    .insights-hero .display-title { color: var(--white); }
+    .insights-hero .body-copy { color: rgba(255,255,255,0.6); }
+    .insights-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%,300px), 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .insight-card {
+      background: var(--white); border-radius: 6px;
+      border: 1px solid rgba(190,189,174,0.4); overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s;
+    }
+    .insight-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(57,52,30,0.1); border-color: rgba(91,119,71,0.35); }
+    .insight-card-accent { height: 3px; background: var(--green); }
+    .insight-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .insight-tag { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.6rem; }
+    .insight-card h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; line-height: 1.35; color: var(--dark); margin-bottom: 0.6rem; }
+    .insight-card p { font-size: 0.84rem; line-height: 1.7; color: rgba(57,52,30,0.62); font-weight: 300; flex: 1; }
+    .insight-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1.2rem; padding-top: 1rem;
+      border-top: 1px solid rgba(190,189,174,0.35);
+    }
+    .insight-author { font-size: 0.72rem; color: var(--sage); }
+    .insight-read { font-size: 0.72rem; font-weight: 600; color: var(--green); text-decoration: none; letter-spacing: 0.06em; transition: letter-spacing 0.2s; }
+    .insight-read:hover { letter-spacing: 0.1em; }
+
+    /* ══════════════════════════════════════════
+       RESOURCES PAGE
+    ══════════════════════════════════════════ */
+    .resources-hero {
+      background: var(--bg-off);
+      padding: clamp(7rem, 14vw, 10rem) clamp(1.25rem, 5vw, 3.5rem) clamp(3rem, 6vw, 5rem);
+    }
+    .resources-tabs {
+      display: flex; gap: 0; flex-wrap: wrap;
+      border-bottom: 1px solid rgba(190,189,174,0.5);
+      margin-bottom: 2.5rem;
+    }
+    .res-tab {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.7rem 1.4rem; cursor: pointer; border: none; background: none;
+      color: rgba(57,52,30,0.5); border-bottom: 2px solid transparent; margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s; font-family: var(--font-body);
+    }
+    .res-tab.active, .res-tab:hover { color: var(--green); border-bottom-color: var(--green); }
+
+    .res-panel { display: none; }
+    .res-panel.active { display: block; animation: pageFadeIn 0.3s var(--ease); }
+
+    /* Glossary / overview */
+    .resource-cards {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%,240px), 1fr));
+      gap: 1rem; margin-bottom: 3rem;
+    }
+    .resource-card {
+      background: var(--white); border: 1px solid rgba(190,189,174,0.4);
+      border-radius: 6px; padding: 1.5rem 1.3rem; text-decoration: none;
+      display: block; transition: border-color 0.3s, transform 0.3s var(--ease), box-shadow 0.3s;
+    }
+    .resource-card:hover { border-color: rgba(91,119,71,0.4); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(57,52,30,0.08); }
+    .resource-card h4 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--dark); margin-bottom: 0.4rem; }
+    .resource-card p { font-size: 0.82rem; font-weight: 300; line-height: 1.6; color: rgba(57,52,30,0.6); }
+
+    /* Calculator list */
+    .calc-section { margin-bottom: 2.5rem; }
+    .calc-section-title {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 400;
+      color: var(--dark); margin-bottom: 1rem; padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(190,189,174,0.4);
+    }
+    .calc-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .calc-list li {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 0; border-bottom: 1px solid rgba(190,189,174,0.25);
+      cursor: pointer; transition: padding-left 0.2s var(--ease);
+    }
+    .calc-list li:hover { padding-left: 8px; }
+    .calc-list li span { font-size: 0.9rem; font-weight: 300; color: var(--dark); }
+    .calc-arrow { font-size: 0.8rem; color: var(--sage); transition: transform 0.2s; }
+    .calc-list li:hover .calc-arrow { transform: translateX(4px); color: var(--green); }
+
+    /* Money topic page */
+    .money-featured {
+      background: var(--dark); border-radius: 6px; padding: 2rem;
+      margin-bottom: 2rem; display: flex; gap: 2rem; align-items: center;
+    }
+    .money-featured-label { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tan); margin-bottom: 0.5rem; }
+    .money-featured h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; color: var(--white); margin-bottom: 0.5rem; }
+    .money-featured p { font-size: 0.85rem; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,0.6); }
+    .money-art { width: 80px; height: 80px; flex-shrink: 0; background: rgba(91,119,71,0.3); border-radius: 50%; display: grid; place-items: center; }
+    .money-art-inner { width: 36px; height: 36px; border: 2px solid var(--tan); border-radius: 50%; }
+    @media (max-width: 600px) { .money-featured { flex-direction: column; gap: 1rem; } }
+    .article-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .article-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 0; border-bottom: 1px solid rgba(190,189,174,0.3);
+      cursor: pointer; transition: padding-left 0.2s;
+    }
+    .article-item:hover { padding-left: 8px; }
+    .article-item h4 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; color: var(--dark); margin-bottom: 2px; }
+    .article-item p { font-size: 0.78rem; font-weight: 300; color: var(--sage); }
+
+    /* ══════════════════════════════════════════
+       CONTACT PAGE
+    ══════════════════════════════════════════ */
+    .contact-hero {
+      background: var(--dark);
+      padding: clamp(7rem, 14vw, 10rem) clamp(1.25rem, 5vw, 3.5rem) clamp(3rem, 6vw, 5rem);
+    }
+    .contact-hero .eyebrow { color: var(--tan); }
+    .contact-hero .display-title { color: var(--white); }
+    .contact-layout {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(2.5rem, 6vw, 5rem);
+      align-items: start; margin-top: 3rem;
+    }
+    .contact-info { }
+    .contact-block { margin-bottom: 2rem; }
+    .contact-block-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.5rem; }
+    .contact-block p, .contact-block a { font-size: 0.92rem; font-weight: 300; line-height: 1.75; color: var(--dark); text-decoration: none; display: block; }
+    .contact-block a:hover { color: var(--green); }
+    .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 1rem; }
+    .hours-grid span { font-size: 0.84rem; font-weight: 300; color: var(--dark); }
+    .hours-grid span:nth-child(even) { color: rgba(57,52,30,0.65); }
+
+    /* Form */
+    .contact-form { background: var(--bg-off); border-radius: 8px; padding: clamp(1.8rem, 3vw, 2.5rem); }
+    .contact-form h3 { font-family: var(--font-display); font-size: 1.7rem; font-weight: 300; color: var(--dark); margin-bottom: 1.6rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; border: 1px solid rgba(190,189,174,0.6); border-radius: 3px;
+      padding: 10px 13px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 300;
+      color: var(--dark); background: var(--white); outline: none; resize: vertical;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--green); box-shadow: 0 0 0 3px rgba(91,119,71,0.1);
+    }
+    .form-group textarea { min-height: 110px; }
+    .form-submit { width: 100%; padding: 13px; margin-top: 0.25rem; }
+    @media (max-width: 680px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    footer { background: var(--dark); }
+    .footer-main {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: clamp(2rem, 5vw, 4rem);
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 5vw, 3.5rem) clamp(2rem, 4vw, 3rem);
+      max-width: var(--max-w); margin: 0 auto;
+    }
+    .footer-brand p { font-size: 0.8rem; font-weight: 300; line-height: 1.75; color: rgba(255,255,255,0.45); margin-top: 1rem; max-width: 280px; }
+    .footer-col h5 { font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tan); margin-bottom: 1rem; font-weight: 600; }
+    .footer-col a { display: block; font-size: 0.82rem; font-weight: 300; color: rgba(255,255,255,0.45); text-decoration: none; margin-bottom: 0.55rem; cursor: pointer; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--tan); }
+    @media (max-width: 760px) { .footer-main { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .footer-main { grid-template-columns: 1fr; } }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem clamp(1.25rem, 5vw, 3.5rem);
+      max-width: var(--max-w); margin: 0 auto;
+    }
+    .footer-bottom p { font-size: 0.68rem; line-height: 1.75; color: rgba(255,255,255,0.3); }
+    .footer-bottom a { color: rgba(255,255,255,0.3); text-decoration: underline; }
+    .footer-bottom p + p { margin-top: 0.4rem; }
+
+    /* ══════════════════════════════════════════
+       PAGE HERO SHARED (non-home pages)
+    ══════════════════════════════════════════ */
+    .page-hero {
+      padding: clamp(6.5rem, 13vw, 9rem) clamp(1.25rem, 5vw, 3.5rem) clamp(3rem, 5vw, 4.5rem);
+    }
+    .page-hero-inner { max-width: var(--max-w); margin: 0 auto; }
+
+  </style>
 </head>
 <body>
-    <div class="background"></div>
-    <header>
-        <div class="toolbar">
-            <div class="logo">StrataSight</div>
-            <div class="menu-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav class="navigation">
-                <ul>
-                    <li><a href="index.html">HOME</a></li>
-                    <li><a href="pages/about.html">ABOUT</a></li>
-                    <li><a href="pages/services.html">SERVICES</a></li>
-                    <li><a href="pages/contact.html">CONTACT</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <main>
-        <section class="impact-statement">
-            <h1>Empowering Businesses with Data-Driven Insights</h1>
-        </section>        
-        <section class="impact-statement">
-            <p>Coming Soon...</p>
-        </section>
-        <!-- <section class="our-mission">
-            <h1>Our Mission</h1>
-            <div class="mission-content">
-                <div class="mission-text">
-                    <p>We strive to provide exceptional services and drive your success through technology. Our team of experts is dedicated to delivering high-quality solutions that meet your unique needs.</p>
-                    <p>At StrataSight, we believe in the power of technology to transform businesses. Our mission is to empower you with the tools and insights needed to navigate the complexities of today's digital landscape.</p>
-                    <p>We are committed to continuous improvement and innovation, ensuring that our clients always have access to the latest and most effective solutions. Your success is our top priority.</p>
-                </div>
-                <div class="mission-image-container">
-                    <img src="assets/chart.jpg" alt="Chart" class="mission-image">
-                </div>
-            </div>
-        </section>        
 
-        <section class="content">
-            <div class="card">
-                <h2>Financial Forecasting</h2>
-                <p>Our expert team helps small businesses predict and plan for future financial success. We utilize advanced analytics and industry insights to provide accurate and actionable forecasts that drive strategic decision-making.</p>
-                <p>By analyzing historical data and market trends, we help you identify potential opportunities and risks. Our goal is to equip you with the knowledge and tools necessary to make informed decisions and achieve long-term financial stability.</p>
+<!-- ══════════════════════════════════════════
+     NAV
+══════════════════════════════════════════ -->
+<nav id="mainNav">
+  <a class="nav-logo" onclick="goTo('home')" style="cursor:pointer">
+    <div class="nav-logo-mark">F</div>
+    <div class="nav-logo-text">Fortune Financial<span>Planning</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="goTo('about')"     data-page="about">About</a></li>
+    <li><a onclick="goTo('solutions')" data-page="solutions">Solutions</a></li>
+    <li><a onclick="goTo('insights')"  data-page="insights">Insights</a></li>
+    <li><a onclick="goTo('resources')" data-page="resources">Resources</a></li>
+    <li><a onclick="goTo('contact')"   class="nav-cta">Schedule a Meeting</a></li>
+  </ul>
+  <button class="hamburger" id="ham" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="drawer">
+  <a onclick="goTo('home');closeDrawer()">Home</a>
+  <a onclick="goTo('about');closeDrawer()">About</a>
+  <a onclick="goTo('solutions');closeDrawer()">Solutions</a>
+  <a onclick="goTo('insights');closeDrawer()">Insights</a>
+  <a onclick="goTo('resources');closeDrawer()">Resources</a>
+  <a onclick="goTo('contact');closeDrawer()" class="drawer-cta">Schedule a Meeting</a>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════ -->
+<div id="page-home" class="page-view active">
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-bg">
+      <video autoplay muted loop playsinline
+        src="https://www.pexels.com/download/video/3209829/"
+        onerror="this.style.display='none'">
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">South Jersey's Trusted Financial Partner</p>
+      <h1 class="hero-title">Your Wealth.<br><em>Your Legacy.</em><br>Our Purpose.</h1>
+      <p class="hero-sub">Helping individuals, families, and business owners make conscious, deliberate financial decisions — not leaving things to chance.</p>
+      <div class="hero-actions">
+        <button class="btn btn-green" onclick="goTo('contact')">Schedule a Consultation</button>
+        <button class="btn btn-outline-light" onclick="goTo('solutions')">Explore Our Solutions</button>
+      </div>
+    </div>
+    <div class="hero-scroll-hint" onclick="document.getElementById('home-purpose').scrollIntoView({behavior:'smooth'})">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- Purpose -->
+  <div class="section purpose-strip" id="home-purpose">
+    <div class="section-inner" style="max-width:var(--max-w);margin:0 auto">
+      <p class="eyebrow reveal">Our Promise</p>
+      <h2 class="display-title reveal d1" style="color:var(--white)">Caring for <em style="color:var(--tan)">people</em><br>comes first</h2>
+      <p class="body-copy reveal d2" style="color:rgba(255,255,255,0.6); max-width:480px">Our founder made a promise before entering financial services: help people first, make money second. That commitment shapes every recommendation we make and every relationship we build.</p>
+      <button class="btn btn-outline-light reveal d3" style="margin-top:1.8rem" onclick="goTo('about')">Meet the Team</button>
+    </div>
+    <blockquote class="purpose-quote reveal d2">"Help people first,<br>make money second."</blockquote>
+  </div>
+
+  <!-- Services preview -->
+  <div class="section" style="background:var(--bg-off)">
+    <div class="section-inner">
+      <p class="eyebrow reveal">What We Do</p>
+      <h2 class="display-title reveal d1">Solutions built around <em>your life</em></h2>
+      <p class="body-copy reveal d2" style="max-width:520px">From retirement income to estate protection, our guidance spans the full spectrum of your financial life — always personalized, always independent.</p>
+      <div class="services-preview-grid reveal d2">
+        <div class="svc-card">
+          <div class="svc-number">01</div>
+          <h3>Financial Planning</h3>
+          <p>Goal-driven strategy with built-in accountability. A comprehensive roadmap tailored to where you are and where you want to go.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-number">02</div>
+          <h3>Investment Management</h3>
+          <p>Long-term, disciplined investment philosophy built around your risk tolerance and time horizon — not short-term speculation.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-number">03</div>
+          <h3>Business Succession</h3>
+          <p>Whether you're building or preparing to transition, we help business owners create wealth strategies and exit plans with confidence.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-number">04</div>
+          <h3>Estate &amp; Insurance</h3>
+          <p>Coordinate insurance and estate planning to protect what matters most and preserve your legacy for the people you care about.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-number">05</div>
+          <h3>Retirement Income</h3>
+          <p>Turn savings into sustainable, predictable income. We design plans that let you live the life you've worked toward — on your terms.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-number">06</div>
+          <h3>401(k) Plan Services</h3>
+          <p>Specialized 401(k) solutions through RPk — high-quality, cost-effective retirement plan management for businesses of all sizes.</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:2.2rem">
+        <button class="btn btn-green reveal d3" onclick="goTo('solutions')">View All Solutions</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why us -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="why-grid">
+        <div class="why-visual">
+          <div class="why-visual-inner"></div>
+          <div class="why-stat">
+            <div class="s-num">25+</div>
+            <div class="s-label">Years Experience</div>
+          </div>
+          <div class="why-stat">
+            <div class="s-num">100%</div>
+            <div class="s-label">Client-First Fiduciary</div>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow reveal">Why Fortune Financial</p>
+          <h2 class="display-title reveal d1">An honest,<br><em>independent</em> approach</h2>
+          <p class="body-copy reveal d2">We don't sell products. We build relationships. Our advice is independent, personalized, and grounded in a fiduciary commitment to always act in your best interest.</p>
+          <div class="pillar-list">
+            <div class="pillar reveal d1">
+              <div class="pillar-num">I</div>
+              <div><h4>Fiduciary Standard</h4><p>Legally and ethically bound to act in your best interest — not ours, not a firm's, not a product's.</p></div>
             </div>
-            <div class="card">
-                <h2>Our Expertise</h2>
-                <p>With years of experience in the industry, our team brings a wealth of knowledge and expertise to every project. We understand the unique challenges faced by small businesses and are dedicated to helping you overcome them.</p>
-                <p>From financial planning and analysis to strategic consulting, our services are designed to help you achieve your goals. We take a personalized approach to every project, ensuring that our solutions are tailored to your specific needs.</p>
+            <div class="pillar reveal d2">
+              <div class="pillar-num">II</div>
+              <div><h4>Education-First</h4><p>We help you understand your finances so you can make confident, informed decisions at every stage.</p></div>
             </div>
-            <div class="card">
-                <h2>Client Success Stories</h2>
-                <p>Our clients' success is our success. We take pride in the positive impact we've had on businesses across various industries. Here are just a few examples of how we've helped our clients achieve their goals.</p>
-                <p>One client, a small retail business, saw a 20% increase in revenue after implementing our financial forecasting solutions. Another client, a tech startup, successfully secured funding and expanded their operations with our strategic guidance.</p>
-                <p>These success stories are a testament to our commitment to excellence and our ability to deliver results. We look forward to helping your business achieve similar success.</p>
+            <div class="pillar reveal d3">
+              <div class="pillar-num">III</div>
+              <div><h4>Accountability Systems</h4><p>Regular check-ins, structured follow-through, and measurable progress toward the goals that matter most.</p></div>
             </div>
-            <div class="card">
-                <h2>Get in Touch</h2>
-                <p>Contact us to learn more about how we can help you achieve your goals. Whether you have questions about our services or want to explore potential collaborations, we're here to assist you every step of the way.</p>
-                <p>Reach out via email or phone, and let's start a conversation about how StrataSight can support your business's growth and success. We look forward to working with you and helping you achieve your vision.</p>
-                <p>Don't hesitate to reach out with any inquiries or requests. We're always here to provide the support and guidance you need to succeed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="section" style="background:var(--bg-off); padding-bottom:1rem">
+    <div class="section-inner">
+      <p class="eyebrow reveal" style="text-align:center">Client Stories</p>
+      <h2 class="display-title reveal d1" style="text-align:center">In Their <em>Words</em></h2>
+    </div>
+    <div class="testi-track">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"At 50, I've worked with fifteen different financial advisors. Stephen stands head and shoulders above the rest — his calm confidence and remarkable sense of humor make an otherwise stressful subject approachable."</blockquote>
+        <div class="testi-name">Lisa Flanagan</div>
+        <div class="testi-sub">Current Client</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"Stephen meets his clients at their level of financial literacy and helps them get comfortable preparing for retirement. My confidence in planning for my future has grown enormously."</blockquote>
+        <div class="testi-name">Iris Lapsley</div>
+        <div class="testi-sub">Current Client</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"Adulting is so hard — Stephen has made it easy. You won't find a better or more reliable advisor. He treats his clients like family and goes out of his way for the people in his life."</blockquote>
+        <div class="testi-name">Rachel Stewart</div>
+        <div class="testi-sub">Current Client</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"Kevin has the best interest of the client in mind at all times. He delicately and truthfully navigates planning even when emotions might cloud decision-making."</blockquote>
+        <div class="testi-name">Fortune Financial Client</div>
+        <div class="testi-sub">Current Client</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"The whole team gives thoughtful and thorough guidance. They've worked with me through two retirements, a cross-country move, and numerous tax situations. Always consider the full picture."</blockquote>
+        <div class="testi-name">Fortune Financial Client</div>
+        <div class="testi-sub">Long-Term Client</div>
+      </div>
+    </div>
+    <p style="font-size:0.65rem;color:rgba(57,52,30,0.45);text-align:center;padding:1.5rem clamp(1.25rem,5vw,3.5rem) 3rem">Testimonials provided by current clients. No compensation was provided. Results may vary.</p>
+  </div>
+
+  <!-- CTA Banner -->
+  <div style="background:var(--green);padding:clamp(3rem,6vw,5rem) clamp(1.25rem,5vw,3.5rem);text-align:center">
+    <h2 class="reveal" style="font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--white);margin-bottom:0.8rem">Financial clarity is closer than you think</h2>
+    <p class="reveal d1" style="font-size:0.95rem;font-weight:300;color:rgba(255,255,255,0.75);margin-bottom:2rem">Schedule a no-pressure 15-minute introductory call and take the first step.</p>
+    <button class="btn reveal d2" style="background:var(--white);color:var(--green);font-weight:600" onclick="goTo('contact')">Schedule a Consultation</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="nav-logo" style="cursor:default">
+          <div class="nav-logo-mark">F</div>
+          <div class="nav-logo-text">Fortune Financial<span>Planning</span></div>
+        </div>
+        <p>Helping individuals, families, and business owners in South Jersey pursue financial clarity, confidence, and a life lived with purpose.</p>
+        <p style="margin-top:0.8rem;font-size:0.72rem;color:rgba(255,255,255,0.3)">Securities and Advisory services offered through LPL Financial, a Registered Investment Advisor. Member FINRA &amp; SIPC.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a onclick="goTo('home')">Home</a>
+        <a onclick="goTo('about')">About</a>
+        <a onclick="goTo('solutions')">Solutions</a>
+        <a onclick="goTo('insights')">Insights</a>
+        <a onclick="goTo('resources')">Resources</a>
+        <a onclick="goTo('contact')">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Topics</h5>
+        <a onclick="goTo('resources');setResTab('money')">Money</a>
+        <a onclick="goTo('resources');setResTab('calc')">Retirement</a>
+        <a onclick="goTo('resources');setResTab('calc')">Investment</a>
+        <a onclick="goTo('resources');setResTab('calc')">Estate</a>
+        <a onclick="goTo('resources');setResTab('calc')">Insurance</a>
+        <a onclick="goTo('resources');setResTab('calc')">Tax</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="https://brokercheck.finra.org/" target="_blank">FINRA BrokerCheck</a>
+        <a href="#">LPL Form CRS</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Do Not Sell My Info</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Fortune Financial Planning · 1202 Laurel Oak Road, Suite 206, Voorhees, NJ 08043 · <a href="tel:8564545005">(856) 454-5005</a></p>
+      <p>The content is developed from sources believed to be providing accurate information. Not intended as tax or legal advice. Consult legal or tax professionals for specific information regarding your individual situation. The LPL Financial representatives associated with this website may discuss and/or transact securities business only with residents of the following states: CT, DE, FL, GA, IL, MA, NJ, NC, &amp; PA.</p>
+      <p>We take protecting your data and privacy very seriously. <a href="#">Do not sell my personal information.</a> Copyright 2026.</p>
+    </div>
+  </footer>
+</div><!-- /page-home -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: ABOUT
+══════════════════════════════════════════ -->
+<div id="page-about" class="page-view">
+  <!-- About hero -->
+  <div class="about-hero page-hero">
+    <div class="about-hero-inner">
+      <div>
+        <p class="eyebrow">About Us</p>
+        <h1 class="display-title" style="color:var(--white);font-size:clamp(2.2rem,5vw,4rem)">Beyond business.<br><em style="color:var(--tan)">Our purpose.</em></h1>
+        <p class="body-copy" style="color:rgba(255,255,255,0.62);max-width:500px;margin-top:0.8rem">Our reasons for becoming financial professionals are deeply personal. We repeatedly saw friends and family struggling to find the help they needed. We're here to change that.</p>
+      </div>
+      <div class="about-hero-right">
+        <div class="about-values">
+          <div class="about-value"><div class="about-value-line"></div><span>Fiduciary &amp; Fee-Based</span></div>
+          <div class="about-value"><div class="about-value-line"></div><span>LPL Financial — Member FINRA &amp; SIPC</span></div>
+          <div class="about-value"><div class="about-value-line"></div><span>Serving NJ, PA, FL, GA, MA &amp; more</span></div>
+          <div class="about-value"><div class="about-value-line"></div><span>Comprehensive, education-first planning</span></div>
+          <div class="about-value"><div class="about-value-line"></div><span>Family-run · community-focused</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission -->
+  <div class="section" style="background:var(--bg-off)">
+    <div class="section-inner" style="max-width:var(--max-w);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:start">
+      <div>
+        <p class="eyebrow reveal">Our Mission</p>
+        <h2 class="display-title reveal d1">"Help people first,<br><em>make money second."</em></h2>
+        <p class="body-copy reveal d2">It all starts with a promise Kevin Gianfortune made to his father when he entered the financial services business. He committed to help people first and make money second — and he and his team honor that promise every day.</p>
+        <p class="body-copy reveal d3" style="margin-top:1rem">Our mission is to put you, the client, first at all times and provide guidance that can truly make a difference in your financial life. We function as a complete resource for all types of financial questions across every stage of life.</p>
+      </div>
+      <div class="reveal d2" style="padding-top:0.5rem">
+        <div style="background:var(--white);border:1px solid rgba(190,189,174,0.4);border-radius:6px;padding:2rem;margin-bottom:1.2rem">
+          <p style="font-family:var(--font-display);font-size:1.5rem;font-weight:300;color:var(--green);line-height:1.3;font-style:italic">"True financial planning encompasses elements beyond investments and insurance."</p>
+          <p style="font-size:0.78rem;color:var(--sage);margin-top:0.75rem">— Kevin J. Gianfortune, Founder</p>
+        </div>
+        <button class="btn btn-green" onclick="goTo('contact')">Schedule a Meeting</button>
+      </div>
+    </div>
+    <style>@media(max-width:700px){#page-about .section-inner[style*="grid"]{display:block!important}#page-about .section-inner[style*="grid"]>div+div{margin-top:2rem}}</style>
+  </div>
+
+  <!-- Team -->
+  <div class="section">
+    <div class="section-inner">
+      <p class="eyebrow reveal">The Fortune Family</p>
+      <h2 class="display-title reveal d1">People you can <em>count on</em></h2>
+      <div class="team-grid">
+
+        <!-- Kevin -->
+        <div class="team-card reveal d1">
+          <div class="team-photo">
+            <!-- To add a photo: replace the div below with <img src="path/to/kevin.jpg" alt="Kevin Gianfortune"> -->
+            <div class="team-photo-placeholder">
+              <div class="initials">KG</div>
+              <div class="ph-label">Add Photo</div>
             </div>
-        </section> -->
-    </main>
-    <script src="js/script.js"></script>
+          </div>
+          <div class="team-body">
+            <div class="team-name">Kevin J. Gianfortune</div>
+            <div class="team-role">Financial Planner &amp; Owner</div>
+            <p class="team-bio">Kevin helps clients make conscious, deliberate financial decisions across every life stage — business transitions, retirement income, estate coordination, and everything in between. LaSalle University, B.S. Finance. Series 6, 7, 63, 65.</p>
+            <div class="team-links">
+              <a class="team-link" href="tel:8564545002">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 12.07 19.79 19.79 0 01.67 3.5 2 2 0 012.65 1.32h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 9a16 16 0 006.08 6.08l1.93-1.93a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                (856) 454-5002
+                <span class="team-link-arrow">›</span>
+              </a>
+              <a class="team-link" href="mailto:kevin.gianfortune@lpl.com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Email
+                <span class="team-link-arrow">›</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stephen -->
+        <div class="team-card reveal d2">
+          <div class="team-photo">
+            <div class="team-photo-placeholder">
+              <div class="initials">SM</div>
+              <div class="ph-label">Add Photo</div>
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-name">Stephen Melchiorre</div>
+            <div class="team-role">Financial Planner</div>
+            <p class="team-bio">Stephen specializes in young professionals, business owners, and charter school employees — meeting each client at their level of financial literacy to build lasting confidence. Division I swimmer, St. Bonaventure University.</p>
+            <div class="team-links">
+              <a class="team-link" href="tel:2677603458">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 12.07 19.79 19.79 0 01.67 3.5 2 2 0 012.65 1.32h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 9a16 16 0 006.08 6.08l1.93-1.93a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                (267) 760-3458
+                <span class="team-link-arrow">›</span>
+              </a>
+              <a class="team-link" href="mailto:steve.melchiorre@lpl.com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Email
+                <span class="team-link-arrow">›</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Walter -->
+        <div class="team-card reveal d3">
+          <div class="team-photo">
+            <div class="team-photo-placeholder">
+              <div class="initials">WE</div>
+              <div class="ph-label">Add Photo</div>
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-name">Walter Eife, AIF®, QPFC®</div>
+            <div class="team-role">Financial Advisor</div>
+            <p class="team-bio">With 25+ years of experience, Walt focuses on retirement planning and 401(k) solutions. Founded Waypoint Financial Partners in 2006 and launched RPk in 2020 — specialized, cost-effective 401(k) management for businesses.</p>
+            <div class="team-links">
+              <a class="team-link" href="tel:8564954412">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 12.07 19.79 19.79 0 01.67 3.5 2 2 0 012.65 1.32h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 9a16 16 0 006.08 6.08l1.93-1.93a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                (856) 495-4412
+                <span class="team-link-arrow">›</span>
+              </a>
+              <a class="team-link" href="mailto:Walt.Eife@LPL.com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Email
+                <span class="team-link-arrow">›</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- James -->
+        <div class="team-card reveal d1">
+          <div class="team-photo">
+            <div class="team-photo-placeholder">
+              <div class="initials">JO</div>
+              <div class="ph-label">Add Photo</div>
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-name">James Owens</div>
+            <div class="team-role">Investment Operations</div>
+            <p class="team-bio">Cum laude graduate, Bucknell University (Electrical Engineering, 2023). Passed SIE, Series 66, and Series 7. CFA Level I candidate, bringing rigorous analytical thinking to every client interaction.</p>
+            <div class="team-links">
+              <a class="team-link" href="tel:2673737487">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 12.07 19.79 19.79 0 01.67 3.5 2 2 0 012.65 1.32h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 9a16 16 0 006.08 6.08l1.93-1.93a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                (267) 373-7487
+                <span class="team-link-arrow">›</span>
+              </a>
+              <a class="team-link" href="mailto:J.Owens@lpl.com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Email
+                <span class="team-link-arrow">›</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cael -->
+        <div class="team-card reveal d2">
+          <div class="team-photo">
+            <div class="team-photo-placeholder">
+              <div class="initials">CE</div>
+              <div class="ph-label">Add Photo</div>
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-name">Cael Evans</div>
+            <div class="team-role">Client Services &amp; Insurance</div>
+            <p class="team-bio">Cael leads our insurance department, helping families and businesses protect their financial futures. B.S. Business Management (Sport Management). 4-sport high school athlete, collegiate basketball player and coach. Conshohocken, PA.</p>
+            <div class="team-links">
+              <a class="team-link" href="tel:5707066201">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 12.07 19.79 19.79 0 01.67 3.5 2 2 0 012.65 1.32h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 9a16 16 0 006.08 6.08l1.93-1.93a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                (570) 706-6201
+                <span class="team-link-arrow">›</span>
+              </a>
+              <a class="team-link" href="mailto:Cael.Evans@LPL.com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Email
+                <span class="team-link-arrow">›</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Jennifer -->
+        <div class="team-card reveal d3">
+          <div class="team-photo">
+            <div class="team-photo-placeholder">
+              <div class="initials">JK</div>
+              <div class="ph-label">Add Photo</div>
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-name">Jennifer Klekotka</div>
+            <div class="team-role">Office Administrator</div>
+            <p class="team-bio">Jennifer manages daily operations, new client onboarding, CRM, and compliance workflows. 32 years of experience across legal office management, HR, and contract administration. Voorhees, NJ.</p>
+            <div class="team-links">
+              <a class="team-link" href="mailto:info@fortunefinancialplanning.com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Office Email
+                <span class="team-link-arrow">›</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /team-grid -->
+    </div>
+  </div>
+
+  <!-- Footer (shared partial) -->
+  <div id="footer-about"></div>
+</div><!-- /page-about -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: SOLUTIONS
+══════════════════════════════════════════ -->
+<div id="page-solutions" class="page-view">
+  <div class="solutions-hero page-hero" style="background:var(--bg-off)">
+    <div class="solutions-hero-inner">
+      <p class="eyebrow">Solutions</p>
+      <h1 class="display-title">Guidance built around <em>your full financial life</em></h1>
+      <p class="body-copy" style="max-width:540px;margin-top:0.6rem">From retirement income to estate protection, we address every dimension of your financial world — independently, comprehensively, and always with your goals at the center.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-inner">
+      <div class="solutions-detail-grid">
+        <div class="sol-card reveal">
+          <div class="sol-num">01</div>
+          <h3>Financial Planning</h3>
+          <p>A comprehensive financial plan isn't just a document — it's a living strategy built around your specific goals, timeline, and risk tolerance. We create clear roadmaps with built-in accountability systems, so progress is measurable and adjustments happen proactively. Whether you're early in your career, mid-life, or approaching a major transition, we provide the structure and guidance you need.</p>
+          <div class="sol-tags"><span class="sol-tag">Goal Setting</span><span class="sol-tag">Cash Flow</span><span class="sol-tag">Net Worth</span><span class="sol-tag">Accountability</span></div>
+        </div>
+        <div class="sol-card reveal d1">
+          <div class="sol-num">02</div>
+          <h3>Investment Management</h3>
+          <p>We build and manage diversified investment portfolios aligned with your long-term philosophy, not short-term noise. Rather than chasing performance or moving money constantly, we focus on disciplined, evidence-based strategies that let compounding do the work. We'll help you understand your true risk tolerance and design an allocation you can stay committed to through market cycles.</p>
+          <div class="sol-tags"><span class="sol-tag">Portfolios</span><span class="sol-tag">Risk Analysis</span><span class="sol-tag">Diversification</span><span class="sol-tag">Rebalancing</span></div>
+        </div>
+        <div class="sol-card reveal d2">
+          <div class="sol-num">03</div>
+          <h3>Business Succession</h3>
+          <p>Business owners face a unique set of financial challenges — and opportunities. We help you build personal wealth while running your business, design compensation and benefits structures that make tax sense, and plan a succession strategy well before you need it. Whether you're transitioning to family, partners, or a third-party buyer, we'll make sure you're financially prepared.</p>
+          <div class="sol-tags"><span class="sol-tag">Exit Planning</span><span class="sol-tag">Buy-Sell</span><span class="sol-tag">Key Person</span><span class="sol-tag">Business Valuation</span></div>
+        </div>
+        <div class="sol-card reveal d3">
+          <div class="sol-num">04</div>
+          <h3>Estate &amp; Insurance</h3>
+          <p>Your estate plan is more than a will — it's a comprehensive strategy for passing wealth, minimizing taxes, and protecting the people you love. We coordinate with estate attorneys and CPAs to ensure your financial plan and legal documents align. On the insurance side, we analyze your existing coverage and identify gaps across life, disability, long-term care, and liability.</p>
+          <div class="sol-tags"><span class="sol-tag">Wills &amp; Trusts</span><span class="sol-tag">Life Insurance</span><span class="sol-tag">LTC</span><span class="sol-tag">Disability</span></div>
+        </div>
+        <div class="sol-card reveal">
+          <div class="sol-num">05</div>
+          <h3>Retirement Income Planning</h3>
+          <p>Accumulating assets is only half the challenge — converting them into sustainable income is where the real planning begins. We design retirement income strategies that coordinate Social Security, pension distributions, IRA withdrawals, and investment income. We model different scenarios so you can see exactly how your plan holds up through market downturns, inflation, and healthcare costs.</p>
+          <div class="sol-tags"><span class="sol-tag">Social Security</span><span class="sol-tag">RMDs</span><span class="sol-tag">Roth Conversion</span><span class="sol-tag">Income Ladders</span></div>
+        </div>
+        <div class="sol-card reveal d1">
+          <div class="sol-num">06</div>
+          <h3>401(k) Plan Services — RPk</h3>
+          <p>Through Retirement Plan (k)onsultant (RPk), Walt Eife provides specialized, high-quality 401(k) plan management for businesses. RPk's exclusive focus means deep expertise — from plan design and investment selection to participant education and fiduciary oversight. Simple, supportive, and cost-effective, with your employees' retirements as the priority.</p>
+          <div class="sol-tags"><span class="sol-tag">Plan Design</span><span class="sol-tag">ERISA</span><span class="sol-tag">Employee Ed.</span><span class="sol-tag">Fiduciary</span></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:3rem">
+        <p style="font-size:0.9rem;font-weight:300;color:rgba(57,52,30,0.65);margin-bottom:1.2rem">Not sure where to start? A 15-minute call is all it takes.</p>
+        <button class="btn btn-green reveal" onclick="goTo('contact')">Schedule a Free Introduction</button>
+      </div>
+    </div>
+  </div>
+  <div id="footer-solutions"></div>
+</div><!-- /page-solutions -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: INSIGHTS
+══════════════════════════════════════════ -->
+<div id="page-insights" class="page-view">
+  <div class="insights-hero page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow">Insights</p>
+      <h1 class="display-title" style="color:var(--white)">Financial know-how, <em style="color:var(--tan)">simplified</em></h1>
+      <p class="body-copy" style="color:rgba(255,255,255,0.6);max-width:500px;margin-top:0.6rem">We break down complex financial topics — investing, retirement, planning — into clear, actionable ideas you can actually use.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-inner">
+      <div class="insights-grid">
+        <div class="insight-card reveal">
+          <div class="insight-card-accent"></div>
+          <div class="insight-card-body">
+            <div class="insight-tag">Investing</div>
+            <h3>Investing Through Election Cycles</h3>
+            <p>The past several U.S. presidential elections have become increasingly divisive. We explore what history tells us about markets during election years — and what it means for your long-term portfolio strategy.</p>
+            <div class="insight-footer">
+              <span class="insight-author">James Owens · Sep 11, 2024</span>
+              <a href="#" class="insight-read">Read →</a>
+            </div>
+          </div>
+        </div>
+        <div class="insight-card reveal d1">
+          <div class="insight-card-accent"></div>
+          <div class="insight-card-body">
+            <div class="insight-tag">Planning</div>
+            <h3>The Next Chapter: Embracing 2024</h3>
+            <p>It's time to take a deep breath. After years of COVID, inflation, and global uncertainty, the new year brings an opportunity to reflect on where we've been and set a clear intention for what comes next.</p>
+            <div class="insight-footer">
+              <span class="insight-author">James Owens · Jan 5, 2024</span>
+              <a href="#" class="insight-read">Read →</a>
+            </div>
+          </div>
+        </div>
+        <div class="insight-card reveal d2">
+          <div class="insight-card-accent"></div>
+          <div class="insight-card-body">
+            <div class="insight-tag">Retirement</div>
+            <h3>'Tis the Season of RMDs</h3>
+            <p>For financial professionals, the end of the year isn't just for holidays — it's required minimum distribution season. Here's what you need to know and act on before December 31st arrives.</p>
+            <div class="insight-footer">
+              <span class="insight-author">Stephen Melchiorre · Dec 11, 2023</span>
+              <a href="#" class="insight-read">Read →</a>
+            </div>
+          </div>
+        </div>
+        <div class="insight-card reveal">
+          <div class="insight-card-accent"></div>
+          <div class="insight-card-body">
+            <div class="insight-tag">Investing</div>
+            <h3>Investment Classroom: Bond Basics</h3>
+            <p>Bonds are a form of fixed-income investment representing a loan to a corporation or government. We break down how they work, why they belong in diversified portfolios, and how to think about them in your plan.</p>
+            <div class="insight-footer">
+              <span class="insight-author">Kevin J. Gianfortune · Nov 3, 2023</span>
+              <a href="#" class="insight-read">Read →</a>
+            </div>
+          </div>
+        </div>
+        <div class="insight-card reveal d1">
+          <div class="insight-card-accent"></div>
+          <div class="insight-card-body">
+            <div class="insight-tag">Debt</div>
+            <h3>Student Loans Restart: The Economic Ripple</h3>
+            <p>Student loan obligations have surpassed auto loans and credit card debt for millions of Americans. We look at the economic ripple effects of the repayment restart and how to position your finances accordingly.</p>
+            <div class="insight-footer">
+              <span class="insight-author">Stephen Melchiorre · Sep 26, 2023</span>
+              <a href="#" class="insight-read">Read →</a>
+            </div>
+          </div>
+        </div>
+        <div class="insight-card reveal d2" style="border-color:rgba(91,119,71,0.3)">
+          <div class="insight-card-accent" style="background:var(--sage)"></div>
+          <div class="insight-card-body">
+            <div class="insight-tag">Newsletter</div>
+            <h3>Stay Informed — Join Our Newsletter</h3>
+            <p>Financial tips for life's biggest questions. Get helpful guidance and updates from our team — no noise, just value. New articles, videos, and insights delivered to your inbox.</p>
+            <div class="insight-footer">
+              <span class="insight-author">Fortune Financial Team</span>
+              <a onclick="goTo('contact')" class="insight-read" style="cursor:pointer">Subscribe →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="footer-insights"></div>
+</div><!-- /page-insights -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: RESOURCES
+══════════════════════════════════════════ -->
+<div id="page-resources" class="page-view">
+  <div class="resources-hero page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow">Resources</p>
+      <h1 class="display-title">Tools to <em>empower</em> you</h1>
+      <p class="body-copy" style="max-width:500px;margin-top:0.6rem">A curated collection of calculators, educational articles, and tools to help you better understand and manage every dimension of your financial life.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-inner">
+      <!-- Tabs -->
+      <div class="resources-tabs">
+        <button class="res-tab active" onclick="setResTab('overview')">Overview</button>
+        <button class="res-tab" onclick="setResTab('calc')">Calculators</button>
+        <button class="res-tab" onclick="setResTab('money')">Money</button>
+        <button class="res-tab" onclick="setResTab('tax')">Tax</button>
+      </div>
+
+      <!-- Overview Panel -->
+      <div class="res-panel active" id="panel-overview">
+        <div class="resource-cards">
+          <a href="#" class="resource-card reveal" onclick="setResTab('overview');return false">
+            <h4>Financial Glossary</h4>
+            <p>200+ entries explaining financial concepts, ideas, and strategies in plain, accessible language.</p>
+          </a>
+          <a class="resource-card reveal d1" onclick="setResTab('calc')" style="cursor:pointer">
+            <h4>All Calculators</h4>
+            <p>Interactive tools for retirement, savings, debt payoff, taxes, insurance, and more.</p>
+          </a>
+          <a class="resource-card reveal d2" onclick="setResTab('money')" style="cursor:pointer">
+            <h4>Money &amp; Budgeting</h4>
+            <p>Strategies and articles on cash flow, debt management, and building a solid financial foundation.</p>
+          </a>
+          <a class="resource-card reveal d3" onclick="setResTab('tax')" style="cursor:pointer">
+            <h4>Tax Resources</h4>
+            <p>Tools, articles, and information to help you navigate tax season and plan throughout the year.</p>
+          </a>
+          <a href="https://brokercheck.finra.org/" target="_blank" class="resource-card reveal d4">
+            <h4>FINRA BrokerCheck</h4>
+            <p>Verify the background and credentials of your financial professional through FINRA's official portal.</p>
+          </a>
+          <a href="#" class="resource-card reveal d5">
+            <h4>All Videos</h4>
+            <p>Short, informative videos from our team covering key financial topics at a glance.</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- Calculators Panel -->
+      <div class="res-panel" id="panel-calc">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:2rem">
+          <div class="calc-section">
+            <div class="calc-section-title">Retirement</div>
+            <ul class="calc-list">
+              <li><span>A Look at Systematic Withdrawals</span><span class="calc-arrow">›</span></li>
+              <li><span>Saving for Retirement</span><span class="calc-arrow">›</span></li>
+              <li><span>My Retirement Savings</span><span class="calc-arrow">›</span></li>
+              <li><span>Roth 401(k) vs. Traditional 401(k)</span><span class="calc-arrow">›</span></li>
+              <li><span>Inflation &amp; Retirement</span><span class="calc-arrow">›</span></li>
+              <li><span>Potential Income from an IRA</span><span class="calc-arrow">›</span></li>
+              <li><span>Estimate Your RMD</span><span class="calc-arrow">›</span></li>
+              <li><span>Self-Employed Retirement Plans</span><span class="calc-arrow">›</span></li>
+              <li><span>Annuity Comparison</span><span class="calc-arrow">›</span></li>
+            </ul>
+          </div>
+          <div class="calc-section">
+            <div class="calc-section-title">Investment</div>
+            <ul class="calc-list">
+              <li><span>Taxable vs. Tax-Deferred Savings</span><span class="calc-arrow">›</span></li>
+              <li><span>How Compound Interest Works</span><span class="calc-arrow">›</span></li>
+              <li><span>What Is My Risk Tolerance?</span><span class="calc-arrow">›</span></li>
+              <li><span>What Is the Dividend Yield?</span><span class="calc-arrow">›</span></li>
+              <li><span>Impact of Taxes and Inflation</span><span class="calc-arrow">›</span></li>
+              <li><span>Saving for College</span><span class="calc-arrow">›</span></li>
+              <li><span>Contributing to an IRA?</span><span class="calc-arrow">›</span></li>
+            </ul>
+            <div class="calc-section-title" style="margin-top:1.5rem">Estate</div>
+            <ul class="calc-list">
+              <li><span>What Is My Life Expectancy?</span><span class="calc-arrow">›</span></li>
+              <li><span>What Is My Current Net Worth?</span><span class="calc-arrow">›</span></li>
+              <li><span>What's My Potential Estate Tax?</span><span class="calc-arrow">›</span></li>
+            </ul>
+          </div>
+          <div class="calc-section">
+            <div class="calc-section-title">Insurance</div>
+            <ul class="calc-list">
+              <li><span>Assess Your Life Insurance Needs</span><span class="calc-arrow">›</span></li>
+              <li><span>Lifetime of Earnings</span><span class="calc-arrow">›</span></li>
+              <li><span>Disability Income</span><span class="calc-arrow">›</span></li>
+              <li><span>Long-Term Care Needs</span><span class="calc-arrow">›</span></li>
+            </ul>
+            <div class="calc-section-title" style="margin-top:1.5rem">Tax</div>
+            <ul class="calc-list">
+              <li><span>Federal Income Tax</span><span class="calc-arrow">›</span></li>
+              <li><span>Capital Gains Tax Estimator</span><span class="calc-arrow">›</span></li>
+              <li><span>Comparing Investments</span><span class="calc-arrow">›</span></li>
+              <li><span>Social Security Taxes</span><span class="calc-arrow">›</span></li>
+              <li><span>Tax Freedom Day</span><span class="calc-arrow">›</span></li>
+              <li><span>Home Mortgage Deduction</span><span class="calc-arrow">›</span></li>
+            </ul>
+          </div>
+          <div class="calc-section">
+            <div class="calc-section-title">Money</div>
+            <ul class="calc-list">
+              <li><span>What Is My Current Cash Flow?</span><span class="calc-arrow">›</span></li>
+              <li><span>Historical Inflation</span><span class="calc-arrow">›</span></li>
+              <li><span>Paying Off a Credit Card</span><span class="calc-arrow">›</span></li>
+            </ul>
+            <div class="calc-section-title" style="margin-top:1.5rem">Lifestyle</div>
+            <ul class="calc-list">
+              <li><span>Interested in a Fuel Efficient Car?</span><span class="calc-arrow">›</span></li>
+              <li><span>Should I Buy or Lease an Auto?</span><span class="calc-arrow">›</span></li>
+              <li><span>Should I Pay Off Debt or Invest?</span><span class="calc-arrow">›</span></li>
+              <li><span>How Much Home Can I Afford?</span><span class="calc-arrow">›</span></li>
+              <li><span>Can I Refinance My Mortgage?</span><span class="calc-arrow">›</span></li>
+              <li><span>Comparing Mortgage Terms</span><span class="calc-arrow">›</span></li>
+              <li><span>Bi-Weekly Payments</span><span class="calc-arrow">›</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Money Panel -->
+      <div class="res-panel" id="panel-money">
+        <p style="font-size:0.88rem;font-weight:300;line-height:1.8;color:rgba(57,52,30,0.7);max-width:640px;margin-bottom:2rem">One of the keys to a sound financial strategy is spending less than you take in, and then finding a way to put your excess to work. A money management approach involves creating budgets to understand where your money goes — and knowing where your excess cash can work harder.</p>
+        <div class="money-featured">
+          <div>
+            <div class="money-featured-label">Featured Video</div>
+            <h3>Surprise! You've Got Money!</h3>
+            <p>A quick guide to checking whether you have unclaimed money — you might be surprised what's out there.</p>
+          </div>
+          <div class="money-art"><div class="money-art-inner"></div></div>
+        </div>
+        <ul class="article-list">
+          <li class="article-item"><div><h4>Keeping Up with the Joneses</h4><p>Lifestyle inflation can be the enemy of wealth building.</p></div><span style="color:var(--sage);font-size:0.8rem">›</span></li>
+          <li class="article-item"><div><h4>Mortgages in Retirement</h4><p>Benefits and drawbacks to paying off your mortgage before retirement.</p></div><span style="color:var(--sage);font-size:0.8rem">›</span></li>
+          <li class="article-item"><div><h4>Saving for College 101</h4><p>A crash course on saving for college.</p></div><span style="color:var(--sage);font-size:0.8rem">›</span></li>
+          <li class="article-item"><div><h4>Year-End Charitable Gifting and You</h4><p>Maximize the benefits of your charitable donation.</p></div><span style="color:var(--sage);font-size:0.8rem">›</span></li>
+          <li class="article-item"><div><h4>Building a Solid Financial Foundation</h4><p>Actions to sustain financial well-being and create wealth.</p></div><span style="color:var(--sage);font-size:0.8rem">›</span></li>
+          <li class="article-item"><div><h4>Weighing the Benefits of Prepaid Debit Cards</h4><p>Pros and cons when considering a prepaid debit card.</p></div><span style="color:var(--sage);font-size:0.8rem">›</span></li>
+          <li class="article-item"><div><h4>What If Your Kids Decide Against College?</h4><p>529 account funds and other education options.</p></div><span style="color:var(--sage);font-size:0.8rem">›</span></li>
+          <li class="article-item"><div><h4>Pay Yourself First</h4><p>It sounds simple, but paying yourself first can really pay off.</p></div><span style="color:var(--sage);font-size:0.8rem">›</span></li>
+        </ul>
+      </div>
+
+      <!-- Tax Panel -->
+      <div class="res-panel" id="panel-tax">
+        <p style="font-size:0.88rem;font-weight:300;line-height:1.8;color:rgba(57,52,30,0.7);max-width:640px;margin-bottom:2rem">Our tax center was designed to help you access the resources you may need to prepare for the upcoming tax season — and plan proactively throughout the year.</p>
+        <div class="resource-cards">
+          <a href="#" class="resource-card"><h4>Tax Resource Center</h4><p>Tools and information to help you prepare for tax season with confidence and clarity.</p></a>
+          <a class="resource-card" onclick="setResTab('calc')" style="cursor:pointer"><h4>Tax Calculators</h4><p>Federal income tax, capital gains estimator, Social Security taxes, and more.</p></a>
+          <a href="#" class="resource-card"><h4>Year-End Tax Planning</h4><p>Strategies and considerations to review before December 31st each year.</p></a>
+        </div>
+        <p style="font-size:0.78rem;font-weight:300;line-height:1.7;color:rgba(57,52,30,0.5);margin-top:2rem;max-width:640px">The information in this material is not intended as tax or legal advice. It may not be used for the purpose of avoiding any federal tax penalties. Please consult legal or tax professionals for specific information regarding your individual situation.</p>
+      </div>
+
+    </div>
+  </div>
+  <div id="footer-resources"></div>
+</div><!-- /page-resources -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: CONTACT
+══════════════════════════════════════════ -->
+<div id="page-contact" class="page-view">
+  <div class="contact-hero page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow">Contact</p>
+      <h1 class="display-title" style="color:var(--white)">Let's start a <em style="color:var(--tan)">conversation</em></h1>
+      <p class="body-copy" style="color:rgba(255,255,255,0.6);max-width:460px;margin-top:0.6rem">Financial clarity is closer than you think. Reach out to schedule a no-pressure introductory call with our team.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-inner">
+      <div class="contact-layout">
+
+        <!-- Info side -->
+        <div class="contact-info">
+          <div class="contact-block reveal">
+            <div class="contact-block-label">Voorhees Office</div>
+            <p>1202 Laurel Oak Road, Suite 206</p>
+            <p>Voorhees, NJ 08043</p>
+          </div>
+          <div class="contact-block reveal d1">
+            <div class="contact-block-label">Phone</div>
+            <a href="tel:8564545005">(856) 454-5005</a>
+            <a href="tel:6096740014" style="color:rgba(57,52,30,0.5);font-size:0.82rem">Fax: (609) 674-0014</a>
+          </div>
+          <div class="contact-block reveal d2">
+            <div class="contact-block-label">Email</div>
+            <a href="mailto:kevin.gianfortune@lpl.com">kevin.gianfortune@lpl.com</a>
+          </div>
+          <div class="contact-block reveal d3">
+            <div class="contact-block-label">Office Hours</div>
+            <div class="hours-grid">
+              <span>Monday – Thursday</span><span>8:00 AM – 5:00 PM</span>
+              <span>Friday</span><span>8:00 AM – 3:00 PM</span>
+            </div>
+          </div>
+          <div class="reveal d4" style="margin-top:1.5rem;padding:1.3rem 1.5rem;background:rgba(91,119,71,0.08);border-left:2px solid var(--green);border-radius:3px">
+            <p style="font-size:0.82rem;font-weight:500;color:var(--dark);margin-bottom:0.3rem">Licensed to serve clients in:</p>
+            <p style="font-size:0.8rem;font-weight:300;color:rgba(57,52,30,0.65)">CT · DE · FL · GA · IL · MA · NJ · NC · PA</p>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form reveal d2">
+          <h3>Have a Question?</h3>
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" placeholder="Jane" /></div>
+            <div class="form-group"><label>Last Name</label><input type="text" placeholder="Smith" /></div>
+          </div>
+          <div class="form-group"><label>Email Address</label><input type="email" placeholder="jane@example.com" /></div>
+          <div class="form-group"><label>Phone</label><input type="tel" placeholder="(856) 000-0000" /></div>
+          <div class="form-group">
+            <label>Topic</label>
+            <select>
+              <option value="">Select a topic...</option>
+              <option>Retirement Planning</option>
+              <option>Investment Management</option>
+              <option>Financial Planning</option>
+              <option>Business Succession</option>
+              <option>Estate &amp; Insurance</option>
+              <option>401(k) Plan Services</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Message</label><textarea placeholder="Tell us a little about your situation or what you'd like to discuss..."></textarea></div>
+          <button class="btn btn-green form-submit" onclick="alert('Thank you! We\'ll be in touch shortly.')">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="footer-contact"></div>
+</div><!-- /page-contact -->
+
+
+<!-- ══════════════════════════════════════════
+     SHARED FOOTER TEMPLATE
+══════════════════════════════════════════ -->
+<template id="footer-template">
+  <footer>
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="nav-logo" style="cursor:pointer" onclick="goTo('home')">
+          <div class="nav-logo-mark">F</div>
+          <div class="nav-logo-text">Fortune Financial<span>Planning</span></div>
+        </div>
+        <p>Helping individuals, families, and business owners in South Jersey pursue financial clarity, confidence, and a life lived with purpose.</p>
+        <p style="margin-top:0.8rem;font-size:0.72rem;color:rgba(255,255,255,0.3)">Securities and Advisory services offered through LPL Financial, a Registered Investment Advisor. Member FINRA &amp; SIPC.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a onclick="goTo('home')">Home</a>
+        <a onclick="goTo('about')">About</a>
+        <a onclick="goTo('solutions')">Solutions</a>
+        <a onclick="goTo('insights')">Insights</a>
+        <a onclick="goTo('resources')">Resources</a>
+        <a onclick="goTo('contact')">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Topics</h5>
+        <a onclick="goTo('resources');setResTab('money')">Money</a>
+        <a onclick="goTo('resources');setResTab('calc')">Retirement</a>
+        <a onclick="goTo('resources');setResTab('calc')">Investment</a>
+        <a onclick="goTo('resources');setResTab('calc')">Estate</a>
+        <a onclick="goTo('resources');setResTab('calc')">Insurance</a>
+        <a onclick="goTo('resources');setResTab('tax')">Tax</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="https://brokercheck.finra.org/" target="_blank">FINRA BrokerCheck</a>
+        <a href="#">LPL Form CRS</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Do Not Sell My Info</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Fortune Financial Planning · 1202 Laurel Oak Road, Suite 206, Voorhees, NJ 08043 · <a href="tel:8564545005">(856) 454-5005</a></p>
+      <p>The content is developed from sources believed to be providing accurate information. Not intended as tax or legal advice. Consult legal or tax professionals for specific information regarding your individual situation. The LPL Financial representatives associated with this website may discuss and/or transact securities business only with residents of the following states: CT, DE, FL, GA, IL, MA, NJ, NC, &amp; PA.</p>
+      <p>We take protecting your data and privacy very seriously. <a href="#">Do not sell my personal information.</a> Copyright 2026.</p>
+    </div>
+  </footer>
+</template>
+
+
+<script>
+  /* ═══════════ VIEW ROUTER ═══════════ */
+  const pages = ['home','about','solutions','insights','resources','contact'];
+  let currentPage = 'home';
+
+  function goTo(page) {
+    if (!pages.includes(page)) page = 'home';
+
+    // Hide all
+    pages.forEach(p => {
+      document.getElementById('page-' + p).classList.remove('active');
+    });
+
+    // Show target
+    const el = document.getElementById('page-' + page);
+    el.classList.add('active');
+    currentPage = page;
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // Nav active state
+    document.querySelectorAll('.nav-links a[data-page]').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === page);
+    });
+
+    // Nav style: transparent over hero only on home
+    updateNavStyle();
+
+    // Trigger reveals on newly visible content
+    setTimeout(triggerReveals, 60);
+
+    // Inject footer if needed
+    injectFooter(page);
+  }
+
+  /* ═══════════ NAV SCROLL / SOLID ═══════════ */
+  function updateNavStyle() {
+    const nav = document.getElementById('mainNav');
+    if (currentPage !== 'home') {
+      nav.classList.add('solid');
+      nav.classList.remove('scrolled');
+    } else {
+      nav.classList.remove('solid');
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    if (currentPage === 'home') {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+    }
+  }, { passive: true });
+
+  /* ═══════════ HAMBURGER ═══════════ */
+  const ham = document.getElementById('ham');
+  const drawer = document.getElementById('drawer');
+  ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  function closeDrawer() {
+    ham.classList.remove('open');
+    drawer.classList.remove('open');
+  }
+
+  /* ═══════════ SCROLL REVEAL ═══════════ */
+  function triggerReveals() {
+    const els = document.querySelectorAll('.page-view.active .reveal:not(.in)');
+    if (!els.length) return;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(el => observer.observe(el));
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    triggerReveals();
+    updateNavStyle();
+    // Inject footer for home on load
+    injectFooter('home');
+  });
+
+  /* ═══════════ FOOTER INJECTION ═══════════ */
+  const injected = {};
+  function injectFooter(page) {
+    const slot = document.getElementById('footer-' + page);
+    if (!slot || injected[page]) return;
+    const tmpl = document.getElementById('footer-template');
+    if (!tmpl) return;
+    slot.appendChild(tmpl.content.cloneNode(true));
+    injected[page] = true;
+  }
+
+  /* ═══════════ RESOURCE TABS ═══════════ */
+  function setResTab(id) {
+    // If not on resources page, navigate there first then set
+    if (currentPage !== 'resources') { goTo('resources'); }
+    document.querySelectorAll('.res-tab').forEach((btn, i) => {
+      const ids = ['overview','calc','money','tax'];
+      btn.classList.toggle('active', ids[i] === id);
+    });
+    document.querySelectorAll('.res-panel').forEach(p => p.classList.remove('active'));
+    const panel = document.getElementById('panel-' + id);
+    if (panel) panel.classList.add('active');
+    setTimeout(triggerReveals, 60);
+  }
+</script>
+
 </body>
 </html>
