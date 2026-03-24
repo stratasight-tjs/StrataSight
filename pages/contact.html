@@ -1,45 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - StrataSight</title>
-
-    <link rel="icon" href="/assets/favicon.png" type="image/png">
-    <meta property="og:image" content="/assets/favicon.png">
-    <meta property="og:title" content="StrataSight">
-    <meta property="og:description" content="Empowering Businesses with Data-Driven Insights">
-    <meta property="og:url" content="https://stratasight.net">
-    
-    <link rel="stylesheet" href="../css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="page-slug" content="contact">
+  <title>Contact — StrataSight</title>
+  <meta name="description" content="Schedule a discovery call with StrataSight. 30 minutes. No commitment.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <div class="background"></div>
-    <header>
-        <div class="toolbar">
-            <div class="logo">StrataSight</div>
-            <div class="menu-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav class="navigation">
-                <ul>
-                    <li><a href="../index.html">HOME</a></li>
-                    <li><a href="about.html">ABOUT</a></li>
-                    <li><a href="services.html">SERVICES</a></li>
-                    <li><a href="contact.html">CONTACT</a></li>
-                </ul>
-            </nav>
+
+<nav id="mainNav">
+  <a class="nav-logo" href="../index.html">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 16 L10 4 L17 16" stroke="#b89a5a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="6.5" y1="11.5" x2="13.5" y2="11.5" stroke="#b89a5a" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="nav-logo-text">
+      Strata<span class="wordmark-accent">Sight</span>
+      <span>Value Advisory</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html" data-page="home">Home</a></li>
+    <li><a href="about.html" data-page="about">About</a></li>
+    <li><a href="services.html" data-page="services">Services</a></li>
+    <li><a href="contact.html" data-page="contact" class="nav-cta">Get Started</a></li>
+  </ul>
+  <button class="hamburger" id="ham" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-drawer" id="drawer">
+  <a href="../index.html" onclick="closeDrawer()">Home</a>
+  <a href="about.html" onclick="closeDrawer()">About</a>
+  <a href="services.html" onclick="closeDrawer()">Services</a>
+  <a href="contact.html" onclick="closeDrawer()" class="drawer-cta">Get Started</a>
+</div>
+
+<div class="page-hero" data-bg="Contact">
+  <div class="page-hero-inner">
+    <span class="eyebrow">Get Started</span>
+    <h1 class="display-title" style="font-size:clamp(2.8rem,6vw,5rem)">Let's talk about<br><em>your business</em></h1>
+    <p class="body-copy" style="max-width:480px;margin-top:1.1rem">30 minutes. Tell us about your business and what you're trying to accomplish. We'll tell you whether we can help — and how.</p>
+  </div>
+</div>
+
+<section class="section" style="border-bottom:1px solid var(--border)">
+  <div class="section-inner">
+    <div class="contact-layout">
+
+      <div>
+        <div class="contact-info-block reveal">
+          <div class="contact-label">Email</div>
+          <a href="mailto:info@stratasight.net">info@stratasight.net</a>
         </div>
-    </header>
-    <main>
-        <h1>Contact Us</h1>
-        <p>Get in touch with us today...</p>
-    </main>
-    <script src="../js/script.js"></script>
+
+        <div class="contact-info-block reveal d1">
+          <div class="contact-label">What Happens Next</div>
+          <p>Submit this form and we'll follow up within one business day to schedule your discovery call. No pitch — just a direct conversation about your business and what you're looking to accomplish.</p>
+        </div>
+
+        <div class="contact-info-block reveal d2">
+          <div class="contact-label">Who We Work With</div>
+          <p>Privately-held businesses of any size or industry seeking clarity on enterprise value, operational performance, or growth direction. Owners who are ready to make data-informed decisions.</p>
+        </div>
+
+        <div class="reveal d3" style="border:1px solid var(--border);border-left:2px solid var(--brass);padding:1.4rem 1.8rem;background:rgba(30,24,16,0.4);margin-top:0.5rem">
+          <div class="contact-label" style="margin-bottom:0.5rem">Response Time</div>
+          <p style="font-size:0.86rem;font-weight:300;line-height:1.75;color:var(--text-secondary)">We respond to all inquiries within one business day. For time-sensitive situations, note that in your message and we'll prioritize accordingly.</p>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap reveal d1">
+        <div class="contact-form-head">
+          <h3>Request an Assessment</h3>
+        </div>
+        <div class="contact-form-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="ss-first" placeholder="Jane">
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="ss-last" placeholder="Smith">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Work Email</label>
+            <input type="email" id="ss-email" placeholder="jane@yourcompany.com">
+          </div>
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" id="ss-company" placeholder="Your Company LLC">
+          </div>
+          <div class="form-group">
+            <label>Approximate Annual Revenue</label>
+            <select id="ss-revenue">
+              <option value="">Select a range...</option>
+              <option>Under $1M</option>
+              <option>$1M – $5M</option>
+              <option>$5M – $15M</option>
+              <option>$15M – $50M</option>
+              <option>$50M+</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Primary Focus Area</label>
+            <select id="ss-topic">
+              <option value="">Select a focus area...</option>
+              <option>Strategic Value Assessment</option>
+              <option>Operational Efficiency Review</option>
+              <option>Strategic Growth Planning</option>
+              <option>Preparing for a Sale or Transition</option>
+              <option>Not Sure Yet — Let's Talk</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell Us More</label>
+            <textarea id="ss-message" placeholder="Brief description of your business and what you're looking to accomplish. The more context, the better we can prepare."></textarea>
+          </div>
+          <button class="btn-submit" id="ssSubmitBtn">Send Message</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="footer-logo-text">Strata<span>Sight</span></div>
+      <p>Strategic advisory for privately-held businesses — value assessment, operational improvement, and growth planning.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="../index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <a href="services.html">Strategic Value Assessment</a>
+      <a href="services.html">Operational Efficiency</a>
+      <a href="services.html">Growth Advisory</a>
+    </div>
+    <div class="footer-col">
+      <h5>Get in Touch</h5>
+      <a href="mailto:info@stratasight.net">info@stratasight.net</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© <span class="footer-year"></span> StrataSight &nbsp;·&nbsp; All Rights Reserved.</p>
+    <p>StrataSight provides corporate-level strategic advisory only. Our services do not constitute personal financial planning, investment advice, insurance, legal services, or certified appraisal. Value assessments represent advisory opinions, not certified valuations.</p>
+  </div>
+</footer>
+
+<script src="../js/script.js"></script>
 </body>
 </html>
