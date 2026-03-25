@@ -6,89 +6,113 @@
   <meta name="page-slug" content="about">
   <title>About — StrataSight</title>
   <meta name="description" content="StrataSight brings institutional-grade strategic analysis to privately-held businesses.">
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
 
-<nav id="mainNav">
-  <a class="nav-logo" href="../index.html">
-    <div class="nav-logo-mark">
-      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 16 L10 4 L17 16" stroke="#b89a5a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="6.5" y1="11.5" x2="13.5" y2="11.5" stroke="#b89a5a" stroke-width="1.5" stroke-linecap="round"/>
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="../index.html">
+      <svg class="logo-mark" viewBox="0 0 28 28" fill="none">
+        <rect x="1" y="1" width="26" height="26" rx="6" stroke="var(--accent)" stroke-width="1.5"/>
+        <path d="M7 20 L14 8 L21 20" stroke="var(--accent)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="10.5" y1="15.5" x2="17.5" y2="15.5" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
       </svg>
-    </div>
-    <div class="nav-logo-text">
-      Strata<span class="wordmark-accent">Sight</span>
-      <span>Value Advisory</span>
-    </div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="../index.html" data-page="home">Home</a></li>
-    <li><a href="about.html" data-page="about">About</a></li>
-    <li><a href="services.html" data-page="services">Services</a></li>
-    <li><a href="contact.html" data-page="contact" class="nav-cta">Get Started</a></li>
-  </ul>
-  <button class="hamburger" id="ham" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
+      <span>Strata<strong>Sight</strong></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html" data-page="home">Home</a></li>
+      <li><a href="about.html" data-page="about">About</a></li>
+      <li><a href="services.html" data-page="services">Services</a></li>
+      <li><a href="contact.html" data-page="contact" class="nav-pill">Get Started</a></li>
+    </ul>
+    <button class="nav-ham" id="ham" aria-label="Menu"><span></span><span></span></button>
+  </div>
 </nav>
-
-<div class="mobile-drawer" id="drawer">
-  <a href="../index.html" onclick="closeDrawer()">Home</a>
-  <a href="about.html" onclick="closeDrawer()">About</a>
-  <a href="services.html" onclick="closeDrawer()">Services</a>
-  <a href="contact.html" onclick="closeDrawer()" class="drawer-cta">Get Started</a>
+<div class="drawer" id="drawer">
+  <a href="../index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="contact.html">Get Started →</a>
 </div>
 
-<div class="page-hero" data-bg="About">
-  <div class="page-hero-inner">
-    <span class="eyebrow">About StrataSight</span>
-    <h1 class="display-title" style="font-size:clamp(2.8rem,6vw,5rem)">Built for<br>the <em>builder</em></h1>
-    <p class="body-copy" style="max-width:520px;margin-top:1.1rem">Most privately-held businesses never get access to the depth of strategic analysis that institutional players take for granted. We built StrataSight to change that.</p>
-  </div>
+<div class="page-hero">
+  <span class="eyebrow">About StrataSight</span>
+  <h1>Built for the <em>builder.</em></h1>
+  <p class="sub">Most privately-held businesses never get access to the depth of strategic analysis that institutional players take for granted. We built StrataSight to change that.</p>
 </div>
 
 <!-- MISSION -->
 <section class="section" style="border-bottom:1px solid var(--border)">
-  <div class="section-inner">
+  <div class="inner">
     <div class="about-grid">
       <div>
-        <span class="eyebrow reveal">Our Philosophy</span>
-        <h2 class="display-title reveal d1">Depth over<br><em>decoration</em></h2>
-        <p class="body-copy reveal d2" style="margin-top:1.3rem">Every business has more enterprise value potential than its owners typically realize. The gap between where a company is and where it could be is almost always operational — built up quietly through process gaps, cost structures that haven't kept pace, and strategic blind spots that accumulate over years.</p>
-        <p class="body-copy reveal d3" style="margin-top:1rem">StrataSight was built to find that gap and close it. We don't bring generic frameworks or recycled playbooks. Every engagement starts with your actual data and ends with a report built for your specific situation.</p>
-        <p class="body-copy reveal d4" style="margin-top:1rem">Our scope is intentional. Strategic advisory at the business level — operational clarity, value assessment, and growth direction. That focus is what lets us go deep rather than wide.</p>
+        <span class="eyebrow reveal-up">Our Philosophy</span>
+        <h2 class="section-h2 reveal-up d1">Depth over<br><em>decoration.</em></h2>
+        <p class="body-copy reveal-up d2" style="margin-top:1.2rem">Every business has more enterprise value potential than its owners typically realize. The gap between where a company is and where it could be is almost always operational — built up quietly through process gaps, cost structures that haven't kept pace, and strategic blind spots that accumulate over years.</p>
+        <p class="body-copy reveal-up d3" style="margin-top:1rem">StrataSight was built to find that gap and close it. We don't bring generic frameworks or recycled playbooks. Every engagement starts with your actual data and ends with a report built for your specific situation.</p>
+        <p class="body-copy reveal-up d4" style="margin-top:1rem">We sit in a deliberate position in the advisory landscape: between where you operate today and where your financial planner takes the business next. Our work feeds directly into that handoff — cleaner numbers, higher value, better outcomes.</p>
+        <a href="contact.html" class="btn btn-primary reveal-up d5" style="margin-top:2rem">Start the Conversation</a>
       </div>
-      <div class="why-quote-side reveal d2">
-        <blockquote>
-          "The gap between what a business is worth today and what it <em>could be worth</em> is almost always operational — and almost always closeable."
-        </blockquote>
-        <p class="why-quote-attr">— StrataSight</p>
+      <div class="reveal-up d2">
+        <div class="quote-block">
+          <blockquote>
+            "The gap between what a business is worth today and what it <em>could be worth</em> is almost always operational — and almost always closeable."
+          </blockquote>
+          <p class="quote-attr">— StrataSight</p>
+        </div>
+        <div style="margin-top:1.2rem;padding:1.4rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r)">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Focus Area</div>
+              <div style="font-size:0.88rem;font-weight:500;color:var(--text)">Business Strategy</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Scope</div>
+              <div style="font-size:0.88rem;font-weight:500;color:var(--text)">Privately Held Co.</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Methodology</div>
+              <div style="font-size:0.88rem;font-weight:500;color:var(--text)">Data-Driven</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Output</div>
+              <div style="font-size:0.88rem;font-weight:500;color:var(--text)">Actionable Roadmap</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PRINCIPLES -->
-<section class="section" style="background:var(--ink-mid);border-bottom:1px solid var(--border)">
-  <div class="section-inner">
-    <span class="eyebrow reveal">How We Operate</span>
-    <h2 class="display-title reveal d1">Core <em>principles</em></h2>
-    <div class="principles-grid reveal d2">
-      <div class="principle-item">
-        <div class="principle-rule"></div>
+<section class="section" style="background:var(--bg-section);border-bottom:1px solid var(--border)">
+  <div class="inner">
+    <span class="eyebrow reveal-up">How We Operate</span>
+    <h2 class="section-h2 reveal-up d1">Core <em>principles.</em></h2>
+    <div class="principles-grid">
+      <div class="principle-card reveal-up d1">
+        <div class="principle-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
         <h4>Evidence Only</h4>
         <p>Every recommendation is grounded in your actual financial and operational data. Not gut feel, not industry averages loosely applied. Your business, analyzed on its own terms.</p>
       </div>
-      <div class="principle-item">
-        <div class="principle-rule"></div>
+      <div class="principle-card reveal-up d2">
+        <div class="principle-icon">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v4l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
         <h4>Defined Scope</h4>
-        <p>We work strictly at the corporate strategy level — business operations, valuation, and growth planning. That keeps our analysis clean, our recommendations sharp, and our engagements clear.</p>
+        <p>We work strictly at the corporate strategy level — business operations, valuation, and growth planning. That keeps our analysis clean and our recommendations sharp.</p>
       </div>
-      <div class="principle-item">
-        <div class="principle-rule"></div>
+      <div class="principle-card reveal-up d3">
+        <div class="principle-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
         <h4>Built to Use</h4>
         <p>Deliverables designed to be acted on, not filed away. Prioritized findings, specific next steps, measurable outcomes. We stay engaged through implementation when the work calls for it.</p>
       </div>
@@ -98,90 +122,97 @@
 
 <!-- TEAM -->
 <section class="section" style="border-bottom:1px solid var(--border)">
-  <div class="section-inner">
-    <span class="eyebrow reveal">The Team</span>
-    <h2 class="display-title reveal d1">Who's behind<br>the <em>analysis</em></h2>
-    <p class="body-copy reveal d2" style="max-width:540px;margin-top:0.9rem">StrataSight was formed by a team with complementary expertise in business strategy, quantitative analysis, and data infrastructure. Full bios coming soon.</p>
+  <div class="inner">
+    <span class="eyebrow reveal-up">The Team</span>
+    <h2 class="section-h2 reveal-up d1">Who's behind<br>the <em>analysis.</em></h2>
+    <p class="body-copy reveal-up d2" style="max-width:520px;margin-top:0.9rem">StrataSight was formed by a team with complementary expertise in business strategy, quantitative analysis, and data infrastructure. Together, we deliver the kind of depth privately-held businesses rarely get access to.</p>
 
-    <div class="team-grid" style="margin-top:3rem">
-
-      <div class="team-card reveal d1">
-        <div class="team-photo">
-          <div class="team-initials">—</div>
-        </div>
+    <div class="team-grid">
+      <div class="team-card reveal-up d1">
+        <div class="team-avatar"><div class="team-initials">FP</div></div>
         <div class="team-body">
           <div class="team-name">Founding Principal</div>
           <div class="team-role">Business Strategy &amp; Advisory</div>
           <p class="team-bio">Two decades in financial advisory and business strategy, with deep focus on business transitions, succession planning, and enterprise value optimization. Has guided owners through the full lifecycle — from growth to exit.</p>
-          <p class="team-skills">Business Strategy &nbsp;·&nbsp; Exit Advisory &nbsp;·&nbsp; Value Optimization</p>
+          <p class="team-skills">Business Strategy · Exit Advisory · Value Optimization</p>
         </div>
       </div>
-
-      <div class="team-card reveal d2">
-        <div class="team-photo">
-          <div class="team-initials">—</div>
-        </div>
+      <div class="team-card reveal-up d2">
+        <div class="team-avatar"><div class="team-initials">QA</div></div>
         <div class="team-body">
           <div class="team-name">Quantitative Analyst</div>
           <div class="team-role">Valuation &amp; Modeling</div>
-          <p class="team-bio">Engineering background combined with capital markets experience. Brings the quantitative rigor of institutional investment research to business valuation and operational modeling — translating complex data into clear, usable findings.</p>
-          <p class="team-skills">Financial Modeling &nbsp;·&nbsp; Valuation &nbsp;·&nbsp; CFA Candidate</p>
+          <p class="team-bio">Engineering background combined with capital markets experience. Brings institutional investment research rigor to business valuation and operational modeling — translating complex data into clear, usable findings.</p>
+          <p class="team-skills">Financial Modeling · Valuation · CFA Candidate</p>
         </div>
       </div>
-
-      <div class="team-card reveal d3">
-        <div class="team-photo">
-          <div class="team-initials">—</div>
-        </div>
+      <div class="team-card reveal-up d3">
+        <div class="team-avatar"><div class="team-initials">AS</div></div>
         <div class="team-body">
           <div class="team-name">Analytics &amp; Systems</div>
           <div class="team-role">Data Infrastructure</div>
           <p class="team-bio">Software engineering expertise applied to the data infrastructure that makes rigorous advisory scalable. Builds the automated analysis pipelines and operational data frameworks that let StrataSight deliver institutional-depth insights efficiently.</p>
-          <p class="team-skills">Data Engineering &nbsp;·&nbsp; Analytics &nbsp;·&nbsp; Systems Architecture</p>
+          <p class="team-skills">Data Engineering · Analytics · Systems Architecture</p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<div class="cta-band">
-  <h2 class="reveal">Let's talk about<br><em>your business</em></h2>
-  <p class="reveal d1">Discovery call. 30 minutes. No commitment.</p>
-  <a href="contact.html" class="btn btn-brass reveal d2">Book a Call</a>
-</div>
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-bg-el"></div>
+    <div class="cta-content">
+      <p class="eyebrow" style="color:rgba(255,255,255,0.5)">Let's Talk</p>
+      <h2 class="reveal-up">Let's talk about<br>your <em>business.</em></h2>
+      <p class="reveal-up d1">Discovery call. 30 minutes. No commitment.</p>
+      <div class="reveal-up d2">
+        <a href="contact.html" class="btn btn-white">Book a Call</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer>
-  <div class="footer-main">
+  <div class="footer-inner">
     <div class="footer-brand">
-      <div class="footer-logo-text">Strata<span>Sight</span></div>
+      <a class="logo footer-logo" href="../index.html">
+        <svg class="logo-mark" viewBox="0 0 28 28" fill="none">
+          <rect x="1" y="1" width="26" height="26" rx="6" stroke="var(--accent)" stroke-width="1.5"/>
+          <path d="M7 20 L14 8 L21 20" stroke="var(--accent)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="10.5" y1="15.5" x2="17.5" y2="15.5" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span>Strata<strong>Sight</strong></span>
+      </a>
       <p>Strategic advisory for privately-held businesses — value assessment, operational improvement, and growth planning.</p>
     </div>
-    <div class="footer-col">
-      <h5>Navigate</h5>
-      <a href="../index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="services.html">Services</a>
-      <a href="contact.html">Contact</a>
-    </div>
-    <div class="footer-col">
-      <h5>Services</h5>
-      <a href="services.html">Strategic Value Assessment</a>
-      <a href="services.html">Operational Efficiency</a>
-      <a href="services.html">Growth Advisory</a>
-    </div>
-    <div class="footer-col">
-      <h5>Get in Touch</h5>
-      <a href="mailto:info@stratasight.net">info@stratasight.net</a>
-      <a href="contact.html">Schedule a Call</a>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="../index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="services.html">Value Assessment</a>
+        <a href="services.html">Operational Efficiency</a>
+        <a href="services.html">Growth Advisory</a>
+      </div>
+      <div class="footer-col">
+        <h5>Get in Touch</h5>
+        <a href="mailto:info@stratasight.net">info@stratasight.net</a>
+        <a href="contact.html">Schedule a Call</a>
+      </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© <span class="footer-year"></span> StrataSight &nbsp;·&nbsp; All Rights Reserved.</p>
-    <p>StrataSight provides corporate-level strategic advisory only. Our services do not constitute personal financial planning, investment advice, insurance, legal services, or certified appraisal. Value assessments represent advisory opinions, not certified valuations.</p>
+    <p>© <span class="year"></span> StrataSight · All Rights Reserved.</p>
+    <p>StrataSight provides corporate-level strategic advisory only. Services do not constitute personal financial planning, investment advice, insurance, legal services, or certified appraisal.</p>
   </div>
 </footer>
-
 <script src="../js/script.js"></script>
 </body>
 </html>

@@ -3,261 +3,390 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="page-slug" content="home">
-  <title>StrataSight — Business Value Advisory</title>
-  <meta name="description" content="StrataSight helps privately-held businesses understand, improve, and maximize enterprise value through rigorous strategic analysis and operational consulting.">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <title>StrataSight — Business Growth Advisory</title>
+  <meta name="description" content="StrataSight partners with financial planners to help privately-held business owners grow, optimize, and prepare for what's next.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<nav id="mainNav">
-  <a class="nav-logo" href="index.html">
-    <div class="nav-logo-mark">
-      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 16 L10 4 L17 16" stroke="#b89a5a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="6.5" y1="11.5" x2="13.5" y2="11.5" stroke="#b89a5a" stroke-width="1.5" stroke-linecap="round"/>
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">
+      <svg class="logo-mark" viewBox="0 0 28 28" fill="none">
+        <rect x="1" y="1" width="26" height="26" rx="6" stroke="var(--accent)" stroke-width="1.5"/>
+        <path d="M7 20 L14 8 L21 20" stroke="var(--accent)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="10.5" y1="15.5" x2="17.5" y2="15.5" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
       </svg>
-    </div>
-    <div class="nav-logo-text">
-      Strata<span class="wordmark-accent">Sight</span>
-      <span>Value Advisory</span>
-    </div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html" data-page="home">Home</a></li>
-    <li><a href="pages/about.html" data-page="about">About</a></li>
-    <li><a href="pages/services.html" data-page="services">Services</a></li>
-    <li><a href="pages/contact.html" data-page="contact" class="nav-cta">Get Started</a></li>
-  </ul>
-  <button class="hamburger" id="ham" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
+      <span>Strata<strong>Sight</strong></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="pages/about.html">About</a></li>
+      <li><a href="pages/services.html">Services</a></li>
+      <li><a href="pages/contact.html" class="nav-pill">Get Started</a></li>
+    </ul>
+    <button class="nav-ham" id="ham" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-<div class="mobile-drawer" id="drawer">
-  <a href="index.html" onclick="closeDrawer()">Home</a>
-  <a href="pages/about.html" onclick="closeDrawer()">About</a>
-  <a href="pages/services.html" onclick="closeDrawer()">Services</a>
-  <a href="pages/contact.html" onclick="closeDrawer()" class="drawer-cta">Get Started</a>
+<div class="drawer" id="drawer">
+  <a href="index.html">Home</a>
+  <a href="pages/about.html">About</a>
+  <a href="pages/services.html">Services</a>
+  <a href="pages/contact.html">Get Started →</a>
 </div>
 
-<!-- ═══ HERO ═══ -->
+<!-- HERO -->
 <section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-video-wrap">
-    <video autoplay muted loop playsinline onerror="this.style.display='none'">
-      <source src="assets/hero.mp4" type="video/mp4">
-    </video>
-  </div>
-
-  <div class="hero-content">
-    <p class="hero-eyebrow">Business Value Advisory</p>
-    <h1 class="hero-h1">
-      Know your<br>
-      <span class="outline-word">business.</span><br>
-      <em>Build it better.</em>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-badge reveal-up">
+      <span class="badge-dot"></span>
+      Business Growth & Value Advisory
+    </div>
+    <h1 class="hero-h1 reveal-up d1">
+      You built something<br>
+      worth <em>growing.</em>
     </h1>
-    <div class="hero-bottom">
-      <p class="hero-desc">Most privately-held businesses are worth more than their owners realize — and less than they could be. StrataSight helps you close that gap with the same analytical rigor typically reserved for much larger companies.</p>
-      <div class="hero-actions">
-        <a href="pages/services.html" class="btn btn-brass">Our Services</a>
-        <a href="pages/contact.html" class="btn btn-outline">Schedule a Call</a>
+    <p class="hero-sub reveal-up d2">
+      We work with privately-held businesses in the gap between where you are and where your financial plan takes over — optimizing operations, improving enterprise value, and building the foundation for what's next.
+    </p>
+    <div class="hero-actions reveal-up d3">
+      <a href="pages/contact.html" class="btn btn-primary">Schedule a Discovery Call</a>
+      <a href="pages/services.html" class="btn btn-ghost">See What We Do →</a>
+    </div>
+    <div class="hero-social-proof reveal-up d4">
+      <div class="proof-item">
+        <div class="proof-icon">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 2L12.4 7.4L18 8.2L14 12.2L15 18L10 15.3L5 18L6 12.2L2 8.2L7.6 7.4L10 2Z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg>
+        </div>
+        <span>Institutional-grade analysis</span>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-item">
+        <div class="proof-icon">
+          <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="11" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="11" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/></svg>
+        </div>
+        <span>Designed for your data</span>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-item">
+        <div class="proof-icon">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z" stroke="currentColor" stroke-width="1.4"/><path d="M7 10L9 12L13 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span>Built to execute</span>
       </div>
     </div>
   </div>
 
-  <div class="hero-scroll" onclick="document.querySelector('.hero-stat-row').scrollIntoView({behavior:'smooth'})">
-    <div class="hero-scroll-line"></div>
-    <span>Scroll</span>
-  </div>
+  <!-- Floating dashboard card -->
+  <div class="hero-card-wrap">
+    <div class="hero-card reveal-slide">
+      <div class="card-header">
+        <div class="card-title-row">
+          <div class="card-dot green"></div>
+          <span class="card-label">Enterprise Value Overview</span>
+          <span class="card-badge">Live</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-val">$4.2M</span>
+          <span class="metric-delta up">+18.4%</span>
+        </div>
+        <div class="metric-sub">Current advisory estimate · Q1 2025</div>
+      </div>
+      <div class="card-chart">
+        <svg viewBox="0 0 260 80" class="sparkline">
+          <defs>
+            <linearGradient id="sg" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 70 C30 68 40 60 60 55 S90 40 110 35 S140 22 160 18 S200 10 220 8 S245 6 260 5" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M0 70 C30 68 40 60 60 55 S90 40 110 35 S140 22 160 18 S200 10 220 8 S245 6 260 5 V80 H0Z" fill="url(#sg)"/>
+          <circle cx="260" cy="5" r="4" fill="var(--accent)"/>
+          <circle cx="260" cy="5" r="8" fill="var(--accent)" opacity="0.15" class="pulse"/>
+        </svg>
+      </div>
+      <div class="card-stats">
+        <div class="card-stat">
+          <div class="cs-label">EBITDA Multiple</div>
+          <div class="cs-val">5.8×</div>
+        </div>
+        <div class="card-stat">
+          <div class="cs-label">Margin</div>
+          <div class="cs-val">24.1%</div>
+        </div>
+        <div class="card-stat">
+          <div class="cs-label">Growth Rate</div>
+          <div class="cs-val green">↑ 12%</div>
+        </div>
+      </div>
+    </div>
 
-  <div class="hero-stat-row">
-    <div class="hero-stat reveal">
-      <div class="stat-num">3<sup>disciplines</sup></div>
-      <div class="stat-label">Valuation · Operations<br>Growth Strategy</div>
-    </div>
-    <div class="hero-stat reveal d1">
-      <div class="stat-num">100<sup>%</sup></div>
-      <div class="stat-label">Business-level focus.<br>No personal finance.</div>
-    </div>
-    <div class="hero-stat reveal d2">
-      <div class="stat-num">Data<sup>→</sup></div>
-      <div class="stat-label">Every recommendation<br>grounded in your numbers.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ WHAT WE DO ═══ -->
-<section class="services-intro">
-  <div class="services-intro-inner">
-    <div class="services-header">
+    <div class="mini-card reveal-slide d2">
+      <div class="mc-icon">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M3 14L7 10L10 13L14 7L17 9" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
       <div>
-        <span class="eyebrow reveal">What We Do</span>
-        <h2 class="display-title reveal d1">Three ways we<br><em>move the needle</em></h2>
-      </div>
-      <p class="body-copy reveal d2">Everything we do connects to a driver of enterprise value. No filler, no scope creep — just the work that actually changes the number.</p>
-    </div>
-
-    <div class="svc-row reveal">
-      <div class="svc-num">01</div>
-      <div class="svc-name-col">
-        <div class="svc-name">Strategic Value<br>Assessment</div>
-        <div class="svc-tags">
-          <span class="svc-tag">Valuation</span>
-          <span class="svc-tag">Benchmarking</span>
-          <span class="svc-tag">Opportunity Map</span>
-        </div>
-      </div>
-      <div class="svc-desc-col">
-        <p>A rigorous, data-driven picture of where your business stands today — and a clear map of every lever available to improve it. Most owners have never actually seen their business the way a buyer or investor would.</p>
+        <div class="mc-label">Opportunity Gap</div>
+        <div class="mc-val">3 high-impact levers identified</div>
       </div>
     </div>
 
-    <div class="svc-row reveal d1">
-      <div class="svc-num">02</div>
-      <div class="svc-name-col">
-        <div class="svc-name">Operational<br>Efficiency</div>
-        <div class="svc-tags">
-          <span class="svc-tag">Profitability</span>
-          <span class="svc-tag">Cost Structure</span>
-          <span class="svc-tag">Productivity</span>
-        </div>
+    <div class="mini-card reveal-slide d3">
+      <div class="mc-icon">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="var(--green)" stroke-width="1.6"/><path d="M7 10L9 12L13 8" stroke="var(--green)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="svc-desc-col">
-        <p>Inefficiency shows up as margin compression, slow output, and costs that don't pull their weight. We find it, quantify it, and build a ranked roadmap to fix it.</p>
-      </div>
-    </div>
-
-    <div class="svc-row reveal d2">
-      <div class="svc-num">03</div>
-      <div class="svc-name-col">
-        <div class="svc-name">Strategic Growth<br>Advisory</div>
-        <div class="svc-tags">
-          <span class="svc-tag">Market Positioning</span>
-          <span class="svc-tag">Scalability</span>
-          <span class="svc-tag">Growth Planning</span>
-        </div>
-      </div>
-      <div class="svc-desc-col">
-        <p>A growth strategy built around your specific business, not borrowed frameworks. We build roadmaps meant to be executed — prioritized, sequenced, and tied to real milestones.</p>
-      </div>
-    </div>
-
-    <div style="margin-top:3rem" class="reveal d3">
-      <a href="pages/services.html" class="btn btn-brass">Full Service Details</a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ WHY STRATASIGHT ═══ -->
-<section class="why-section">
-  <div class="why-inner">
-    <span class="eyebrow reveal">Why StrataSight</span>
-    <h2 class="display-title reveal d1">Built for the<br><em>serious operator</em></h2>
-    <div class="why-grid">
       <div>
-        <div class="pillar reveal d1">
-          <div class="pillar-rule"></div>
-          <h4>Institutional-Grade Analysis</h4>
-          <p>Privately-held businesses rarely get access to the depth of strategic analysis that larger companies take for granted. We close that gap — without the consulting firm overhead or the conflict of interest.</p>
-        </div>
-        <div class="pillar reveal d2">
-          <div class="pillar-rule"></div>
-          <h4>Your Numbers, Not Industry Averages</h4>
-          <p>Every recommendation starts with your actual financial and operational data. Not generalized frameworks loosely applied. Your business, analyzed on its own terms.</p>
-        </div>
-        <div class="pillar reveal d3">
-          <div class="pillar-rule"></div>
-          <h4>Built to Be Acted On</h4>
-          <p>Our deliverables are prioritized, specific, and designed for execution. The analysis means nothing if it doesn't go anywhere. We stay engaged through implementation when the work calls for it.</p>
-        </div>
-        <div class="pillar reveal d4">
-          <div class="pillar-rule"></div>
-          <h4>Clean Scope, No Surprises</h4>
-          <p>We work strictly at the business strategy level — valuation, operations, and growth. That focus keeps our analysis sharp and our engagements clear from day one.</p>
-        </div>
+        <div class="mc-label">Next Milestone</div>
+        <div class="mc-val">Exit readiness: 14 months</div>
       </div>
-      <div class="why-quote-side reveal d2">
-        <blockquote>
-          "Operational clarity is the foundation of enterprise value — and most businesses have <em>more of both</em> than they realize."
-        </blockquote>
-        <p class="why-quote-attr">— StrataSight</p>
-        <div style="margin-top:2.5rem; padding-top:2rem; border-top:1px solid var(--border)">
-          <p class="body-copy" style="font-size:0.86rem;margin-bottom:1.4rem">A 30-minute discovery call is all it takes to see where you stand.</p>
-          <a href="pages/contact.html" class="btn btn-brass">Schedule a Discovery Call</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS INTRO -->
+<section class="process-bar">
+  <div class="pb-inner">
+    <div class="pb-label">Where We Fit</div>
+    <div class="pb-steps">
+      <div class="pb-step done">
+        <div class="pbs-dot done"></div>
+        <span>You Build<br>the Business</span>
+      </div>
+      <div class="pb-line done"></div>
+      <div class="pb-step active">
+        <div class="pbs-dot active"></div>
+        <span><strong>StrataSight</strong><br>Grows the Value</span>
+      </div>
+      <div class="pb-line"></div>
+      <div class="pb-step">
+        <div class="pbs-dot"></div>
+        <span>Financial Planner<br>Handles the Exit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="services-section section">
+  <div class="inner">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow reveal-up">What We Do</p>
+        <h2 class="section-h2 reveal-up d1">Three disciplines.<br>One clear <em>outcome.</em></h2>
+      </div>
+      <p class="section-desc reveal-up d2">Everything we do connects directly to enterprise value. No filler, no scope creep — just the work that moves the number.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="svc-card reveal-up">
+        <div class="svc-num">01</div>
+        <div class="svc-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M3 20L8 12L12 15L16 8L21 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21" cy="11" r="2" fill="var(--accent)" stroke="none"/></svg>
+        </div>
+        <h3>Strategic Value Assessment</h3>
+        <p>A data-backed picture of what your business is worth today and a ranked map of every lever available to improve it. Most owners have never seen their business the way a buyer would.</p>
+        <div class="svc-tags">
+          <span>Valuation</span><span>Benchmarking</span><span>Opportunity Map</span>
+        </div>
+        <a href="pages/services.html" class="svc-link">Learn more →</a>
+      </div>
+
+      <div class="svc-card reveal-up d1">
+        <div class="svc-num">02</div>
+        <div class="svc-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="14" width="4" height="7" rx="1" stroke="currentColor" stroke-width="1.8"/><rect x="10" y="9" width="4" height="12" rx="1" stroke="currentColor" stroke-width="1.8"/><rect x="17" y="4" width="4" height="17" rx="1" stroke="currentColor" stroke-width="1.8"/></svg>
+        </div>
+        <h3>Operational Efficiency</h3>
+        <p>Inefficiency shows up as margin compression and costs that don't pull their weight. We find it, quantify it, and build a ranked roadmap to fix it — tied to your actual numbers.</p>
+        <div class="svc-tags">
+          <span>Profitability</span><span>Cost Structure</span><span>Productivity</span>
+        </div>
+        <a href="pages/services.html" class="svc-link">Learn more →</a>
+      </div>
+
+      <div class="svc-card reveal-up d2">
+        <div class="svc-num">03</div>
+        <div class="svc-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L14.5 9H21L15.5 13L17.5 19.5L12 15.5L6.5 19.5L8.5 13L3 9H9.5L12 3Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Strategic Growth Advisory</h3>
+        <p>A growth strategy built around your specific business — not borrowed frameworks. Prioritized, sequenced, and tied to real milestones you can actually hit.</p>
+        <div class="svc-tags">
+          <span>Market Position</span><span>Scalability</span><span>Growth Planning</span>
+        </div>
+        <a href="pages/services.html" class="svc-link">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE PROP / WHY US -->
+<section class="why-section section">
+  <div class="inner why-inner">
+    <div class="why-left">
+      <p class="eyebrow reveal-up">Why StrataSight</p>
+      <h2 class="section-h2 reveal-up d1">The analysis<br>your business<br><em>deserves.</em></h2>
+      <p class="body-copy reveal-up d2">Privately-held businesses rarely get access to the depth of strategic analysis that institutional players take for granted. We close that gap — without the overhead.</p>
+      <a href="pages/about.html" class="btn btn-outline reveal-up d3" style="margin-top:2rem">About Our Approach →</a>
+    </div>
+    <div class="why-right">
+      <div class="pillar-list">
+        <div class="pillar reveal-up">
+          <div class="pillar-num">—</div>
+          <div>
+            <h4>Your Numbers, Not Industry Averages</h4>
+            <p>Every recommendation starts with your actual financial and operational data — not generalized frameworks loosely applied.</p>
+          </div>
+        </div>
+        <div class="pillar reveal-up d1">
+          <div class="pillar-num">—</div>
+          <div>
+            <h4>Built to Be Acted On</h4>
+            <p>Prioritized, specific deliverables designed for execution. The analysis means nothing if it doesn't go anywhere.</p>
+          </div>
+        </div>
+        <div class="pillar reveal-up d2">
+          <div class="pillar-num">—</div>
+          <div>
+            <h4>Part of a Bigger Picture</h4>
+            <p>We coordinate with your financial planner so the work we do today feeds directly into a coherent long-term strategy for your exit or next chapter.</p>
+          </div>
+        </div>
+        <div class="pillar reveal-up d3">
+          <div class="pillar-num">—</div>
+          <div>
+            <h4>Clean Scope, No Surprises</h4>
+            <p>We work at the business strategy level — valuation, operations, and growth. That focus keeps our engagements sharp from day one.</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ PROCESS ═══ -->
-<section class="process-section">
-  <div class="process-section-inner">
-    <span class="eyebrow reveal">How It Works</span>
-    <h2 class="display-title reveal d1">From first call<br><em>to clear direction</em></h2>
-    <div class="process-grid">
-      <div class="process-step reveal">
-        <div class="step-num">Step 01</div>
+<!-- METRICS STRIP -->
+<section class="metrics-strip">
+  <div class="inner">
+    <div class="metric-item reveal-up">
+      <div class="mi-val">3</div>
+      <div class="mi-label">Core disciplines:<br>Valuation · Operations · Growth</div>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item reveal-up d1">
+      <div class="mi-val">100<span>%</span></div>
+      <div class="mi-label">Business-level focus.<br>No personal finance.</div>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item reveal-up d2">
+      <div class="mi-val">Data<span>→</span></div>
+      <div class="mi-label">Every recommendation<br>grounded in your numbers.</div>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item reveal-up d3">
+      <div class="mi-val">30<span>min</span></div>
+      <div class="mi-label">Discovery call to<br>understand your situation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="process-section section">
+  <div class="inner">
+    <div class="section-header center">
+      <p class="eyebrow reveal-up">How It Works</p>
+      <h2 class="section-h2 reveal-up d1">From first call<br>to <em>clear direction.</em></h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step reveal-up">
+        <div class="step-line"></div>
+        <div class="step-num-wrap"><span class="step-num">01</span></div>
         <h4>Discovery Call</h4>
-        <p>30 minutes. We learn your business, your goals, and where the gaps are. Direct and focused — no prep work required.</p>
+        <p>30 minutes. We learn your business, your goals, and where the gaps are. Direct, focused — no prep work required.</p>
       </div>
-      <div class="process-step reveal d1">
-        <div class="step-num">Step 02</div>
+      <div class="step reveal-up d1">
+        <div class="step-line"></div>
+        <div class="step-num-wrap"><span class="step-num">02</span></div>
         <h4>Data Collection</h4>
-        <p>Financials, operational metrics, and market context — scoped precisely to your engagement so the analysis is complete and accurate.</p>
+        <p>Financials, metrics, and market context scoped precisely to your engagement so the analysis is complete and accurate.</p>
       </div>
-      <div class="process-step reveal d2">
-        <div class="step-num">Step 03</div>
+      <div class="step reveal-up d2">
+        <div class="step-line"></div>
+        <div class="step-num-wrap"><span class="step-num">03</span></div>
         <h4>Analysis</h4>
         <p>Rigorous modeling across value drivers and operational levers. Specific to your industry and your actual situation.</p>
       </div>
-      <div class="process-step reveal d3">
-        <div class="step-num">Step 04</div>
+      <div class="step reveal-up d3">
+        <div class="step-line active"></div>
+        <div class="step-num-wrap active"><span class="step-num">04</span></div>
         <h4>Delivery & Roadmap</h4>
-        <p>A written report and a live walkthrough. Ranked findings, specific next steps, and a roadmap you can start using immediately.</p>
+        <p>A written report and live walkthrough. Ranked findings, specific next steps, and a roadmap you can act on immediately.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CTA ═══ -->
-<div class="cta-band">
-  <h2 class="reveal">Ready to see your<br><em>real number?</em></h2>
-  <p class="reveal d1">30 minutes. No commitment required.</p>
-  <a href="pages/contact.html" class="btn btn-brass reveal d2">Request an Assessment</a>
-</div>
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-bg-el"></div>
+    <div class="cta-content">
+      <p class="eyebrow" style="color:rgba(255,255,255,0.5)">Ready to Start?</p>
+      <h2 class="reveal-up">See what your business<br>is <em>actually worth.</em></h2>
+      <p class="reveal-up d1">30 minutes. No commitment required. We'll tell you whether we can help — and how.</p>
+      <div class="reveal-up d2">
+        <a href="pages/contact.html" class="btn btn-white">Request an Assessment</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- ═══ FOOTER ═══ -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-main">
+  <div class="footer-inner">
     <div class="footer-brand">
-      <div class="footer-logo-text">Strata<span>Sight</span></div>
+      <a class="logo footer-logo" href="index.html">
+        <svg class="logo-mark" viewBox="0 0 28 28" fill="none">
+          <rect x="1" y="1" width="26" height="26" rx="6" stroke="var(--accent)" stroke-width="1.5"/>
+          <path d="M7 20 L14 8 L21 20" stroke="var(--accent)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="10.5" y1="15.5" x2="17.5" y2="15.5" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span>Strata<strong>Sight</strong></span>
+      </a>
       <p>Strategic advisory for privately-held businesses — value assessment, operational improvement, and growth planning.</p>
     </div>
-    <div class="footer-col">
-      <h5>Navigate</h5>
-      <a href="index.html">Home</a>
-      <a href="pages/about.html">About</a>
-      <a href="pages/services.html">Services</a>
-      <a href="pages/contact.html">Contact</a>
-    </div>
-    <div class="footer-col">
-      <h5>Services</h5>
-      <a href="pages/services.html">Strategic Value Assessment</a>
-      <a href="pages/services.html">Operational Efficiency</a>
-      <a href="pages/services.html">Growth Advisory</a>
-    </div>
-    <div class="footer-col">
-      <h5>Get in Touch</h5>
-      <a href="mailto:info@stratasight.net">info@stratasight.net</a>
-      <a href="pages/contact.html">Schedule a Call</a>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="index.html">Home</a>
+        <a href="pages/about.html">About</a>
+        <a href="pages/services.html">Services</a>
+        <a href="pages/contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="pages/services.html">Value Assessment</a>
+        <a href="pages/services.html">Operational Efficiency</a>
+        <a href="pages/services.html">Growth Advisory</a>
+      </div>
+      <div class="footer-col">
+        <h5>Get in Touch</h5>
+        <a href="mailto:info@stratasight.net">info@stratasight.net</a>
+        <a href="pages/contact.html">Schedule a Call</a>
+      </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© <span class="footer-year"></span> StrataSight &nbsp;·&nbsp; All Rights Reserved.</p>
-    <p>StrataSight provides corporate-level strategic advisory only. Our services do not constitute personal financial planning, investment advice, insurance, legal services, or certified appraisal. Value assessments represent advisory opinions, not certified valuations.</p>
+    <p>© <span class="year"></span> StrataSight · All Rights Reserved.</p>
+    <p>StrataSight provides corporate-level strategic advisory only. Services do not constitute personal financial planning, investment advice, insurance, legal services, or certified appraisal.</p>
   </div>
 </footer>
 
