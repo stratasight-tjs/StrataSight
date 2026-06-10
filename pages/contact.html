@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="page-slug" content="contact">
   <title>Contact — StrataSight</title>
-  <meta name="description" content="Schedule a discovery call with StrataSight. 30 minutes. No commitment.">
+  <meta name="description" content="Book a discovery call with StrataSight. 30 minutes to understand your business and whether we're the right fit.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -21,7 +21,7 @@
         <path d="M7 20 L14 8 L21 20" stroke="var(--accent)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <line x1="10.5" y1="15.5" x2="17.5" y2="15.5" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
       </svg>
-      <span>Strata<strong>Sight</strong></span>
+      StrataSight
     </a>
     <ul class="nav-links">
       <li><a href="../index.html" data-page="home">Home</a></li>
@@ -41,84 +41,99 @@
 
 <div class="page-hero">
   <span class="eyebrow">Get Started</span>
-  <h1>Let's talk about<br><em>your business.</em></h1>
-  <p class="sub">30 minutes. Tell us about your business and what you're trying to accomplish. We'll tell you whether we can help — and how.</p>
+  <h1>30 minutes.<br><em>Straight answers.</em></h1>
+  <p class="sub">Tell us about your business. We'll tell you what we'd analyze, what we'd expect to find, and whether we're the right fit — before you commit to anything.</p>
 </div>
 
+<!-- CONTACT SECTION -->
 <section class="section" style="border-bottom:1px solid var(--border)">
   <div class="inner">
     <div class="contact-layout">
 
+      <!-- Info column -->
       <div>
-        <div class="contact-info-block reveal-up">
+        <div class="contact-info-block">
+          <div class="contact-label">What to Expect</div>
+          <p>A 30-minute conversation. We'll ask about your business, your goals, and where you think the gaps are. You'll hear what we'd focus on and get an honest read on whether there's a fit — no pitch, no pressure.</p>
+        </div>
+
+        <div class="contact-info-block">
           <div class="contact-label">Email</div>
           <a href="mailto:info@stratasight.net">info@stratasight.net</a>
         </div>
-        <div class="contact-info-block reveal-up d1">
-          <div class="contact-label">What Happens Next</div>
-          <p>Submit this form and we'll follow up within one business day to schedule your discovery call. No pitch — just a direct conversation about your business and what you're looking to accomplish.</p>
+
+        <div class="contact-info-block">
+          <div class="contact-label">Response Time</div>
+          <div class="response-block">
+            <p>We respond to all inquiries within one business day. For discovery call requests, expect a scheduling link within 24 hours.</p>
+          </div>
         </div>
-        <div class="contact-info-block reveal-up d2">
-          <div class="contact-label">Who We Work With</div>
-          <p>Privately-held businesses of any size or industry seeking clarity on enterprise value, operational performance, or growth direction. Owners who are ready to make data-informed decisions.</p>
-        </div>
-        <div class="response-block reveal-up d3">
-          <div class="contact-label" style="margin-bottom:0.4rem">Response Time</div>
-          <p>We respond to all inquiries within one business day. For time-sensitive situations, note that in your message.</p>
+
+        <div class="contact-info-block" style="margin-top:2rem">
+          <div class="contact-label">What We'll Cover</div>
+          <div style="display:flex;flex-direction:column;">
+            <div class="who-item" style="font-size:0.83rem">Your business overview and current performance</div>
+            <div class="who-item" style="font-size:0.83rem">Where you want to go and in what timeframe</div>
+            <div class="who-item" style="font-size:0.83rem">Where you think the gaps are right now</div>
+            <div class="who-item" style="font-size:0.83rem">What we'd analyze and what we'd expect to find</div>
+            <div class="who-item" style="font-size:0.83rem">Whether there's a fit and what engagement looks like</div>
+          </div>
         </div>
       </div>
 
-      <div class="form-wrap reveal-up d1">
+      <!-- Form column -->
+      <div class="form-wrap reveal-up">
         <div class="form-head">
-          <h3>Request an Assessment</h3>
+          <h3>Request a Discovery Call</h3>
         </div>
         <div class="form-body">
           <div class="form-row">
             <div class="form-group">
-              <label>First Name</label>
-              <input type="text" id="ss-first" placeholder="Jane">
+              <label for="ss-first">First Name</label>
+              <input type="text" id="ss-first" placeholder="Jane" autocomplete="given-name">
             </div>
             <div class="form-group">
-              <label>Last Name</label>
-              <input type="text" id="ss-last" placeholder="Smith">
+              <label for="ss-last">Last Name</label>
+              <input type="text" id="ss-last" placeholder="Smith" autocomplete="family-name">
             </div>
           </div>
           <div class="form-group">
-            <label>Work Email</label>
-            <input type="email" id="ss-email" placeholder="jane@yourcompany.com">
+            <label for="ss-email">Email Address</label>
+            <input type="email" id="ss-email" placeholder="jane@yourcompany.com" autocomplete="email">
           </div>
           <div class="form-group">
-            <label>Company Name</label>
-            <input type="text" id="ss-company" placeholder="Your Company LLC">
+            <label for="ss-company">Business Name</label>
+            <input type="text" id="ss-company" placeholder="Your company name" autocomplete="organization">
           </div>
           <div class="form-group">
-            <label>Approximate Annual Revenue</label>
+            <label for="ss-revenue">Annual Revenue (approximate)</label>
             <select id="ss-revenue">
-              <option value="">Select a range…</option>
+              <option value="" disabled selected>Select a range</option>
               <option>Under $1M</option>
               <option>$1M – $5M</option>
               <option>$5M – $15M</option>
               <option>$15M – $50M</option>
               <option>$50M+</option>
-              <option>Prefer not to say</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Primary Focus Area</label>
-            <select id="ss-topic">
-              <option value="">Select a focus area…</option>
-              <option>Strategic Value Assessment</option>
-              <option>Operational Efficiency Review</option>
-              <option>Strategic Growth Planning</option>
-              <option>Preparing for a Sale or Transition</option>
-              <option>Not Sure Yet — Let's Talk</option>
+            <label for="ss-goal">Primary Goal</label>
+            <select id="ss-goal">
+              <option value="" disabled selected>What are you most focused on?</option>
+              <option>Understand what my business is worth</option>
+              <option>Improve EBITDA and margins</option>
+              <option>Prepare for an eventual sale</option>
+              <option>Identify where value is being lost</option>
+              <option>Build a data view of my business</option>
+              <option>Ongoing performance tracking</option>
+              <option>Something else</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Tell Us More</label>
-            <textarea id="ss-message" placeholder="Brief description of your business and what you're looking to accomplish. The more context, the better we can prepare."></textarea>
+            <label for="ss-message">Anything else we should know?</label>
+            <textarea id="ss-message" placeholder="Tell us about your business, your timeline, or any context that would help us make the most of our first conversation."></textarea>
           </div>
-          <button class="btn-submit" id="ssSubmitBtn">Send Message</button>
+          <button class="btn-submit" id="ssSubmitBtn">Request a Discovery Call</button>
         </div>
       </div>
 
@@ -129,15 +144,15 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a class="logo footer-logo" href="../index.html">
+      <a class="logo" href="../index.html">
         <svg class="logo-mark" viewBox="0 0 28 28" fill="none">
           <rect x="1" y="1" width="26" height="26" rx="6" stroke="var(--accent)" stroke-width="1.5"/>
           <path d="M7 20 L14 8 L21 20" stroke="var(--accent)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
           <line x1="10.5" y1="15.5" x2="17.5" y2="15.5" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
-        <span>Strata<strong>Sight</strong></span>
+        StrataSight
       </a>
-      <p>Strategic advisory for privately-held businesses — value assessment, operational improvement, and growth planning.</p>
+      <p>PE-grade business analysis and value-growth advisory for founder-owned companies. No equity. No acquisition. Just the work that moves the number.</p>
     </div>
     <div class="footer-cols">
       <div class="footer-col">
@@ -149,13 +164,14 @@
       </div>
       <div class="footer-col">
         <h5>Services</h5>
-        <a href="services.html">Value Assessment</a>
-        <a href="services.html">Operational Efficiency</a>
-        <a href="services.html">Growth Advisory</a>
+        <a href="services.html">Data & Baseline</a>
+        <a href="services.html">Performance Management</a>
+        <a href="services.html">Value Growth Advisory</a>
       </div>
       <div class="footer-col">
         <h5>Get in Touch</h5>
         <a href="mailto:info@stratasight.net">info@stratasight.net</a>
+        <a href="contact.html">Book a Discovery Call</a>
       </div>
     </div>
   </div>

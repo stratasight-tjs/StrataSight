@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StrataSight — Business Growth Advisory</title>
-  <meta name="description" content="StrataSight partners with financial planners to help privately-held business owners grow, optimize, and prepare for what's next.">
+  <title>StrataSight — PE-Grade Advisory. No Equity Required.</title>
+  <meta name="description" content="We analyze your business the way PE firms analyze portfolio companies — tracking every metric that moves enterprise value, surfacing gaps before they compound, and building the roadmap to close them.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -21,17 +21,15 @@
         <path d="M7 20 L14 8 L21 20" stroke="var(--accent)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <line x1="10.5" y1="15.5" x2="17.5" y2="15.5" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
       </svg>
-      <span>Strata<strong>Sight</strong></span>
+      StrataSight
     </a>
     <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="pages/about.html">About</a></li>
-      <li><a href="pages/services.html">Services</a></li>
-      <li><a href="pages/contact.html" class="nav-pill">Get Started</a></li>
+      <li><a href="index.html" data-page="home">Home</a></li>
+      <li><a href="pages/about.html" data-page="about">About</a></li>
+      <li><a href="pages/services.html" data-page="services">Services</a></li>
+      <li><a href="pages/contact.html" data-page="contact" class="nav-pill">Get Started</a></li>
     </ul>
-    <button class="nav-ham" id="ham" aria-label="Menu">
-      <span></span><span></span>
-    </button>
+    <button class="nav-ham" id="ham" aria-label="Menu"><span></span><span></span></button>
   </div>
 </nav>
 
@@ -45,183 +43,243 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-grid-bg"></div>
+
   <div class="hero-inner">
     <div class="hero-badge reveal-up">
       <span class="badge-dot"></span>
-      Business Growth & Value Advisory
+      PE-Grade Analysis · No Equity Required
     </div>
     <h1 class="hero-h1 reveal-up d1">
-      You built something<br>
-      worth <em>growing.</em>
+      The PE playbook.<br><em>Zero equity.</em>
     </h1>
     <p class="hero-sub reveal-up d2">
-      We work with privately-held businesses in the gap between where you are and where your financial plan takes over — optimizing operations, improving enterprise value, and building the foundation for what's next.
+      We analyze your business the same way private equity firms analyze portfolio companies — tracking every metric that moves enterprise value, surfacing gaps before they compound, and building the roadmap to close them. You keep the business. You keep the upside.
     </p>
     <div class="hero-actions reveal-up d3">
-      <a href="pages/contact.html" class="btn btn-primary">Schedule a Discovery Call</a>
-      <a href="pages/services.html" class="btn btn-ghost">See What We Do →</a>
+      <a href="pages/contact.html" class="btn btn-primary">Book a Discovery Call</a>
+      <a href="pages/services.html" class="btn btn-ghost">See How It Works →</a>
     </div>
-    <div class="hero-social-proof reveal-up d4">
-      <div class="proof-item">
-        <div class="proof-icon">
-          <svg viewBox="0 0 20 20" fill="none"><path d="M10 2L12.4 7.4L18 8.2L14 12.2L15 18L10 15.3L5 18L6 12.2L2 8.2L7.6 7.4L10 2Z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg>
-        </div>
-        <span>Institutional-grade analysis</span>
-      </div>
-      <div class="proof-divider"></div>
-      <div class="proof-item">
-        <div class="proof-icon">
-          <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="11" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="11" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4"/></svg>
-        </div>
-        <span>Designed for your data</span>
-      </div>
-      <div class="proof-divider"></div>
-      <div class="proof-item">
-        <div class="proof-icon">
-          <svg viewBox="0 0 20 20" fill="none"><path d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z" stroke="currentColor" stroke-width="1.4"/><path d="M7 10L9 12L13 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <span>Built to execute</span>
-      </div>
+    <div class="hero-tags reveal-up d4">
+      <span class="htag">Revenue</span>
+      <span class="htag">EBITDA</span>
+      <span class="htag">Cash Flow</span>
+      <span class="htag">Customer Metrics</span>
+      <span class="htag">Exit Readiness</span>
     </div>
   </div>
 
-  <!-- Floating dashboard card -->
-  <div class="hero-card-wrap">
-    <div class="hero-card reveal-slide">
-      <div class="card-header">
-        <div class="card-title-row">
-          <div class="card-dot green"></div>
-          <span class="card-label">Enterprise Value Overview</span>
-          <span class="card-badge">Live</span>
+  <!-- Dashboard card -->
+  <div class="hero-dashboard">
+    <div class="dash-card reveal-slide">
+      <div class="dash-card-head">
+        <div class="dash-title-row">
+          <div class="dash-indicator"></div>
+          <span class="dash-label">EBITDA Performance</span>
+          <span class="dash-live">Live</span>
         </div>
-        <div class="card-metric">
-          <span class="metric-val">$4.2M</span>
-          <span class="metric-delta up">+18.4%</span>
+        <div class="dash-metric">
+          <span class="dash-metric-val">$1.24M</span>
+          <span class="dash-metric-delta">+22.4%</span>
         </div>
-        <div class="metric-sub">Current advisory estimate · Q1 2025</div>
+        <div class="dash-metric-sub">TTM · Updated today</div>
       </div>
-      <div class="card-chart">
-        <svg viewBox="0 0 260 80" class="sparkline">
+      <div class="dash-chart">
+        <svg viewBox="0 0 320 72" preserveAspectRatio="none">
           <defs>
             <linearGradient id="sg" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.2"/>
-              <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+              <stop offset="0%" stop-color="#4F7BFF" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#4F7BFF" stop-opacity="0"/>
             </linearGradient>
           </defs>
-          <path d="M0 70 C30 68 40 60 60 55 S90 40 110 35 S140 22 160 18 S200 10 220 8 S245 6 260 5" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
-          <path d="M0 70 C30 68 40 60 60 55 S90 40 110 35 S140 22 160 18 S200 10 220 8 S245 6 260 5 V80 H0Z" fill="url(#sg)"/>
-          <circle cx="260" cy="5" r="4" fill="var(--accent)"/>
-          <circle cx="260" cy="5" r="8" fill="var(--accent)" opacity="0.15" class="pulse"/>
+          <path d="M0 60 C20 58 30 54 50 50 S75 60 90 56 S115 43 140 36 S170 24 200 17 S240 10 270 7 S300 5 320 4"
+                fill="none" stroke="#4F7BFF" stroke-width="2" stroke-linecap="round"/>
+          <path d="M0 60 C20 58 30 54 50 50 S75 60 90 56 S115 43 140 36 S170 24 200 17 S240 10 270 7 S300 5 320 4 V72 H0Z"
+                fill="url(#sg)"/>
+          <circle cx="320" cy="4" r="4" fill="#4F7BFF"/>
+          <circle cx="320" cy="4" r="10" fill="#4F7BFF" class="spark-pulse" opacity="0.15"/>
         </svg>
       </div>
-      <div class="card-stats">
-        <div class="card-stat">
-          <div class="cs-label">EBITDA Multiple</div>
-          <div class="cs-val">5.8×</div>
+      <div class="dash-stats">
+        <div class="dash-stat">
+          <div class="ds-label">EBITDA Multiple</div>
+          <div class="ds-val">6.2×</div>
         </div>
-        <div class="card-stat">
-          <div class="cs-label">Margin</div>
-          <div class="cs-val">24.1%</div>
+        <div class="dash-stat">
+          <div class="ds-label">Gross Margin</div>
+          <div class="ds-val green">28.4%</div>
         </div>
-        <div class="card-stat">
-          <div class="cs-label">Growth Rate</div>
-          <div class="cs-val green">↑ 12%</div>
+        <div class="dash-stat">
+          <div class="ds-label">YoY Growth</div>
+          <div class="ds-val green">↑ 18%</div>
         </div>
       </div>
     </div>
 
-    <div class="mini-card reveal-slide d2">
-      <div class="mc-icon">
-        <svg viewBox="0 0 20 20" fill="none"><path d="M3 14L7 10L10 13L14 7L17 9" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="dash-mini-row">
+      <div class="dash-mini reveal-slide d2">
+        <div class="dm-icon blue">
+          <svg viewBox="0 0 20 20" fill="none">
+            <path d="M3 14L7 10L10 13L14 7L17 9" stroke="#4F7BFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="dm-label">Value Gaps</div>
+          <div class="dm-val">4 deficits identified</div>
+        </div>
       </div>
-      <div>
-        <div class="mc-label">Opportunity Gap</div>
-        <div class="mc-val">3 high-impact levers identified</div>
-      </div>
-    </div>
-
-    <div class="mini-card reveal-slide d3">
-      <div class="mc-icon">
-        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="var(--green)" stroke-width="1.6"/><path d="M7 10L9 12L13 8" stroke="var(--green)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div>
-        <div class="mc-label">Next Milestone</div>
-        <div class="mc-val">Exit readiness: 14 months</div>
+      <div class="dash-mini reveal-slide d3">
+        <div class="dm-icon green">
+          <svg viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="#00C87A" stroke-width="1.6"/>
+            <path d="M7 10L9 12L13 8" stroke="#00C87A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="dm-label">Exit Readiness</div>
+          <div class="dm-val">Score: 71 / 100</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROCESS INTRO -->
-<section class="process-bar">
-  <div class="pb-inner">
-    <div class="pb-label">Where We Fit</div>
-    <div class="pb-steps">
-      <div class="pb-step done">
-        <div class="pbs-dot done"></div>
-        <span>You Build<br>the Business</span>
-      </div>
-      <div class="pb-line done"></div>
-      <div class="pb-step active">
-        <div class="pbs-dot active"></div>
-        <span><strong>StrataSight</strong><br>Grows the Value</span>
-      </div>
-      <div class="pb-line"></div>
-      <div class="pb-step">
-        <div class="pbs-dot"></div>
-        <span>Financial Planner<br>Handles the Exit</span>
+<!-- SIGNAL BAR -->
+<div class="signal-bar">
+  <div class="signal-inner">
+    <div class="sig-item"><span class="sig-dot"></span><span class="sig-text">Revenue Trends</span></div>
+    <div class="sig-item"><span class="sig-dot"></span><span class="sig-text">EBITDA Margins</span></div>
+    <div class="sig-item"><span class="sig-dot"></span><span class="sig-text">Cash Flow</span></div>
+    <div class="sig-item"><span class="sig-dot"></span><span class="sig-text">Customer Metrics</span></div>
+    <div class="sig-item"><span class="sig-dot"></span><span class="sig-text">Growth Rate</span></div>
+    <div class="sig-item"><span class="sig-dot"></span><span class="sig-text">Operational KPIs</span></div>
+    <div class="sig-item"><span class="sig-dot"></span><span class="sig-text">Exit Readiness</span></div>
+    <div class="sig-item"><span class="sig-dot"></span><span class="sig-text">Market Position</span></div>
+  </div>
+</div>
+
+<!-- PE CONCEPT -->
+<section class="pe-section">
+  <div class="pe-inner">
+    <div class="pe-text">
+      <span class="eyebrow reveal-up">The Methodology</span>
+      <h2 class="section-h2 reveal-up d1">Built like PE.<br><em>Not sold like it.</em></h2>
+      <p class="body-copy reveal-up d2">Private equity firms don't just buy businesses — they install rigorous data infrastructure, pressure-test every metric, and run a proven value-creation playbook for years before exit. That discipline has generated extraordinary returns for decades.</p>
+      <p class="body-copy reveal-up d3" style="margin-top:0.85rem">The playbook was never available to owner-operators. Until now. We deliver the same analytical depth and the same discipline — without requiring you to give up equity, ownership, or any piece of your exit.</p>
+      <a href="pages/about.html" class="btn btn-outline reveal-up d4">Our Approach →</a>
+    </div>
+
+    <div class="reveal-up d2">
+      <div class="pe-table-wrap">
+        <div class="pe-table-head">
+          <div class="pe-th">Standard PE Route</div>
+          <div class="pe-th active">StrataSight Route</div>
+        </div>
+        <div class="pe-row">
+          <div class="pe-cell muted">Acquires equity stake</div>
+          <div class="pe-cell active">
+            <div class="pe-cell-check">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#00C87A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Advisory only — no equity
+          </div>
+        </div>
+        <div class="pe-row">
+          <div class="pe-cell">Installs data systems</div>
+          <div class="pe-cell active">
+            <div class="pe-cell-check">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#00C87A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Installs data systems
+          </div>
+        </div>
+        <div class="pe-row">
+          <div class="pe-cell">Tracks every KPI</div>
+          <div class="pe-cell active">
+            <div class="pe-cell-check">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#00C87A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Tracks every KPI
+          </div>
+        </div>
+        <div class="pe-row">
+          <div class="pe-cell">Identifies value gaps</div>
+          <div class="pe-cell active">
+            <div class="pe-cell-check">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#00C87A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Identifies value gaps
+          </div>
+        </div>
+        <div class="pe-row">
+          <div class="pe-cell">Drives to exit</div>
+          <div class="pe-cell active">
+            <div class="pe-cell-check">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#00C87A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Drives to exit
+          </div>
+        </div>
+        <div class="pe-row">
+          <div class="pe-cell muted">Captures the upside</div>
+          <div class="pe-cell active">
+            <div class="pe-cell-check">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#00C87A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            You capture the upside
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHAT WE DO -->
+<!-- SERVICES -->
 <section class="services-section section">
   <div class="inner">
     <div class="section-header">
       <div>
-        <p class="eyebrow reveal-up">What We Do</p>
-        <h2 class="section-h2 reveal-up d1">Three disciplines.<br>One clear <em>outcome.</em></h2>
+        <span class="eyebrow reveal-up">What We Do</span>
+        <h2 class="section-h2 reveal-up d1">Three disciplines.<br><em>One clear outcome.</em></h2>
       </div>
-      <p class="section-desc reveal-up d2">Everything we do connects directly to enterprise value. No filler, no scope creep — just the work that moves the number.</p>
+      <p class="section-desc reveal-up d2">Everything we do connects directly to enterprise value. We don't do scope creep. We don't do generalist consulting. We do the specific work that moves the number.</p>
     </div>
 
     <div class="services-grid">
       <div class="svc-card reveal-up">
         <div class="svc-num">01</div>
-        <div class="svc-icon-wrap">
+        <div class="svc-icon">
           <svg viewBox="0 0 24 24" fill="none"><path d="M3 20L8 12L12 15L16 8L21 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21" cy="11" r="2" fill="var(--accent)" stroke="none"/></svg>
         </div>
-        <h3>Strategic Value Assessment</h3>
-        <p>A data-backed picture of what your business is worth today and a ranked map of every lever available to improve it. Most owners have never seen their business the way a buyer would.</p>
+        <h3>Data Infrastructure & Baseline</h3>
+        <p>We connect to your financial, operational, and customer data and build the performance dashboard PE firms build on day one of any acquisition. Most owners have never seen their business this way.</p>
         <div class="svc-tags">
-          <span>Valuation</span><span>Benchmarking</span><span>Opportunity Map</span>
+          <span>Data Connectivity</span><span>KPI Framework</span><span>Benchmarking</span>
         </div>
         <a href="pages/services.html" class="svc-link">Learn more →</a>
       </div>
 
       <div class="svc-card reveal-up d1">
         <div class="svc-num">02</div>
-        <div class="svc-icon-wrap">
+        <div class="svc-icon">
           <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="14" width="4" height="7" rx="1" stroke="currentColor" stroke-width="1.8"/><rect x="10" y="9" width="4" height="12" rx="1" stroke="currentColor" stroke-width="1.8"/><rect x="17" y="4" width="4" height="17" rx="1" stroke="currentColor" stroke-width="1.8"/></svg>
         </div>
-        <h3>Operational Efficiency</h3>
-        <p>Inefficiency shows up as margin compression and costs that don't pull their weight. We find it, quantify it, and build a ranked roadmap to fix it — tied to your actual numbers.</p>
+        <h3>Ongoing Performance Management</h3>
+        <p>Weekly and monthly reviews of every metric that matters. We surface trends, flag anomalies, track goal variance, and identify deficits before they compound — on the cadence your business actually needs.</p>
         <div class="svc-tags">
-          <span>Profitability</span><span>Cost Structure</span><span>Productivity</span>
+          <span>Weekly Reviews</span><span>Trend Analysis</span><span>Gap Detection</span>
         </div>
         <a href="pages/services.html" class="svc-link">Learn more →</a>
       </div>
 
       <div class="svc-card reveal-up d2">
         <div class="svc-num">03</div>
-        <div class="svc-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L14.5 9H21L15.5 13L17.5 19.5L12 15.5L6.5 19.5L8.5 13L3 9H9.5L12 3Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/></svg>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9H21L15.5 13.5L17.5 20.5L12 16L6.5 20.5L8.5 13.5L3 9H9.5L12 2Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/></svg>
         </div>
-        <h3>Strategic Growth Advisory</h3>
-        <p>A growth strategy built around your specific business — not borrowed frameworks. Prioritized, sequenced, and tied to real milestones you can actually hit.</p>
+        <h3>Value Growth Advisory</h3>
+        <p>We identify your highest-leverage value gaps, build a prioritized improvement roadmap, and help you execute it. EBITDA improvement, multiple expansion, exit readiness — all tied to your actual data.</p>
         <div class="svc-tags">
-          <span>Market Position</span><span>Scalability</span><span>Growth Planning</span>
+          <span>Value Gaps</span><span>EBITDA Growth</span><span>Exit Readiness</span>
         </div>
         <a href="pages/services.html" class="svc-link">Learn more →</a>
       </div>
@@ -229,122 +287,144 @@
   </div>
 </section>
 
-<!-- VALUE PROP / WHY US -->
-<section class="why-section section">
-  <div class="inner why-inner">
-    <div class="why-left">
-      <p class="eyebrow reveal-up">Why StrataSight</p>
-      <h2 class="section-h2 reveal-up d1">The analysis<br>your business<br><em>deserves.</em></h2>
-      <p class="body-copy reveal-up d2">Privately-held businesses rarely get access to the depth of strategic analysis that institutional players take for granted. We close that gap — without the overhead.</p>
-      <a href="pages/about.html" class="btn btn-outline reveal-up d3" style="margin-top:2rem">About Our Approach →</a>
+<!-- WHAT WE TRACK -->
+<section class="track-section section">
+  <div class="inner">
+    <div class="section-header">
+      <div>
+        <span class="eyebrow reveal-up">The Data Layer</span>
+        <h2 class="section-h2 reveal-up d1">What we track<br>across your business.</h2>
+      </div>
+      <p class="section-desc reveal-up d2">PE firms build comprehensive data views of every business they touch. We build the same view for yours — across financial performance, operations, customers, and exit readiness.</p>
     </div>
-    <div class="why-right">
-      <div class="pillar-list">
-        <div class="pillar reveal-up">
-          <div class="pillar-num">—</div>
-          <div>
-            <h4>Your Numbers, Not Industry Averages</h4>
-            <p>Every recommendation starts with your actual financial and operational data — not generalized frameworks loosely applied.</p>
-          </div>
-        </div>
-        <div class="pillar reveal-up d1">
-          <div class="pillar-num">—</div>
-          <div>
-            <h4>Built to Be Acted On</h4>
-            <p>Prioritized, specific deliverables designed for execution. The analysis means nothing if it doesn't go anywhere.</p>
-          </div>
-        </div>
-        <div class="pillar reveal-up d2">
-          <div class="pillar-num">—</div>
-          <div>
-            <h4>Part of a Bigger Picture</h4>
-            <p>We coordinate with your financial planner so the work we do today feeds directly into a coherent long-term strategy for your exit or next chapter.</p>
-          </div>
-        </div>
-        <div class="pillar reveal-up d3">
-          <div class="pillar-num">—</div>
-          <div>
-            <h4>Clean Scope, No Surprises</h4>
-            <p>We work at the business strategy level — valuation, operations, and growth. That focus keeps our engagements sharp from day one.</p>
-          </div>
-        </div>
+
+    <div class="track-grid">
+      <div class="track-card reveal-up">
+        <div class="track-cat">Financial</div>
+        <h4>Revenue & Growth</h4>
+        <p>Top-line trends, revenue mix, growth rate, customer concentration, and recurring vs. one-time revenue splits.</p>
+      </div>
+      <div class="track-card reveal-up d1">
+        <div class="track-cat">Financial</div>
+        <h4>EBITDA & Margins</h4>
+        <p>Gross margin, operating leverage, EBITDA trajectory, and margin compression points by segment or cost center.</p>
+      </div>
+      <div class="track-card reveal-up d2">
+        <div class="track-cat">Financial</div>
+        <h4>Cash Flow</h4>
+        <p>Operating cash flow, working capital efficiency, cash conversion cycle, and liquidity runway trends.</p>
+      </div>
+      <div class="track-card reveal-up d3">
+        <div class="track-cat">Customer</div>
+        <h4>Customer Metrics</h4>
+        <p>Acquisition cost, lifetime value, churn rate, concentration risk, and net revenue retention across your customer base.</p>
+      </div>
+      <div class="track-card reveal-up">
+        <div class="track-cat">Operations</div>
+        <h4>Operational KPIs</h4>
+        <p>Capacity utilization, labor efficiency, throughput, process cycle times, and productivity by function.</p>
+      </div>
+      <div class="track-card reveal-up d1">
+        <div class="track-cat">Strategic</div>
+        <h4>Market Position</h4>
+        <p>Competitive benchmarks, pricing power, win rates, and share-of-wallet trends relative to your addressable market.</p>
+      </div>
+      <div class="track-card reveal-up d2">
+        <div class="track-cat">Financial</div>
+        <h4>Balance Sheet Health</h4>
+        <p>Asset efficiency, debt structure, inventory turns, and working capital ratios benchmarked to industry norms.</p>
+      </div>
+      <div class="track-card reveal-up d3">
+        <div class="track-cat">Exit</div>
+        <h4>Exit Readiness Score</h4>
+        <p>Quality of earnings, financial documentation, recurring revenue percentage, management depth, and process maturity.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- METRICS STRIP -->
-<section class="metrics-strip">
-  <div class="inner">
-    <div class="metric-item reveal-up">
-      <div class="mi-val">3</div>
-      <div class="mi-label">Core disciplines:<br>Valuation · Operations · Growth</div>
-    </div>
-    <div class="metric-divider"></div>
-    <div class="metric-item reveal-up d1">
-      <div class="mi-val">100<span>%</span></div>
-      <div class="mi-label">Business-level focus.<br>No personal finance.</div>
-    </div>
-    <div class="metric-divider"></div>
-    <div class="metric-item reveal-up d2">
-      <div class="mi-val">Data<span>→</span></div>
-      <div class="mi-label">Every recommendation<br>grounded in your numbers.</div>
-    </div>
-    <div class="metric-divider"></div>
-    <div class="metric-item reveal-up d3">
-      <div class="mi-val">30<span>min</span></div>
-      <div class="mi-label">Discovery call to<br>understand your situation.</div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="process-section section">
+<!-- HOW WE WORK -->
+<section class="process-section section" style="background:var(--bg-1);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
   <div class="inner">
     <div class="section-header center">
-      <p class="eyebrow reveal-up">How It Works</p>
-      <h2 class="section-h2 reveal-up d1">From first call<br>to <em>clear direction.</em></h2>
+      <span class="eyebrow reveal-up">The Process</span>
+      <h2 class="section-h2 reveal-up d1">From first call to<br><em>ongoing clarity.</em></h2>
     </div>
     <div class="steps-grid">
       <div class="step reveal-up">
-        <div class="step-line"></div>
-        <div class="step-num-wrap"><span class="step-num">01</span></div>
-        <h4>Discovery Call</h4>
-        <p>30 minutes. We learn your business, your goals, and where the gaps are. Direct, focused — no prep work required.</p>
+        <div class="step-top">
+          <span class="step-num">01</span>
+          <div class="step-bar"></div>
+        </div>
+        <h4>Connect</h4>
+        <p>30-minute discovery call. We learn your business, your goals, and where the gaps are. No prep work required — just a conversation.</p>
       </div>
       <div class="step reveal-up d1">
-        <div class="step-line"></div>
-        <div class="step-num-wrap"><span class="step-num">02</span></div>
-        <h4>Data Collection</h4>
-        <p>Financials, metrics, and market context scoped precisely to your engagement so the analysis is complete and accurate.</p>
+        <div class="step-top">
+          <span class="step-num">02</span>
+          <div class="step-bar"></div>
+        </div>
+        <h4>Baseline</h4>
+        <p>We access your financial and operational data, build your performance dashboard, and establish the KPI framework everything runs on.</p>
       </div>
       <div class="step reveal-up d2">
-        <div class="step-line"></div>
-        <div class="step-num-wrap"><span class="step-num">03</span></div>
-        <h4>Analysis</h4>
-        <p>Rigorous modeling across value drivers and operational levers. Specific to your industry and your actual situation.</p>
+        <div class="step-top">
+          <span class="step-num">03</span>
+          <div class="step-bar"></div>
+        </div>
+        <h4>Analyze</h4>
+        <p>Ongoing weekly and monthly reviews. Trends, anomalies, goal variance, deficit identification — surfaced and explained in plain language.</p>
       </div>
       <div class="step reveal-up d3">
-        <div class="step-line active"></div>
-        <div class="step-num-wrap active"><span class="step-num">04</span></div>
-        <h4>Delivery & Roadmap</h4>
-        <p>A written report and live walkthrough. Ranked findings, specific next steps, and a roadmap you can act on immediately.</p>
+        <div class="step-top">
+          <span class="step-num active">04</span>
+          <div class="step-bar active"></div>
+        </div>
+        <h4>Execute</h4>
+        <p>A prioritized value-growth roadmap with specific initiatives, measurable milestones, and the tracking to prove what's working.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="metrics-strip">
+  <div class="inner">
+    <div class="metric-item reveal-up">
+      <div class="mi-val"><span class="green">D / W / M</span></div>
+      <div class="mi-label">Daily, weekly, and monthly<br>review cadence</div>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item reveal-up d1">
+      <div class="mi-val">8<span class="unit">+</span></div>
+      <div class="mi-label">Data categories tracked<br>across every engagement</div>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item reveal-up d2">
+      <div class="mi-val"><span class="accent">0</span><span class="unit">%</span></div>
+      <div class="mi-label">Equity required.<br>100% of the upside is yours.</div>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item reveal-up d3">
+      <div class="mi-val">30<span class="unit">min</span></div>
+      <div class="mi-label">Discovery call to understand<br>your business and goals</div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta-section">
+  <div class="cta-glow"></div>
   <div class="cta-inner">
-    <div class="cta-bg-el"></div>
-    <div class="cta-content">
-      <p class="eyebrow" style="color:rgba(255,255,255,0.5)">Ready to Start?</p>
-      <h2 class="reveal-up">See what your business<br>is <em>actually worth.</em></h2>
-      <p class="reveal-up d1">30 minutes. No commitment required. We'll tell you whether we can help — and how.</p>
-      <div class="reveal-up d2">
-        <a href="pages/contact.html" class="btn btn-white">Request an Assessment</a>
-      </div>
+    <div class="cta-text">
+      <span class="eyebrow reveal-up">Ready to Start?</span>
+      <h2 class="reveal-up d1">Know what your business<br>is <em>actually worth.</em></h2>
+      <p class="reveal-up d2">30 minutes. No commitment. We'll tell you exactly what we'd analyze, what we'd find, and whether we're the right fit — before you sign anything.</p>
+    </div>
+    <div class="cta-actions reveal-up d2">
+      <a href="pages/contact.html" class="btn btn-primary">Book a Discovery Call</a>
+      <a href="pages/services.html" class="btn btn-ghost">See Services →</a>
+      <div class="cta-note">No commitment · 30 minutes · We'll tell you if we can help</div>
     </div>
   </div>
 </section>
@@ -353,15 +433,15 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a class="logo footer-logo" href="index.html">
+      <a class="logo" href="index.html">
         <svg class="logo-mark" viewBox="0 0 28 28" fill="none">
           <rect x="1" y="1" width="26" height="26" rx="6" stroke="var(--accent)" stroke-width="1.5"/>
           <path d="M7 20 L14 8 L21 20" stroke="var(--accent)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
           <line x1="10.5" y1="15.5" x2="17.5" y2="15.5" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
-        <span>Strata<strong>Sight</strong></span>
+        StrataSight
       </a>
-      <p>Strategic advisory for privately-held businesses — value assessment, operational improvement, and growth planning.</p>
+      <p>PE-grade business analysis and value-growth advisory for founder-owned companies. No equity. No acquisition. Just the work that moves the number.</p>
     </div>
     <div class="footer-cols">
       <div class="footer-col">
@@ -373,14 +453,14 @@
       </div>
       <div class="footer-col">
         <h5>Services</h5>
-        <a href="pages/services.html">Value Assessment</a>
-        <a href="pages/services.html">Operational Efficiency</a>
-        <a href="pages/services.html">Growth Advisory</a>
+        <a href="pages/services.html">Data & Baseline</a>
+        <a href="pages/services.html">Performance Management</a>
+        <a href="pages/services.html">Value Growth Advisory</a>
       </div>
       <div class="footer-col">
         <h5>Get in Touch</h5>
         <a href="mailto:info@stratasight.net">info@stratasight.net</a>
-        <a href="pages/contact.html">Schedule a Call</a>
+        <a href="pages/contact.html">Book a Discovery Call</a>
       </div>
     </div>
   </div>
