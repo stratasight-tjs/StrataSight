@@ -1392,6 +1392,56 @@ footer {
 }
 @media (max-width: 700px) { .engage-grid { grid-template-columns: 1fr; } }
 
+/* ─── HOW WE WORK CARD ─── */
+.howwe-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.howwe-head {
+  padding: 0.9rem 1.5rem;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.howwe-item {
+  padding: 1.3rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+.howwe-step {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  padding-top: 1px;
+}
+.howwe-desc {
+  font-size: 0.83rem;
+  line-height: 1.8;
+  color: var(--text-2);
+}
+.howwe-foot {
+  padding: 0.8rem 1.5rem;
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--text-3);
+  letter-spacing: 0.06em;
+}
+
 /* ─── CONTACT PAGE ─── */
 .contact-layout {
   display: grid;
