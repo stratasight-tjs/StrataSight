@@ -13,7 +13,7 @@ Everything runs in the browser. There is no backend, database, login, analytics,
 
 ## Before you publish
 
-1. **Confirm the contact address.** `src/config/site.ts` uses `hello@stratasight.net` as a placeholder. Change it to a mailbox that exists. The same address also appears once in the `<noscript>` block of `index.html`.
+1. **Check the contact address.** The site uses `info@stratasight.net`. It is set in `src/config/site.ts` and appears once more in the `<noscript>` block of `index.html`.
 2. **Read the copy.** The site text was written from the project brief. It makes no claims about credentials, clients, pricing, or outcomes, and you should keep it that way unless a claim is true and you can support it.
 3. **Decide whether the demo should be indexed.** `demo/index.html` carries `noindex` so search engines list the main site only. Remove that tag if you want the demo to be searchable.
 
