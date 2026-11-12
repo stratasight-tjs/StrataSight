@@ -1,0 +1,97 @@
+/*
+ * StrataSight design tokens.
+ * Palette: Prussian blue (the pigment of blueprints) on cool drafting paper, with one
+ * tape-measure yellow used only as a fill for primary actions and the sight line.
+ * Type: Archivo (the technology voice: interface, headings, figures) and
+ * Source Serif 4 (the advisor's voice: prose and plain-language explanations).
+ */
+:root {
+  --prussian-950: #04121d;
+  --prussian-900: #071c2c;
+  --prussian-800: #0b2a42;
+  --prussian-700: #113a5a;
+  --prussian-600: #18507a;
+  --prussian-500: #1f6699;
+  --prussian-400: #4a8cbd;
+  --prussian-300: #86b3d6;
+  --prussian-200: #bcd5e8;
+  --prussian-100: #dfeaf3;
+  --prussian-50: #eef4f8;
+
+  --paper: #f1f4f3;
+  --paper-deep: #e6ebe9;
+  --surface: #ffffff;
+  --ink: #0c2233;
+  --ink-2: #43566a;
+  --ink-3: #586876;
+  --rule: #d5dddb;
+  --rule-soft: #e6ebe9;
+
+  --tape: #f2c230;
+  --tape-deep: #e0ae14;
+  --tape-ink: #1b1602;
+
+  /* On dark (Prussian) surfaces */
+  --on-dark: #eef4f8;
+  --on-dark-2: #b4c8d8;
+  --on-dark-3: #7f9bb0;
+  --rule-dark: rgba(190, 215, 235, 0.16);
+
+  /* Chart series, validated with the dataviz palette validator against each surface */
+  --s-maintenance: #2a6fc4;
+  --s-installations: #c67c12;
+  --s-cleanup: #1f9e84;
+  --s-snow: #8a68d4;
+  --s-maintenance-dark: #4a94e8;
+  --s-installations-dark: #c2831f;
+  --s-cleanup-dark: #22a58c;
+  --s-snow-dark: #9580e0;
+
+  /* Ordinal ramp (one hue, light to dark) for ordered things: years, funnel stages */
+  --ramp-1: #86b6ef;
+  --ramp-2: #3987e5;
+  --ramp-3: #1c5cab;
+  --ramp-4: #0d366b;
+
+  --chart-primary: #2a6fc4;
+  --chart-secondary: #1f9e84;
+  --chart-negative: #d03b3b;
+  --chart-grid: #e3e8e6;
+  --chart-axis: #c2cbc8;
+  --chart-muted: #9aa7b1;
+
+  /* Status: always paired with an icon and a label */
+  --good: #0ca30c;
+  --good-text: #0a6b1c;
+  --good-wash: #e7f5e9;
+  --warning: #fab219;
+  --warning-text: #7a5200;
+  --warning-wash: #fdf3d7;
+  --critical: #d03b3b;
+  --critical-text: #a42222;
+  --critical-wash: #fbe9e9;
+
+  --font-ui: 'Archivo Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-prose: 'Source Serif 4 Variable', 'Iowan Old Style', Georgia, serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.3125rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.375rem;
+  --text-3xl: 3.25rem;
+  --text-4xl: 4.5rem;
+
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+
+  --shadow-card: 0 1px 0 rgba(12, 34, 51, 0.04), 0 8px 24px -16px rgba(12, 34, 51, 0.25);
+  --shadow-pop: 0 2px 4px rgba(4, 18, 29, 0.08), 0 16px 40px -12px rgba(4, 18, 29, 0.35);
+
+  --ease-out: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --page-max: 1180px;
+  --gutter: clamp(20px, 5vw, 56px);
+}
