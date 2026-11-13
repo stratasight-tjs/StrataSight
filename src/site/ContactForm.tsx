@@ -47,7 +47,7 @@ export function ContactForm() {
         get('focus') ? `Primary focus area: ${get('focus')}` : '',
       ].filter((line) => line !== '');
       const body = [...details, '', get('message')].join('\n');
-      window.location.href = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = `mailto:${SITE.formRecipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       setStatus('mail-opened');
       return;
     }
