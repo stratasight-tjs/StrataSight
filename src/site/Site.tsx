@@ -153,6 +153,30 @@ const PRINCIPLES = [
   ['No promises about price', 'Our view of value is an advisory opinion, not a certified valuation. We do not promise a sale price or a guaranteed increase.'],
 ];
 
+const TEAM = [
+  {
+    initials: 'FP',
+    name: 'Founding Principal',
+    role: 'Business strategy and advisory',
+    bio: 'Two decades in financial advisory and business strategy, with a deep focus on business transitions, succession planning, and enterprise value. Has guided owners through the full lifecycle, from growth to exit.',
+    skills: ['Business strategy', 'Exit advisory', 'Value optimization'],
+  },
+  {
+    initials: 'QA',
+    name: 'Quantitative Analyst',
+    role: 'Valuation and modeling',
+    bio: 'An engineering background combined with capital markets experience. Brings the rigor of institutional investment research to business valuation and operational modeling, and turns complex data into clear, usable findings.',
+    skills: ['Financial modeling', 'Valuation', 'CFA candidate'],
+  },
+  {
+    initials: 'AS',
+    name: 'Analytics and Systems',
+    role: 'Data infrastructure',
+    bio: 'Software engineering applied to the data infrastructure that makes rigorous advisory scalable. Builds the automated analysis pipelines and operational data frameworks behind the work.',
+    skills: ['Data engineering', 'Analytics', 'Systems architecture'],
+  },
+];
+
 export function Site() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -391,6 +415,29 @@ export function Site() {
               </div>
             ))}
           </dl>
+
+          <div className="team">
+            <div className="team-head">
+              <h3 className="heading">Who is behind the analysis</h3>
+              <p>
+                StrataSight was formed by a team with complementary expertise in business strategy, quantitative
+                analysis, and data infrastructure.
+              </p>
+            </div>
+            <ul className="team-grid">
+              {TEAM.map((member) => (
+                <li key={member.name}>
+                  <span className="team-initials" aria-hidden>
+                    {member.initials}
+                  </span>
+                  <strong className="heading">{member.name}</strong>
+                  <span className="team-role">{member.role}</span>
+                  <p>{member.bio}</p>
+                  <span className="team-skills">{member.skills.join(' · ')}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         <section className="section contact" id="contact">

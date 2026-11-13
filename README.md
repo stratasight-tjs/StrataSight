@@ -4,18 +4,19 @@ A static site with two parts:
 
 | Part | URL | What it is |
 | --- | --- | --- |
-| Public website | `/` | Who StrataSight is, what an engagement involves, how to get in touch. The hero chart is live and interactive. |
+| Public website | `/` | What StrataSight does, the three services, who it is for, and how to get in touch. |
 | Platform demo | `/demo/` | An interactive preview of the advisory platform, driven by a synthetic dataset for one fictional company. |
 
-Everything runs in the browser. There is no backend, database, login, analytics, or third-party request. Fonts are bundled with the site.
+Everything runs in the browser. There is no backend, database, login, or analytics. Fonts are bundled with the site. The only third-party request is the contact form, and only once a hosted form endpoint is set (see below).
 
 > **All data is fictional.** The figures describe Aster Ridge Property Services (DEMO), a made-up landscaping company. See `docs/DATA_DICTIONARY.md`. Nothing in the demo is client data, a financial statement, or evidence of StrataSight results.
 
 ## Before you publish
 
 1. **Check the contact address.** The site uses `info@stratasight.net`. It is set in `src/config/site.ts` and appears once more in the `<noscript>` block of `index.html`.
-2. **Read the copy.** The site text was written from the project brief. It makes no claims about credentials, clients, pricing, or outcomes, and you should keep it that way unless a claim is true and you can support it.
-3. **Decide whether the demo should be indexed.** `demo/index.html` carries `noindex` so search engines list the main site only. Remove that tag if you want the demo to be searchable.
+2. **Connect the contact form.** Create a form at Formspree that delivers to the contact address, then paste its endpoint into `formEndpoint` in `src/config/site.ts`. Until then the form opens the visitor's own mail app.
+3. **Read the copy.** The site makes no claims about clients, pricing, or outcomes. The team descriptions in the About section state experience and credentials, so check that each one is accurate before relying on the site.
+4. **Decide whether the demo should be indexed.** `demo/index.html` carries `noindex` so search engines list the main site only. Remove that tag if you want the demo to be searchable.
 
 ## Run it locally
 

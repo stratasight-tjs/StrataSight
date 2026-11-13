@@ -1,147 +1,201 @@
-import { useEffect, useMemo, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
-import { area as d3area, curveMonotoneX } from 'd3-shape';
-import { RECORDS } from '../lib/dataset';
-import { SERVICE_LINES, SERVICE_LINE_LABEL } from '../lib/types';
-import { periodLabel, usd } from '../lib/format';
-import { LINE_COLOR_DARK } from '../charts/palette';
+import { useEffect, useReducer, useRef, useState, type PointerEvent, type ReactNode } from 'react';
+import { area as d3area, curveMonotoneX, line as d3line } from 'd3-shape';
 import { useWidth } from '../charts/useSize';
 
+/** What each layer stands for, from the surface down. A buyer reads a company in roughly this order. */
+const LAYERS = [
+  { name: 'Revenue', note: 'How much comes in, and how steadily' },
+  { name: 'Recurring work', note: 'How much of next year is already sold' },
+  { name: 'Margins', note: 'What is left after the work is done' },
+  { name: 'Customer mix', note: 'How much depends on a few accounts' },
+  { name: 'Cash', note: 'How quickly sales turn into money in the bank' },
+  { name: 'Team depth', note: 'Who can run it day to day' },
+  { name: 'Owner dependence', note: 'How much still runs through you' },
+];
+const COUNT = LAYERS.length;
+const SAMPLES = 64;
+const TS = Array.from({ length: SAMPLES + 1 }, (_, i) => i / SAMPLES);
+/** How much the layer under the pointer thickens, and how much every layer opens up over the first screen of scroll. */
+const HOVER_GROWTH = 1.3;
+const SCROLL_GROWTH = 0.34;
+
 /**
- * The hero: 46 months of the demo company's revenue drawn as strata.
- * The visitor moves a sight line across it to read what sits under the top line in any month.
- * Every figure comes from the bundled CSV.
+ * Top edge of layer k at horizontal position t (0 to 1), as a fraction of the plot height.
+ * The layers rise and thicken toward the right. This is a drawing, not data.
+ * k = COUNT is the floor under the last layer, just below the plot.
+ */
+function profile(k: number, t: number) {
+  if (k === COUNT) return 1.08;
+  const depth = k / (COUNT - 1);
+  const base = 0.46 + depth * 0.46;
+  const rise = 0.3 * t * t * (1 - depth * 0.55);
+  const fold = 0.034 * Math.sin(t * 5.2 + k * 0.55) + 0.018 * Math.sin(t * 11.3 + k * 1.7);
+  return base - rise - fold * (1 - depth * 0.4);
+}
+
+interface Motion {
+  /** 0 to 1 per layer: how far it has opened toward the pointer. */
+  open: number[];
+  /** Pointer position across the width, 0 to 1. */
+  x: number;
+  /** Scroll progress through the first screen, 0 to 1. */
+  scroll: number;
+}
+
+/** The y position of every layer edge (COUNT + 1 of them) at horizontal position t. */
+function edgesAt(t: number, height: number, m: Motion) {
+  const distance = (t - m.x) / 0.16;
+  const near = 0.35 + 0.65 * Math.exp(-0.5 * distance * distance);
+  const thickness: number[] = [];
+  let extra = 0;
+  for (let k = 0; k < COUNT; k++) {
+    const rest = height * (profile(k + 1, t) - profile(k, t));
+    const grown = rest * (1 + SCROLL_GROWTH * m.scroll) * (1 + HOVER_GROWTH * m.open[k] * near);
+    thickness.push(grown);
+    extra += grown - rest;
+  }
+  // Most of the added thickness pushes upward, so the stack swells instead of sinking out of view.
+  const edges = [height * profile(0, t) - extra * 0.6];
+  for (let k = 0; k < COUNT; k++) edges.push(edges[k] + thickness[k]);
+  return edges;
+}
+
+/**
+ * The hero: layered strata that open up as the page scrolls and where the pointer rests.
+ * The layer under the pointer thickens and names what it stands for. No data is shown.
  */
 export function StrataHero({ children }: { children: ReactNode }) {
   const [ref, width] = useWidth<HTMLDivElement>();
-  const n = RECORDS.length;
-  const [active, setActive] = useState(n - 1);
   const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setRevealed(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
+  const [, redraw] = useReducer((n: number) => n + 1, 0);
+  const motion = useRef<Motion>({ open: LAYERS.map(() => 0), x: 0.7, scroll: 0 });
+  const target = useRef({ layer: -1, x: 0.7, scroll: 0 });
+  const frame = useRef(0);
+  const reducedMotion = useRef(false);
 
   const compact = width < 640;
-  const height = compact ? 200 : Math.min(340, Math.max(240, width * 0.22));
-  const top = 30;
+  const height = compact ? 210 : Math.round(Math.min(400, Math.max(280, width * 0.27)));
+  // On wide screens the strata climb up behind the empty right side of the copy.
+  const overlap = width >= 900 ? Math.round(height * 0.34) : 0;
 
-  const geometry = useMemo(() => {
-    const max = Math.max(...RECORDS.map((r) => r.totalRevenue)) * 1.06;
-    const x = (i: number) => (i / (n - 1)) * width;
-    const y = (v: number) => top + (1 - v / max) * (height - top);
-    // cumulative[k][i] is the top of layer k at month i
-    const cumulative: number[][] = [];
-    SERVICE_LINES.forEach((key, k) => {
-      cumulative.push(RECORDS.map((r, i) => (k === 0 ? 0 : cumulative[k - 1][i]) + r.revenue[key]));
-    });
-    const paths = SERVICE_LINES.map((key, k) => {
-      const lower = k === 0 ? RECORDS.map(() => 0) : cumulative[k - 1];
-      const gen = d3area<number>()
-        .x((_, i) => x(i))
-        .y0((_, i) => y(lower[i]))
-        .y1((v) => y(v))
-        .curve(curveMonotoneX);
-      return { key, d: gen(cumulative[k]) ?? '' };
-    });
-    return { x, y, cumulative, paths };
-  }, [width, height, n]);
-
-  const record = RECORDS[active];
-  const sightX = geometry.x(active);
-
-  const onMove = (event: PointerEvent<SVGSVGElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const index = Math.round(((event.clientX - bounds.left) / bounds.width) * (n - 1));
-    setActive(Math.max(0, Math.min(n - 1, index)));
+  const tick = () => {
+    const m = motion.current;
+    const goal = target.current;
+    const rate = reducedMotion.current ? 1 : 0.14;
+    let moving = false;
+    const ease = (from: number, to: number) => {
+      const gap = to - from;
+      if (Math.abs(gap) < 0.002) return to;
+      moving = true;
+      return from + gap * rate;
+    };
+    m.open = m.open.map((value, k) => ease(value, k === goal.layer ? 1 : 0));
+    m.x = ease(m.x, goal.x);
+    m.scroll = ease(m.scroll, goal.scroll);
+    frame.current = moving ? requestAnimationFrame(tick) : 0;
+    redraw();
+  };
+  const tickRef = useRef(tick);
+  tickRef.current = tick;
+  const wake = () => {
+    if (!frame.current) frame.current = requestAnimationFrame(() => tickRef.current());
   };
 
-  const onKey = (event: KeyboardEvent<SVGSVGElement>) => {
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-      event.preventDefault();
-      setActive((i) => Math.max(0, Math.min(n - 1, i + (event.key === 'ArrowRight' ? 1 : -1))));
+  useEffect(() => {
+    reducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const id = requestAnimationFrame(() => setRevealed(true));
+    const onScroll = () => {
+      target.current.scroll = Math.max(0, Math.min(1, window.scrollY / (window.innerHeight * 0.8)));
+      wake();
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(id);
+      cancelAnimationFrame(frame.current);
+    };
+  }, []);
+
+  const onPoint = (event: PointerEvent<HTMLDivElement>) => {
+    const plot = ref.current;
+    if (!plot || width === 0) return;
+    const bounds = plot.getBoundingClientRect();
+    const t = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
+    const y = event.clientY - bounds.top;
+    const edges = edgesAt(t, height, motion.current);
+    let layer = -1;
+    for (let k = 0; k < COUNT; k++) if (y >= edges[k] && y < edges[k + 1]) layer = k;
+    target.current.layer = layer;
+    if (layer >= 0) target.current.x = t;
+    wake();
+  };
+
+  const onLeave = (event: PointerEvent<HTMLDivElement>) => {
+    // A touch keeps its layer open after the finger lifts. A mouse closes it on the way out.
+    if (event.pointerType === 'mouse') {
+      target.current.layer = -1;
+      wake();
     }
   };
 
-  return (
-    <>
-      <div className="hero-grid">
-        {children}
-        <div className="strata-readout" role="status">
-          <div className="strata-readout-head">
-            <span>{periodLabel(record.period, true)}</span>
-            <span className="demo-tag">Demo data</span>
-          </div>
-          <div className="strata-topline">
-            <span>Top line</span>
-            <strong>{usd(record.totalRevenue)}</strong>
-          </div>
-          <ul>
-            {[...SERVICE_LINES].reverse().map((key) => (
-              <li key={key}>
-                <span className="legend-key legend-key-rect" style={{ background: LINE_COLOR_DARK[key] }} />
-                <span>{SERVICE_LINE_LABEL[key]}</span>
-                <span className="tabular">{usd(record.revenue[key])}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="strata-hint">Move across the chart to read any month. Aster Ridge Property Services is a fictional company.</p>
-        </div>
-      </div>
+  const m = motion.current;
+  const columns = TS.map((t) => edgesAt(t, height, m));
+  const x = (i: number) => TS[i] * width;
+  const edge = d3line<number>().curve(curveMonotoneX);
+  const band = d3area<number>().curve(curveMonotoneX);
+  const index = TS.map((_, i) => i);
 
-      <figure className="strata" aria-label="Interactive chart of demonstration data">
-      <div className="strata-plot" ref={ref} style={{ height }}>
+  // Label for the open layer, centered in it near the pointer and kept clear of the page edges.
+  const pad = compact ? 96 : 190;
+  const labelX = Math.max(pad, Math.min(width - pad, m.x * width));
+  const labelEdges = edgesAt(width > 0 ? labelX / width : 0, height, m);
+
+  return (
+    <div className="hero-stage" onPointerMove={onPoint} onPointerDown={onPoint} onPointerLeave={onLeave}>
+      <div className="hero-grid">{children}</div>
+
+      <div className="strata" ref={ref} style={{ height, marginTop: -overlap }} aria-hidden>
         {width > 0 && (
-          <svg
-            width={width}
-            height={height}
-            className={revealed ? 'is-revealed' : ''}
-            role="img"
-            tabIndex={0}
-            aria-label={`Monthly revenue of a fictional landscaping company by service line, January 2023 to October 2026. Selected month: ${periodLabel(record.period, true)}, total ${usd(record.totalRevenue)}. Use the left and right arrow keys to move between months.`}
-            onPointerMove={onMove}
-            onPointerDown={onMove}
-            onKeyDown={onKey}
-            style={{ touchAction: 'pan-y' }}
-          >
+          <svg width={width} height={height} className={revealed ? 'is-revealed' : ''} focusable="false">
             <defs>
               <clipPath id="strata-reveal">
-                <rect className="strata-reveal-rect" x="0" y="0" width={width} height={height} />
+                <rect className="strata-reveal-rect" x="0" y={-height} width={width} height={height * 2} />
               </clipPath>
             </defs>
 
-            {RECORDS.map((r, i) =>
-              r.month === 1 ? (
-                <g key={r.period}>
-                  <line x1={geometry.x(i)} x2={geometry.x(i)} y1={top - 8} y2={height} className="strata-year-rule" />
-                  <text x={geometry.x(i) + 8} y={top - 12} className="strata-year">
-                    {r.year}
-                  </text>
-                </g>
-              ) : null,
-            )}
-
             <g clipPath="url(#strata-reveal)">
-              {geometry.paths.map((p) => (
-                <path key={p.key} d={p.d} style={{ fill: LINE_COLOR_DARK[p.key] }} className="strata-layer" />
-              ))}
-            </g>
-
-            <g className="strata-sight">
-              <line x1={sightX} x2={sightX} y1={top - 16} y2={height} />
-              {geometry.cumulative.map((layer, k) =>
-                RECORDS[active].revenue[SERVICE_LINES[k]] > 0 ? (
-                  <circle key={k} cx={sightX} cy={geometry.y(layer[active])} r={3.5} />
-                ) : null,
-              )}
+              {LAYERS.map((layer, k) => {
+                const open = m.open[k];
+                band.x((i) => x(i)).y1((i) => columns[i][k]).y0((i) => Math.min(columns[i][k + 1], height + 2));
+                edge.x((i) => x(i)).y((i) => columns[i][k]);
+                const middle = (labelEdges[k] + Math.min(labelEdges[k + 1], height)) / 2;
+                return (
+                  <g key={layer.name} className={open > 0.5 ? 'strata-band is-open' : 'strata-band'}>
+                    <path d={band(index) ?? ''} className="strata-fill" style={{ opacity: 0.14 + k * 0.085 + open * 0.2 }} />
+                    <path d={edge(index) ?? ''} className="strata-edge" style={{ opacity: 0.8 - k * 0.08 + open * 0.2 }} />
+                    {open > 0.02 && (
+                      <text x={labelX} y={middle} className="strata-label" style={{ opacity: open }}>
+                        <tspan className="strata-label-name" x={labelX} dy={compact ? '0.35em' : '-0.4em'}>
+                          {layer.name}
+                        </tspan>
+                        {!compact && (
+                          <tspan x={labelX} dy="1.45em">
+                            {layer.note}
+                          </tspan>
+                        )}
+                      </text>
+                    )}
+                  </g>
+                );
+              })}
             </g>
           </svg>
         )}
       </div>
-      <figcaption className="visually-hidden">
-        Move across the chart to read any month. Aster Ridge Property Services is a fictional company used for demonstration.
-      </figcaption>
-      </figure>
-    </>
+      <p className="visually-hidden">
+        The drawing shows the layers a buyer looks through in a company: {LAYERS.map((layer) => layer.name.toLowerCase()).join(', ')}.
+      </p>
+    </div>
   );
 }

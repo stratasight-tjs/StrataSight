@@ -11,29 +11,61 @@ const FOCUS_AREAS = [
   'Not sure yet',
 ];
 
+type Status = 'idle' | 'sending' | 'sent' | 'failed' | 'mail-opened';
+
+const NOTE: Record<Status, string> = {
+  idle: SITE.formEndpoint
+    ? 'Your message goes to StrataSight through a hosted form service. This site stores nothing.'
+    : 'This opens your own email app with the message filled in. The website itself sends and stores nothing.',
+  sending: 'Sending your message.',
+  sent: 'Thank you. Your message has been sent and we will reply to arrange a call.',
+  failed: `The message could not be sent. Please write to ${SITE.contactEmail} instead.`,
+  'mail-opened': `Your email app should now be open with the message filled in. If it did not open, write to ${SITE.contactEmail}.`,
+};
+
 /**
- * A static site cannot receive form posts, so this form builds an email in the
- * visitor's own mail app. Nothing is transmitted or stored by the page itself.
+ * A static site cannot receive form posts. When SITE.formEndpoint is set, the form posts
+ * to that hosted service. Otherwise it builds an email in the visitor's own mail app.
  */
 export function ContactForm() {
-  const [opened, setOpened] = useState(false);
+  const [status, setStatus] = useState<Status>('idle');
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const data = new FormData(form);
     const get = (key: string) => String(data.get(key) ?? '').trim();
     const name = `${get('firstName')} ${get('lastName')}`.trim();
-    const details = [
-      `Name: ${name}`,
-      `Email: ${get('email')}`,
-      `Company: ${get('company')}`,
-      get('revenue') ? `Approximate annual revenue: ${get('revenue')}` : '',
-      get('focus') ? `Primary focus area: ${get('focus')}` : '',
-    ].filter((line) => line !== '');
-    const body = [...details, '', get('message')].join('\n');
     const subject = `Discovery call request from ${get('company') || name}`;
-    window.location.href = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setOpened(true);
+
+    if (!SITE.formEndpoint) {
+      const details = [
+        `Name: ${name}`,
+        `Email: ${get('email')}`,
+        `Company: ${get('company')}`,
+        get('revenue') ? `Approximate annual revenue: ${get('revenue')}` : '',
+        get('focus') ? `Primary focus area: ${get('focus')}` : '',
+      ].filter((line) => line !== '');
+      const body = [...details, '', get('message')].join('\n');
+      window.location.href = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      setStatus('mail-opened');
+      return;
+    }
+
+    data.set('_subject', subject);
+    setStatus('sending');
+    try {
+      const response = await fetch(SITE.formEndpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: data,
+      });
+      if (!response.ok) throw new Error(`Form service answered ${response.status}`);
+      form.reset();
+      setStatus('sent');
+    } catch {
+      setStatus('failed');
+    }
   };
 
   return (
@@ -82,14 +114,14 @@ export function ContactForm() {
         <span>Tell us about your business and what you are trying to accomplish</span>
         <textarea name="message" rows={4} required />
       </label>
+      {/* Spam trap read by the form service. People never see or fill it. */}
+      <input className="visually-hidden" name="_gotcha" type="text" tabIndex={-1} autoComplete="off" aria-hidden />
       <div className="contact-actions">
-        <button type="submit" className="btn btn-solid">
-          Write the email
+        <button type="submit" className="btn btn-solid" disabled={status === 'sending'}>
+          {SITE.formEndpoint ? 'Send message' : 'Write the email'}
         </button>
         <p className="contact-note" role="status">
-          {opened
-            ? `Your email app should now be open with the message filled in. If it did not open, write to ${SITE.contactEmail}.`
-            : 'This opens your own email app with the message filled in. The website itself sends and stores nothing.'}
+          {NOTE[status]}
         </p>
       </div>
     </form>

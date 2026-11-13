@@ -12,7 +12,7 @@ dist/
   404.html, CNAME, favicon.svg, robots.txt, .nojekyll
 ```
 
-Both entries share the data layer, the chart components, and the design tokens. The public site imports a small part of the demo's capability (the hero chart, the question cards, the live preview panel) so the marketing page and the product preview can never disagree about a number.
+Both entries share the data layer, the chart components, and the design tokens. The public site imports a small part of the demo's capability (the question cards and the live preview panel) so the marketing page and the product preview can never disagree about a number.
 
 ## Layers
 
@@ -52,7 +52,7 @@ src/site/  and  src/demo/     compose data + charts into pages and views
 
 `CartesianChart` covers line, stacked-column, and single-series column charts on a shared layout: nice y ticks from `d3-scale`, thinned x ticks, a crosshair or band highlight, a tooltip that lists every series, arrow-key navigation, and optional review-flag markers. Smaller figures (stat tile, ranked bars, segmented bar, heatmap, funnel, sparkline) live in `figures.tsx`. `ChartCard` wraps any of them with a title, legend, and a table view of the same data.
 
-The hero chart on the public site (`src/site/StrataHero.tsx`) is separate because it is a smoothed stacked area with its own sight-line interaction.
+The hero on the public site (`src/site/StrataHero.tsx`) is not a chart. It is a drawing of layered strata that open up as the page scrolls and under the pointer, where the open layer names what it stands for. It shows no data.
 
 ## Toward the real platform
 

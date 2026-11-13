@@ -71,13 +71,18 @@
 }
 
 .hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 40px;
-  align-items: end;
+  position: relative;
+  z-index: 1;
   max-width: calc(var(--page-max) + 2 * var(--gutter));
   margin: 0 auto;
   padding: clamp(28px, 4.5vw, 64px) var(--gutter) clamp(20px, 3vw, 36px);
+  /* Let the pointer reach the stage behind the copy. Links and buttons opt back in. */
+  pointer-events: none;
+}
+
+.hero-grid a,
+.hero-grid button {
+  pointer-events: auto;
 }
 
 .hero-copy h1 {
@@ -101,31 +106,44 @@
   margin-top: 32px;
 }
 
-/* ---------- Strata chart ---------- */
+/* ---------- Strata ---------- */
 
 .strata {
   position: relative;
-  margin-top: clamp(8px, 2vw, 24px);
-}
-
-.strata-plot {
-  position: relative;
   width: 100%;
+  pointer-events: none;
 }
 
-.strata-plot svg {
+.strata svg {
   display: block;
-  cursor: crosshair;
+  overflow: visible;
 }
 
-.strata-plot svg:focus-visible {
-  outline-offset: -3px;
+.strata-fill {
+  fill: var(--prussian-600);
 }
 
-.strata-layer {
-  stroke: rgba(4, 18, 29, 0.55);
-  stroke-width: 1.5;
-  stroke-linejoin: round;
+.strata-band.is-open .strata-fill {
+  fill: var(--prussian-500);
+}
+
+.strata-edge {
+  fill: none;
+  stroke: var(--prussian-300);
+  stroke-width: 1.25;
+}
+
+.strata-label {
+  fill: var(--on-dark-2);
+  font-size: 13px;
+  text-anchor: middle;
+}
+
+.strata-label-name {
+  fill: var(--on-dark);
+  font-size: 15px;
+  font-weight: 640;
+  font-stretch: 110%;
 }
 
 .strata-reveal-rect {
@@ -136,98 +154,6 @@
 
 .is-revealed .strata-reveal-rect {
   transform: scaleX(1);
-}
-
-.strata-year-rule {
-  stroke: var(--rule-dark);
-  stroke-width: 1;
-}
-
-.strata-year {
-  fill: var(--on-dark-3);
-  font-size: 12px;
-  font-weight: 560;
-  font-variant-numeric: tabular-nums;
-}
-
-.strata-sight {
-  opacity: 0;
-  transition: opacity 0.4s 1.2s;
-}
-
-.is-revealed .strata-sight {
-  opacity: 1;
-}
-
-.strata-sight line {
-  stroke: var(--tape);
-  stroke-width: 1.5;
-}
-
-.strata-sight circle {
-  fill: var(--tape);
-  stroke: var(--prussian-900);
-  stroke-width: 2;
-}
-
-.strata-readout {
-  padding: 16px 18px;
-  background: rgba(4, 18, 29, 0.6);
-  border: 1px solid var(--rule-dark);
-  border-radius: var(--radius);
-  font-size: var(--text-sm);
-}
-
-.strata-readout-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  color: var(--on-dark-2);
-  font-weight: 560;
-}
-
-.strata-topline {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin: 10px 0 8px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--rule-dark);
-}
-
-.strata-topline span {
-  color: var(--tape);
-  font-weight: 600;
-}
-
-.strata-topline strong {
-  font-size: 1.375rem;
-  font-weight: 640;
-  letter-spacing: -0.02em;
-}
-
-.strata-readout li {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 8px;
-  line-height: 1.75;
-  color: var(--on-dark-2);
-}
-
-.strata-readout li span:last-child {
-  color: var(--on-dark);
-  font-weight: 560;
-}
-
-.strata-hint {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--rule-dark);
-  color: var(--on-dark-3);
-  font-size: var(--text-xs);
-  line-height: 1.5;
 }
 
 /* ---------- Sections ---------- */
@@ -752,6 +678,83 @@
   color: var(--ink-2);
 }
 
+/* Team */
+.team {
+  margin-top: clamp(40px, 6vw, 72px);
+}
+
+.team-head {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.team-head h3 {
+  font-size: var(--text-xl);
+}
+
+.team-head p {
+  max-width: 62ch;
+  color: var(--ink-2);
+  font-family: var(--font-prose);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.team-grid li {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.team-initials {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: var(--prussian-800);
+  color: var(--on-dark);
+  font-weight: 650;
+  font-stretch: 110%;
+}
+
+.team-grid strong {
+  font-size: var(--text-lg);
+}
+
+.team-role {
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+  font-weight: 620;
+}
+
+.team-grid p {
+  margin-top: 8px;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+.team-skills {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule-soft);
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+
 /* Contact */
 .contact {
   display: grid;
@@ -927,6 +930,7 @@
   .jobs,
   .contact,
   .service,
+  .team-grid,
   .section-head,
   .section-aside {
     grid-template-columns: 1fr;
