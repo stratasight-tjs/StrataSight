@@ -1,6 +1,16 @@
 import { useState, type FormEvent } from 'react';
 import { SITE } from '../config/site';
 
+const REVENUE_RANGES = ['Under $1M', '$1M to $5M', '$5M to $15M', '$15M to $50M', '$50M or more', 'Prefer not to say'];
+
+const FOCUS_AREAS = [
+  'Strategic Value Assessment',
+  'Operational Efficiency',
+  'Strategic Growth Advisory',
+  'Preparing for a sale or transition',
+  'Not sure yet',
+];
+
 /**
  * A static site cannot receive form posts, so this form builds an email in the
  * visitor's own mail app. Nothing is transmitted or stored by the page itself.
@@ -12,15 +22,17 @@ export function ContactForm() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const get = (key: string) => String(data.get(key) ?? '').trim();
-    const lines = [
-      `Name: ${get('name')}`,
-      `Business: ${get('business')}`,
-      get('phone') ? `Phone: ${get('phone')}` : '',
-      '',
-      get('message'),
-    ].filter((line, index) => line !== '' || index === 3);
-    const subject = `Conversation request from ${get('business') || get('name')}`;
-    window.location.href = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+    const name = `${get('firstName')} ${get('lastName')}`.trim();
+    const details = [
+      `Name: ${name}`,
+      `Email: ${get('email')}`,
+      `Company: ${get('company')}`,
+      get('revenue') ? `Approximate annual revenue: ${get('revenue')}` : '',
+      get('focus') ? `Primary focus area: ${get('focus')}` : '',
+    ].filter((line) => line !== '');
+    const body = [...details, '', get('message')].join('\n');
+    const subject = `Discovery call request from ${get('company') || name}`;
+    window.location.href = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setOpened(true);
   };
 
@@ -28,22 +40,46 @@ export function ContactForm() {
     <form className="contact-form" onSubmit={onSubmit}>
       <div className="field-row">
         <label className="field">
-          <span>Your name</span>
-          <input name="name" type="text" autoComplete="name" required />
+          <span>First name</span>
+          <input name="firstName" type="text" autoComplete="given-name" required />
         </label>
         <label className="field">
-          <span>Business name</span>
-          <input name="business" type="text" autoComplete="organization" required />
+          <span>Last name</span>
+          <input name="lastName" type="text" autoComplete="family-name" required />
+        </label>
+      </div>
+      <div className="field-row">
+        <label className="field">
+          <span>Work email</span>
+          <input name="email" type="email" autoComplete="email" required />
+        </label>
+        <label className="field">
+          <span>Company name</span>
+          <input name="company" type="text" autoComplete="organization" required />
+        </label>
+      </div>
+      <div className="field-row">
+        <label className="field">
+          <span>Approximate annual revenue</span>
+          <select name="revenue" defaultValue="">
+            <option value="">Select a range</option>
+            {REVENUE_RANGES.map((range) => (
+              <option key={range}>{range}</option>
+            ))}
+          </select>
+        </label>
+        <label className="field">
+          <span>Primary focus area</span>
+          <select name="focus" defaultValue="">
+            <option value="">Select a focus area</option>
+            {FOCUS_AREAS.map((area) => (
+              <option key={area}>{area}</option>
+            ))}
+          </select>
         </label>
       </div>
       <label className="field">
-        <span>
-          Phone <em>(optional)</em>
-        </span>
-        <input name="phone" type="tel" autoComplete="tel" />
-      </label>
-      <label className="field">
-        <span>What would you like to understand better about your business?</span>
+        <span>Tell us about your business and what you are trying to accomplish</span>
         <textarea name="message" rows={4} required />
       </label>
       <div className="contact-actions">

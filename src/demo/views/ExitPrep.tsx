@@ -35,7 +35,7 @@ export function ExitPrep() {
       />
 
       <Callout title="What this page is and is not" tone="caution">
-        StrataSight does not value, appraise, or sell businesses, and nothing here is a valuation, a multiple, or a readiness score. This page shows how an organized history could be assembled for the financial and exit-strategy professionals an owner chooses.
+        The sample data cannot support an opinion of value, so nothing here is a valuation, a multiple, or a readiness score. This page shows how an organized history could be assembled for the exit partner who handles the sale.
       </Callout>
 
       <ChartCard

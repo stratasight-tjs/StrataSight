@@ -270,6 +270,139 @@
   font-size: clamp(1.75rem, 3.6vw, 2.75rem);
 }
 
+.prose p + p {
+  margin-top: 1em;
+}
+
+/* Where we fit: three stages, ours marked with the accent fill. */
+.fit {
+  max-width: calc(var(--page-max) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: clamp(32px, 4vw, 52px) var(--gutter) 0;
+}
+
+.fit-title {
+  margin-bottom: 14px;
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+  font-weight: 620;
+}
+
+.fit ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.fit li {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 20px 24px 24px;
+  border-top: 3px solid var(--rule);
+}
+
+.fit li.is-us {
+  border-top-color: var(--tape);
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.fit-stage {
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+  font-weight: 580;
+}
+
+.fit li strong {
+  font-size: var(--text-lg);
+}
+
+.fit-body {
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+/* Services */
+.services {
+  border-top: 2px solid var(--ink);
+}
+
+.service {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(24px, 5vw, 72px);
+  padding: clamp(28px, 4vw, 48px) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.service-main {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+.service-number {
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+  font-weight: 620;
+}
+
+.service h3 {
+  font-size: var(--text-xl);
+}
+
+.service-main p {
+  max-width: 62ch;
+  font-family: var(--font-prose);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.service-included {
+  align-self: start;
+  padding: 22px 24px 14px;
+  background: var(--surface);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.service-included h4 {
+  margin-bottom: 10px;
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+  font-weight: 620;
+}
+
+.service-included li {
+  display: grid;
+  grid-template-columns: 15px 1fr;
+  gap: 10px;
+  padding: 9px 0;
+  border-top: 1px solid var(--rule-soft);
+  line-height: 1.45;
+}
+
+.service-included li svg {
+  margin-top: 3px;
+  color: var(--prussian-500);
+}
+
+/* Who it is for */
+.who-list {
+  border-top: 2px solid var(--ink);
+}
+
+.who-list li {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--font-prose);
+  font-size: 1.1875rem;
+  line-height: 1.45;
+}
+
 /* Questions */
 .questions {
   display: grid;
@@ -683,8 +816,10 @@
 }
 
 .field input,
+.field select,
 .field textarea {
   width: 100%;
+  min-height: 44px;
   padding: 11px 12px;
   border: 1px solid var(--rule);
   border-radius: var(--radius-sm);
@@ -699,6 +834,7 @@
 }
 
 .field input:focus,
+.field select:focus,
 .field textarea:focus {
   outline: 2px solid var(--prussian-500);
   outline-offset: 0;
@@ -790,6 +926,7 @@
 
   .jobs,
   .contact,
+  .service,
   .section-head,
   .section-aside {
     grid-template-columns: 1fr;
@@ -843,10 +980,15 @@
 
 @media (max-width: 640px) {
   .questions,
+  .fit ol,
   .job-ours ul,
   .field-row,
   .footer-inner {
     grid-template-columns: 1fr;
+  }
+
+  .fit li {
+    padding: 16px 16px 20px;
   }
 
   .question,
