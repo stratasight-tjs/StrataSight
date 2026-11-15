@@ -153,27 +153,26 @@ const PRINCIPLES = [
   ['No promises about price', 'Our view of value is an advisory opinion, not a certified valuation. We do not promise a sale price or a guaranteed increase.'],
 ];
 
+// Role cards, not names. Facts come from each person's own background; nothing here claims client results,
+// small-business advisory track records, or StrataSight titles. Other employers and firms are not named.
 const TEAM = [
   {
-    initials: 'FP',
-    name: 'Founding Principal',
-    role: 'Business strategy and advisory',
-    bio: 'Two decades in financial advisory and business strategy, with a deep focus on business transitions, succession planning, and enterprise value. Has guided owners through the full lifecycle, from growth to exit.',
-    skills: ['Business strategy', 'Exit advisory', 'Value optimization'],
+    name: 'Owner planning',
+    role: 'Transition, retirement, and estate planning',
+    bio: 'More than 20 years in financial services, starting in banking before moving into financial planning. Works with owners nearing retirement on retirement, estate, and legacy planning, and is used to coordinating with tax and legal professionals.',
+    skills: ['Certified Business Exit Consultant', 'Estate and legacy planning', 'Finance degree'],
   },
   {
-    initials: 'QA',
-    name: 'Quantitative Analyst',
-    role: 'Valuation and modeling',
-    bio: 'An engineering background combined with capital markets experience. Brings the rigor of institutional investment research to business valuation and operational modeling, and turns complex data into clear, usable findings.',
-    skills: ['Financial modeling', 'Valuation', 'CFA candidate'],
+    name: 'Valuation and exit',
+    role: 'Valuation, exit planning, and acquisitions',
+    bio: 'An electrical engineering background and a CFA charter, with completed training in exit planning and in mergers and acquisitions. Has evaluated acquisition opportunities and supported integration after a purchase, and brings an analyst’s discipline to valuation and modeling.',
+    skills: ['CFA charterholder', 'Certified Exit Planning Advisor', 'Certified M&A Advisor'],
   },
   {
-    initials: 'AS',
-    name: 'Analytics and Systems',
-    role: 'Data infrastructure',
-    bio: 'Software engineering applied to the data infrastructure that makes rigorous advisory scalable. Builds the automated analysis pipelines and operational data frameworks behind the work.',
-    skills: ['Data engineering', 'Analytics', 'Systems architecture'],
+    name: 'Platform and data',
+    role: 'Software and analysis',
+    bio: 'A software engineer in the aerospace industry who builds backend services, real-time dashboards, and automated analysis tools, after earlier work in data analysis. Builds the platform StrataSight uses to organize business records and turn them into clear figures.',
+    skills: ['Software engineering', 'Data analysis', 'Computer engineering degree'],
   },
 ];
 
@@ -427,9 +426,6 @@ export function Site() {
             <ul className="team-grid">
               {TEAM.map((member) => (
                 <li key={member.name}>
-                  <span className="team-initials" aria-hidden>
-                    {member.initials}
-                  </span>
                   <strong className="heading">{member.name}</strong>
                   <span className="team-role">{member.role}</span>
                   <p>{member.bio}</p>

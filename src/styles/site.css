@@ -718,18 +718,6 @@
   box-shadow: var(--shadow-card);
 }
 
-.team-initials {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  margin-bottom: 10px;
-  border-radius: 50%;
-  background: var(--prussian-800);
-  color: var(--on-dark);
-  font-weight: 650;
-  font-stretch: 110%;
-}
 
 .team-grid strong {
   font-size: var(--text-lg);
