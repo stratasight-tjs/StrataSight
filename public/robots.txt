@@ -1,2 +1,5 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://stratasight.net/sitemap.xml
+

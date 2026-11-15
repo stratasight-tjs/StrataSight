@@ -8,26 +8,45 @@
       name="description"
       content="StrataSight helps owners of privately held businesses understand what the company is worth and why, improve operations and growth over a period of years, and reach a sale in a strong position."
     />
+    <link rel="canonical" href="https://stratasight.net/" />
     <meta name="theme-color" content="#071c2c" />
-    <meta property="og:title" content="StrataSight" />
+
+    <!-- Link previews (iMessage, LinkedIn, Slack, X). Image addresses must be absolute. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="StrataSight" />
+    <meta property="og:url" content="https://stratasight.net/" />
+    <meta property="og:title" content="StrataSight | Business value advisory" />
     <meta
       property="og:description"
-      content="Business value advisory for privately held companies: value assessment, operational efficiency, and growth advisory."
+      content="Know what your company is worth. Then build on it. Value assessment, operational efficiency, and growth advisory for privately held companies."
     />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://stratasight.net/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="StrataSight: Know what your company is worth. Then build on it." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="StrataSight | Business value advisory" />
+    <meta name="twitter:description" content="Value assessment, operational efficiency, and growth advisory for privately held companies." />
+    <meta name="twitter:image" content="https://stratasight.net/og.png" />
+
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
+    <!--
+      The page also ships as plain HTML for readers that do not run JavaScript, such as many search and AI crawlers.
+      A browser that runs JavaScript hides that copy at once and shows the interactive page, which says the same.
+    -->
+    <script>
+      document.documentElement.classList.add('js');
+    </script>
+    <style>
+      .js .readable { display: none; }
+      .readable { max-width: 720px; margin: 48px auto; padding: 0 24px; font-family: system-ui, sans-serif; line-height: 1.6; color: #0b1f2e; }
+      .readable h1 { font-size: 2rem; line-height: 1.2; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
-    <noscript>
-      <div style="max-width: 640px; margin: 80px auto; padding: 0 24px; font-family: system-ui, sans-serif">
-        <h1>StrataSight</h1>
-        <p>
-          Business value advisory for privately held companies. This site needs JavaScript for its
-          interactive charts. To get in touch, email info@stratasight.net.
-        </p>
-      </div>
-    </noscript>
     <script type="module" src="/src/site/main.tsx"></script>
   </body>
 </html>
