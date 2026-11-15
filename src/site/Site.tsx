@@ -171,8 +171,8 @@ const TEAM = [
   {
     name: 'Platform and data',
     role: 'Software and analysis',
-    bio: 'A software engineer in the aerospace industry who builds backend services, real-time dashboards, and automated analysis tools, after earlier work in data analysis. Builds the platform StrataSight uses to organize business records and turn them into clear figures.',
-    skills: ['Software engineering', 'Data analysis', 'Computer engineering degree'],
+    bio: 'Builds and runs the platform StrataSight uses to organize business records and turn them into clear, checked figures. Brings a background in software engineering and data analysis, building backend services, real-time dashboards, and automated analysis tools.',
+    skills: ['Software engineering', 'Data analysis'],
   },
 ];
 
