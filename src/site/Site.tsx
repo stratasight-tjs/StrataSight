@@ -4,7 +4,6 @@ import { Logo } from '../components/Logo';
 import { SITE } from '../config/site';
 import { StrataHero } from './StrataHero';
 import { Questions } from './Questions';
-import { PlatformPreview } from './PlatformPreview';
 import { ContactForm } from './ContactForm';
 import { scrollToTop } from './scroll';
 import { FIT, HEADINGS, HERO, INTROS, LEGAL, OUR_JOB, PRINCIPLES, SERVICES, STEPS, TEAM, WHO, YOUR_JOB } from './content';
@@ -251,36 +250,59 @@ function Section({ title, intro, aside, media, children }: { title: string; intr
 function Home() {
   return (
     <>
-      <section className="fit" aria-labelledby="fit-title">
-        <h2 className="fit-title" id="fit-title">
-          {HEADINGS.fit}
-        </h2>
-        <ol>
-          {FIT.map((item, index) => (
-            <li key={item.title} className={index === 1 ? 'is-us' : ''}>
-              <span className="fit-stage">{item.stage}</span>
-              <strong className="heading">{item.title}</strong>
-              <span className="fit-body">{item.body}</span>
-            </li>
-          ))}
-        </ol>
+      {/* Where we fit, as three layers laid down in order, each deeper than the last. */}
+      <section className="fit-strata" aria-labelledby="fit-title">
+        <div className="fit-strata-inner">
+          <div className="fit-strata-head">
+            <p className="eyebrow">{HEADINGS.fit}</p>
+            <h2 className="display section-title" id="fit-title">
+              {HEADINGS.fitTitle}
+            </h2>
+            <p className="fit-strata-lede">{INTROS.fit}</p>
+          </div>
+          <ol className="strata-stack">
+            {FIT.map((item, index) => (
+              <li key={item.title} className={`stratum stratum-${index + 1}`}>
+                <span className="stratum-stage">{item.stage}</span>
+                <div>
+                  <strong className="heading">{item.title}</strong>
+                  <p>{item.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
 
-      <Section title={HEADINGS.services} intro={<p>{INTROS.services}</p>}>
-        <ul className="service-cards">
-          {SERVICES.map((service, index) => (
-            <li key={service.title}>
-              <a className="service-card" href={`#/services/${spotId(service.title)}`}>
-                <span className="service-number tabular" aria-hidden>
-                  0{index + 1}
-                </span>
-                <h3 className="heading">{service.title}</h3>
-                <p>{service.short}</p>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </Section>
+      {/* The three services as cards on one line, over a photo under a navy wash. */}
+      <section className="services-band on-dark" aria-labelledby="services-title">
+        <Photo name="blueprints" alt="" className="services-band-image photo-full" />
+        <div className="services-band-inner">
+          <div className="section-head">
+            <h2 className="display section-title" id="services-title">
+              {HEADINGS.services}
+            </h2>
+            <div className="prose">
+              <p>{INTROS.services}</p>
+            </div>
+          </div>
+          <ul className="service-cards">
+            {SERVICES.map((service, index) => (
+              <li key={service.title}>
+                <a className="service-card" href={`#/services/${spotId(service.title)}`}>
+                  <span className="service-number tabular" aria-hidden>
+                    0{index + 1}
+                  </span>
+                  <h3 className="heading">{service.title}</h3>
+                  <p>{service.short}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <Screens />
 
       <Section title={HEADINGS.how} aside intro={<p>{INTROS.how}</p>} media={<Photo name="table-meeting" alt="Two people at a table with coffee, notes, and a tablet" />}>
         <ol className="steps">
@@ -299,16 +321,6 @@ function Home() {
         </ol>
       </Section>
 
-      <section className="band on-dark" id="platform">
-        <div className="band-inner">
-          <div className="section-head">
-            <h2 className="display section-title">{HEADINGS.platform}</h2>
-            <p className="prose">{INTROS.platform}</p>
-          </div>
-          <PlatformPreview />
-        </div>
-      </section>
-
       <section className="band on-dark band-photo">
         <Photo name="carving-hands" alt="Hands carving wood with a chisel" className="band-photo-image photo-full reveal" />
         <div className="band-inner cta-band">
@@ -319,6 +331,33 @@ function Home() {
         </div>
       </section>
     </>
+  );
+}
+
+/**
+ * Layered screenshots of the client workspace, from the platform's fictional demonstration company. The value range
+ * and the EBITDA figure are blurred, since this site shows neither.
+ */
+function Screens() {
+  const shot = (name: string, alt: string, className: string) => <img className={`screen ${className}`} src={`images/screens/${name}.webp`} alt={alt} loading="lazy" decoding="async" />;
+  return (
+    <section className="screens" id="platform">
+      <div className="screens-inner">
+        <div className="screens-copy">
+          <p className="eyebrow">Your workspace</p>
+          <h2 className="display section-title">{HEADINGS.screens}</h2>
+          <p className="screens-text">{INTROS.screens}</p>
+          <p className="screens-note">
+            Shown with a fictional demonstration company. <a href={SITE.demoPath}>Try the demo</a>
+          </p>
+        </div>
+        <div className="screens-stage">
+          {shot('cash', 'The cash and debt page of the workspace', 'screen-1')}
+          {shot('customers', 'The customers page, with revenue by customer', 'screen-2')}
+          {shot('summary', 'The summary page of the workspace', 'screen-3')}
+        </div>
+      </div>
+    </section>
   );
 }
 

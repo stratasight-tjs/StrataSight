@@ -11,12 +11,13 @@ export const HERO = {
 
 export const HEADINGS = {
   fit: 'Where we fit',
+  fitTitle: 'Between building a company and selling it, there are years. That is where we work.',
   services: 'Three disciplines, one aim: a more valuable company.',
   who: 'Who it is for',
   ourJob: 'We do the paperwork. You run the company.',
   how: 'How it works',
   questions: 'A buyer will study your company layer by layer. See it that way first.',
-  platform: 'A sample of what a client sees',
+  screens: 'See your company the way a buyer would.',
   principles: 'Depth over decoration',
   team: 'Who is behind the analysis',
   contact: 'Start with a conversation.',
@@ -28,7 +29,9 @@ export const INTROS = {
   who: 'Owners of privately held businesses in any industry: services, manufacturing, distribution, healthcare, professional firms, technology, and more. The common thread is an owner who wants to make deliberate, well supported decisions about the company.',
   questions: 'Most owners know their business by feel and have rarely seen it the way a buyer would. These are the kinds of questions the work answers, shown here for a sample company.',
   how: 'Ongoing work, not a one-time report. The middle two steps repeat for as long as we work together.',
-  platform: 'Each client gets a private workspace: a plain summary of how the business is doing, the history of the company in one consistent view, the recommendations we are working on, and notes from every meeting. Below is a sample built on a fictional landscaping company.',
+  fit: 'You keep the company and make the decisions. We sit between your own financial planning and the eventual sale.',
+  screens:
+    'Every client gets a private workspace: what needs your attention, how the business is doing, who your largest customers are, and where your cash stands. We keep it current between meetings, and you can open it whenever you like.',
   about: [
     'Most privately held businesses never get the depth of strategic analysis that institutional investors take for granted. The gap between what a company is worth and what it could be worth is usually operational. It builds up quietly through process gaps, cost structures that have not kept pace, and blind spots that accumulate over years.',
     'StrataSight exists to find that gap and work on it with you. We sit between your own financial planning and the eventual sale, and we start from your actual data.',

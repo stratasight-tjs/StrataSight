@@ -20,7 +20,7 @@ export function staticHtml(): string {
   return [
     `<header><h1>${esc(HERO.title)}</h1><p>${esc(HERO.lede)}</p><p><a href="#/contact">Schedule a discovery call</a></p></header>`,
     `<main>`,
-    `<section><h2>${esc(HEADINGS.fit)}</h2><ol>${FIT.map((f) => `<li><strong>${esc(f.title)}.</strong> ${esc(f.body)}</li>`).join('')}</ol></section>`,
+    `<section><h2>${esc(HEADINGS.fitTitle)}</h2><p>${esc(INTROS.fit)}</p><ol>${FIT.map((f) => `<li><strong>${esc(f.title)}.</strong> ${esc(f.body)}</li>`).join('')}</ol></section>`,
     `<section id="services"><h2>${esc(HEADINGS.services)}</h2><p>${esc(INTROS.services)}</p>${SERVICES.map(
       (s) => `<article><h3>${esc(s.title)}</h3>${s.body.map((p) => `<p>${esc(p)}</p>`).join('')}<p>What is included:</p>${list(s.included)}</article>`,
     ).join('')}</section>`,
