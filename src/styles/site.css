@@ -786,6 +786,31 @@
   box-shadow: var(--shadow-card);
 }
 
+.contact-closed {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  padding: 16px 18px;
+  border-left: 3px solid var(--tape);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--text-md);
+  line-height: 1.5;
+}
+
+.contact-fields {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.contact-fields:disabled {
+  opacity: 0.55;
+}
+
 .field-row {
   display: grid;
   grid-template-columns: 1fr 1fr;

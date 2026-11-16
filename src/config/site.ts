@@ -10,6 +10,9 @@ export const SITE = {
    * While this is empty the contact form opens the visitor's own mail app instead.
    */
   formEndpoint: '',
+  /** While false the form stays on the page but cannot be sent, and inquiries go to LinkedIn messages instead. */
+  formOpen: false,
+  linkedin: 'https://www.linkedin.com/company/stratasight/',
   /** Relative paths so the site works on the custom domain and on a GitHub project URL. */
   demoPath: 'demo/',
   homeFromDemo: '../',

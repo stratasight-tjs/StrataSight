@@ -489,7 +489,15 @@ function Contact() {
         </div>
         <p className="contact-care">Please do not send financial statements or other confidential records. We will arrange a proper way to share them once we have spoken.</p>
         <p className="contact-direct">
-          Prefer email? <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+          {SITE.formOpen ? (
+            <>
+              Prefer email? <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+            </>
+          ) : (
+            <>
+              Find us on <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </>
+          )}
         </p>
       </aside>
     </section>

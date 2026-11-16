@@ -30,7 +30,11 @@ export function staticHtml(): string {
     `<section id="about"><h2>${esc(HEADINGS.principles)}</h2>${INTROS.about.map((p) => `<p>${esc(p)}</p>`).join('')}${pairs(PRINCIPLES)}<h3>${esc(HEADINGS.team)}</h3><ul>${TEAM.map(
       (m) => `<li><strong>${esc(m.name)}</strong>, ${esc(m.role)}. ${esc(m.bio)} ${esc(m.skills.join(', '))}.</li>`,
     ).join('')}</ul></section>`,
-    `<section id="contact"><h2>${esc(HEADINGS.contact)}</h2><p>Email <a href="mailto:${SITE.contactEmail}">${SITE.contactEmail}</a> to arrange a first conversation.</p></section>`,
+    `<section id="contact"><h2>${esc(HEADINGS.contact)}</h2>${
+      SITE.formOpen
+        ? `<p>Email <a href="mailto:${SITE.contactEmail}">${SITE.contactEmail}</a> to arrange a first conversation.</p>`
+        : `<p>Send us a message on <a href="${SITE.linkedin}">LinkedIn</a>.</p>`
+    }</section>`,
     `</main>`,
     `<footer><p>${esc(LEGAL.advisory)}</p><p>${esc(LEGAL.synthetic)}</p></footer>`,
   ].join('');
@@ -73,7 +77,7 @@ export function llmsTxt(): string {
     `> ${HERO.lede}`,
     '',
     `Site: ${SITE_URL}`,
-    `Contact: ${SITE.contactEmail}`,
+    SITE.formOpen ? `Contact: ${SITE.contactEmail}` : `Contact: LinkedIn messages, ${SITE.linkedin}`,
     '',
     '## Services',
     '',

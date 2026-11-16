@@ -32,6 +32,7 @@ export function ContactForm() {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!SITE.formOpen) return;
     const form = event.currentTarget;
     const data = new FormData(form);
     const get = (key: string) => String(data.get(key) ?? '').trim();
@@ -70,6 +71,15 @@ export function ContactForm() {
 
   return (
     <form className="contact-form" onSubmit={onSubmit}>
+      {!SITE.formOpen && (
+        <div className="contact-closed">
+          <p>This form is not taking messages yet. For now, please send us a message on LinkedIn.</p>
+          <a className="btn btn-solid" href={SITE.linkedin} target="_blank" rel="noopener noreferrer">
+            Message us on LinkedIn
+          </a>
+        </div>
+      )}
+      <fieldset className="contact-fields" disabled={!SITE.formOpen}>
       <div className="field-row">
         <label className="field">
           <span>First name</span>
@@ -116,14 +126,17 @@ export function ContactForm() {
       </label>
       {/* Spam trap read by the form service. People never see or fill it. */}
       <input className="visually-hidden" name="_gotcha" type="text" tabIndex={-1} autoComplete="off" aria-hidden />
-      <div className="contact-actions">
-        <button type="submit" className="btn btn-solid" disabled={status === 'sending'}>
-          {SITE.formEndpoint ? 'Send message' : 'Write the email'}
-        </button>
-        <p className="contact-note" role="status">
-          {NOTE[status]}
-        </p>
-      </div>
+      {SITE.formOpen && (
+        <div className="contact-actions">
+          <button type="submit" className="btn btn-solid" disabled={status === 'sending'}>
+            {SITE.formEndpoint ? 'Send message' : 'Write the email'}
+          </button>
+          <p className="contact-note" role="status">
+            {NOTE[status]}
+          </p>
+        </div>
+      )}
+      </fieldset>
     </form>
   );
 }
