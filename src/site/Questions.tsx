@@ -110,7 +110,7 @@ export function Questions() {
               {periodLabel(last.period)}.
             </>
           }
-          href={`${SITE.demoPath}#/exit`}
+          href={`${SITE.demoPath}#/overview`}
         />
       </div>
       <p className="questions-note">

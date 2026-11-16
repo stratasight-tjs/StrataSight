@@ -413,8 +413,7 @@
   font-size: var(--text-sm);
 }
 
-.filter-custom select,
-.rec-status select {
+.filter-custom select {
   min-height: 32px;
   padding: 0 8px;
   border: 1px solid var(--rule);
@@ -1151,13 +1150,25 @@ button.coverage-cell:hover {
   line-height: 1.5;
 }
 
-.rec-status {
-  display: inline-flex;
+/* Where a recommendation stands, and the owner's decision when one is waiting. */
+.rec-decide {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-  color: var(--ink-3);
+  gap: 8px 10px;
+  margin-top: 6px;
+}
+
+.btn-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--prussian-600);
   font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
 }
 
 .rec-measure h4 {

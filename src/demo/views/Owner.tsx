@@ -8,10 +8,11 @@ import { SegmentedBar } from '../../charts/figures';
 import { PRIMARY } from '../../charts/palette';
 import { labelsOf, monthRows } from '../chartHelpers';
 import { RECOMMENDATIONS } from '../illustrative';
-import { useDemo, type ActionStatus } from '../state';
+import { href } from '../router';
+import { useDemo } from '../state';
 import { Basis, Callout, PageHeader } from '../ui';
+import { STATUS_LABEL, STATUS_TONE } from './Recommendations';
 
-const STATUS_LABEL: Record<ActionStatus, string> = { proposed: 'Proposed', 'in-progress': 'In progress', done: 'Done' };
 
 const GLOSSARY = [
   ['Revenue', 'Everything customers were billed for the work.'],
@@ -37,7 +38,7 @@ export function Owner() {
     <div className="owner">
       <PageHeader
         title={`${COMPANY.shortName}: the last 12 months`}
-        lede="A simple view for the business owner. Your advisor prepares everything on this page and walks through it with you."
+        lede="How the business did, in plain words. Your advisor keeps this page current and walks through it with you at each meeting."
       />
 
       <section className="card owner-story" aria-label="Summary in plain language">
@@ -99,11 +100,14 @@ export function Owner() {
               return (
                 <li key={rec.id}>
                   <span>{rec.title}</span>
-                  <span className={`status status-${status === 'done' ? 'good' : status === 'in-progress' ? 'neutral' : 'warning'}`}>{STATUS_LABEL[status]}</span>
+                  <span className={`status status-${STATUS_TONE[status]}`}>{STATUS_LABEL[status]}</span>
                 </li>
               );
             })}
           </ul>
+          <a className="text-link" href={href('recommendations')}>
+            Open recommendations
+          </a>
         </section>
 
         <div className="stack">
@@ -115,6 +119,9 @@ export function Owner() {
             <p className="owner-meeting">
               We will go through the <strong>{quarters[quarters.length - 1].label}</strong> review together. Bring your questions. There is nothing you need to prepare.
             </p>
+            <a className="text-link" href={href('meetings')}>
+              Open meetings
+            </a>
           </section>
           <section className="card panel">
             <div className="panel-head">
@@ -123,8 +130,8 @@ export function Owner() {
             </div>
             <div className="dropzone" aria-disabled="true">
               <Upload size={22} aria-hidden />
-              <strong>Not active in this demo</strong>
-              <span>The planned portal would let you drop in a file or photograph a page when it suits you. This static page cannot receive files.</span>
+              <strong>Turned off in this demo</strong>
+              <span>In your workspace you can send a file or a photo of a page whenever it suits you, and see what your advisor has asked for.</span>
             </div>
           </section>
         </div>

@@ -15,9 +15,26 @@ export const HEADINGS = {
   who: 'Who it is for',
   ourJob: 'We do the paperwork. You run the company.',
   how: 'How it works',
+  questions: 'A buyer will study your company layer by layer. See it that way first.',
+  platform: 'A sample of what a client sees',
   principles: 'Depth over decoration',
   team: 'Who is behind the analysis',
   contact: 'Start with a conversation.',
+};
+
+/** The short paragraph under each section heading. */
+export const INTROS = {
+  services: 'Think of the value creation plan a private equity firm would run, without anyone buying in. You keep the company and you make the decisions.',
+  who: 'Owners of privately held businesses in any industry: services, manufacturing, distribution, healthcare, professional firms, technology, and more. The common thread is an owner who wants to make deliberate, well supported decisions about the company.',
+  questions: 'Most owners know their business by feel and have rarely seen it the way a buyer would. These are the kinds of questions the work answers, shown here for a sample company.',
+  how: 'Ongoing work, not a one-time report. The middle two steps repeat for as long as we work together.',
+  platform: 'Each client gets a private workspace: a plain summary of how the business is doing, the history of the company in one consistent view, the recommendations we are working on, and notes from every meeting. Below is a sample built on a fictional landscaping company.',
+  about: [
+    'Most privately held businesses never get the depth of strategic analysis that institutional investors take for granted. The gap between what a company is worth and what it could be worth is usually operational. It builds up quietly through process gaps, cost structures that have not kept pace, and blind spots that accumulate over years.',
+    'StrataSight exists to find that gap and work on it with you. We sit between your own financial planning and the eventual sale, and we start from your actual data.',
+  ],
+  team: 'StrataSight was formed by a team with complementary expertise in business strategy, quantitative analysis, and data infrastructure.',
+  contact: 'Thirty minutes, no commitment. Tell us about your business and we will reply to arrange a call.',
 };
 
 export const LEGAL = {
@@ -47,6 +64,7 @@ export const FIT = [
 export const SERVICES = [
   {
     title: 'Strategic Value Assessment',
+    short: 'What the company is worth today, and what moves that figure up or down.',
     body: [
       'Most owners carry a number in their head for what the business is worth. Without disciplined analysis behind it, that number is usually wrong, sometimes by a wide margin.',
       'The assessment gives you an evidence-based advisory opinion of what the company is worth today and a clear map of what is pushing that figure up or holding it back. We look at financial trends, market comparables, customer concentration, operational risk, management depth, and growth trajectory.',
@@ -65,6 +83,7 @@ export const SERVICES = [
   },
   {
     title: 'Operational Efficiency',
+    short: 'Where margin is leaking, ranked by what fixing it is worth.',
     body: [
       'Inefficiency rarely announces itself. It shows up as margins that slip a little each year, departments that are busy without producing more, and overhead that grows faster than output.',
       'Left alone, it compounds, and a buyer prices it in. We review your cost centers, workflows, and profitability measures in a structured way, using your own numbers.',
@@ -83,6 +102,7 @@ export const SERVICES = [
   },
   {
     title: 'Strategic Growth Advisory',
+    short: 'A growth plan built around your business, worked meeting by meeting.',
     body: [
       'Growth without a strategy is spending faster. We build the growth plan around your business model, your market, and what your operation can actually carry, not around a framework borrowed from another industry.',
       'The plan is prioritized, sequenced, and tied to milestones you can reach. It stays at the level of the business: corporate strategy, market position, and the ability to scale.',

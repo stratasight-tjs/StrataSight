@@ -25,7 +25,7 @@ export function Cash() {
 
   return (
     <>
-      <PageHeader title="Cash and receivables" lede="Balances at the end of each month. These are snapshots, so they are shown as trends and end values and are never added together." />
+      <PageHeader title="Cash and receivables" lede="What was in the bank, and what customers owed you, at the end of each month." />
       <PeriodFilter />
       <p className="period-note">
         Showing <strong>{rangeLabel(RECORDS, range)}</strong>. Tiles give the balance at the end of {lastLabel}
@@ -93,7 +93,7 @@ export function Cash() {
       </ChartCard>
 
       <Callout title="What this page cannot show">
-        The dataset has month-end balances only. It does not include a cash-flow statement, loan balances, or an aging report, so this page describes where balances stood and makes no claim about why they moved.
+        These are balances at the end of each month. They show where cash and receivables stood, not why they moved. Your advisor walks through the reasons with you.
       </Callout>
     </>
   );

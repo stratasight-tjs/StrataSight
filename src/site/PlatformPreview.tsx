@@ -68,9 +68,9 @@ export function PlatformPreview() {
         />
       </div>
       <div className="preview-foot">
-        <p>This panel is live. It reads the same sample file and uses the same calculations as the full demo.</p>
+        <p>See the rest as a business owner would: a plain summary, the performance pages, meetings, and recommendations.</p>
         <a className="btn btn-solid" href={SITE.demoPath}>
-          Open the full demo
+          Open the demo
         </a>
       </div>
     </div>

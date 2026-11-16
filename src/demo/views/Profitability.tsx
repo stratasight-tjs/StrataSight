@@ -123,7 +123,7 @@ export function Profitability() {
       </div>
 
       <Callout title="How to read these figures">
-        Owner salary is counted once, inside operating expenses. The dataset leaves out taxes and depreciation and is not a full set of accounts, so nothing on this page is EBITDA, seller's discretionary earnings, net income, or a measure of what the owner can take out of the business.
+        Your own salary is counted once, inside operating expenses. These figures leave out taxes and depreciation, so they are not take-home profit or a measure of what you can draw from the business.
       </Callout>
     </>
   );

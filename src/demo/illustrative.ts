@@ -61,39 +61,9 @@ export const RECOMMENDATIONS: Recommendation[] = [
   },
 ];
 
-export interface IntakeDocument {
-  name: string;
-  detail: string;
-  status: 'reconciled' | 'digitized' | 'received' | 'requested';
-}
-
-export const INTAKE_DOCUMENTS: IntakeDocument[] = [
-  { name: 'Accounting system export', detail: 'Profit and loss by month, chart of accounts', status: 'reconciled' },
-  { name: 'Bank statements', detail: 'Operating account, all months on record', status: 'reconciled' },
-  { name: 'Payroll reports', detail: 'Field and office payroll by pay period', status: 'reconciled' },
-  { name: 'Job log and schedules', detail: 'Completed jobs, promised dates, crew hours', status: 'digitized' },
-  { name: 'Estimates and proposals', detail: 'Issued and accepted estimates', status: 'digitized' },
-  { name: 'Paper invoices and receipts', detail: 'Boxes from before the accounting system', status: 'received' },
-  { name: 'Recurring service contracts', detail: 'Signed maintenance and snow agreements', status: 'received' },
-  { name: 'Equipment and vehicle list', detail: 'Owned and leased equipment with purchase dates', status: 'requested' },
-  { name: 'Insurance policies', detail: 'Current liability and vehicle coverage', status: 'requested' },
-];
-
-export const INTAKE_STAGES = [
-  { title: 'Kickoff conversation', detail: 'Goals, concerns, and how the owner prefers to work.' },
-  { title: 'Records gathered', detail: 'Exports, statements, and paper collected from the business.' },
-  { title: 'Paper digitized', detail: 'Scanned, keyed, and linked to the month it belongs to.' },
-  { title: 'Figures reconciled', detail: 'Totals tied out, unclear entries flagged for review.' },
-  { title: 'Baseline model built', detail: 'History loaded into the standard financial and operating model.' },
-  { title: 'First advisory meeting', detail: 'Walk through the baseline with the owner.' },
-];
-
-/** Position of the fictional client in the intake sequence above (0-based index of the last completed stage). */
-export const INTAKE_COMPLETED_THROUGH = 5;
-
 export const MEETING_AGENDA = [
   'What changed since the last meeting',
-  'Items the review queue raised',
+  'Figures we are still checking',
   'Progress on open recommendations',
   'One opportunity to look at next',
   'Decisions and who owns them',
@@ -103,13 +73,4 @@ export const MEETING_PROMPTS = [
   'Which of these changes did you expect, and which are a surprise?',
   'Is the install backlog limited by crews, by materials, or by sales?',
   'What would you want to be different by the next time we meet?',
-];
-
-export const EXIT_NOT_IN_DATASET = [
-  'Tax returns and depreciation schedules',
-  'Balance sheet detail beyond cash, receivables, and payables',
-  'Signed customer contracts and renewal terms',
-  'Equipment list with condition and ownership',
-  'Employee roster, roles, and tenure',
-  'Licenses, permits, and insurance certificates',
 ];

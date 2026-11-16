@@ -4,7 +4,8 @@ import { buildPresets, sliceRange, type Preset, type Range } from '../lib/period
 import { priorYearSlice, summarize, type PeriodSummary } from '../lib/metrics';
 import type { MonthRecord } from '../lib/types';
 
-export type ActionStatus = 'proposed' | 'in-progress' | 'done';
+/** Where a recommendation stands. The owner accepts or declines a proposal; the advisor moves accepted work along. */
+export type ActionStatus = 'proposed' | 'accepted' | 'declined' | 'in-progress' | 'done';
 
 interface DemoState {
   presets: Preset[];
@@ -16,10 +17,6 @@ interface DemoState {
   /** The same calendar months one year earlier, when the data has them all. */
   priorMonths: MonthRecord[] | null;
   priorSummary: PeriodSummary | null;
-
-  /** Flagged periods the visitor has marked reviewed. Held in memory only. */
-  reviewed: ReadonlySet<string>;
-  toggleReviewed: (period: string) => void;
 
   actionStatus: Record<string, ActionStatus>;
   setActionStatus: (id: string, status: ActionStatus) => void;
@@ -34,7 +31,6 @@ const Context = createContext<DemoState | null>(null);
 export function DemoProvider({ children }: { children: ReactNode }) {
   const presets = useMemo(() => buildPresets(RECORDS), []);
   const [range, setRange] = useState<Range>(presets[0].range);
-  const [reviewed, setReviewed] = useState<ReadonlySet<string>>(new Set());
   const [actionStatus, setStatus] = useState<Record<string, ActionStatus>>({});
 
   const value = useMemo<DemoState>(() => {
@@ -48,18 +44,10 @@ export function DemoProvider({ children }: { children: ReactNode }) {
       summary: summarize(months),
       priorMonths,
       priorSummary: priorMonths ? summarize(priorMonths) : null,
-      reviewed,
-      toggleReviewed: (period) =>
-        setReviewed((current) => {
-          const next = new Set(current);
-          if (next.has(period)) next.delete(period);
-          else next.add(period);
-          return next;
-        }),
       actionStatus,
       setActionStatus: (id, status) => setStatus((current) => ({ ...current, [id]: status })),
     };
-  }, [presets, range, reviewed, actionStatus]);
+  }, [presets, range, actionStatus]);
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }

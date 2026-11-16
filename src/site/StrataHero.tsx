@@ -17,7 +17,7 @@ const SAMPLES = 64;
 const TS = Array.from({ length: SAMPLES + 1 }, (_, i) => i / SAMPLES);
 /** How much the layer under the pointer thickens, and how much every layer opens up over the first screen of scroll. */
 const HOVER_GROWTH = 1.3;
-const SCROLL_GROWTH = 0.34;
+const SCROLL_GROWTH = 0.51;
 
 /**
  * Top edge of layer k at horizontal position t (0 to 1), as a fraction of the plot height.

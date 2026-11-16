@@ -6,7 +6,6 @@ import { change, completeQuarters, summarize, type PeriodSummary } from '../../l
 import { pct, pctChange, periodLabel, ptsChange, usd } from '../../lib/format';
 import { MEETING_AGENDA, MEETING_PROMPTS } from '../illustrative';
 import { href } from '../router';
-import { useDemo } from '../state';
 import { Basis, PageHeader } from '../ui';
 
 interface Row {
@@ -62,7 +61,6 @@ function buildRows(s: PeriodSummary, p: PeriodSummary | null): Row[] {
 }
 
 export function Meetings() {
-  const { reviewed } = useDemo();
   const quarters = completeQuarters(RECORDS);
   const [key, setKey] = useState(quarters[quarters.length - 1].key);
   const quarter = quarters.find((q) => q.key === key)!;
@@ -76,7 +74,7 @@ export function Meetings() {
     <>
       <PageHeader
         title="Meetings"
-        lede="Each advisory meeting starts from a prepared brief: what changed, what needs a decision, and what to look at next."
+        lede="Each meeting starts from a brief your advisor prepares: what changed, what needs a decision, and what to look at next. You need nothing prepared."
       />
 
       <section className="card panel">
@@ -130,24 +128,21 @@ export function Meetings() {
             </table>
           </div>
 
-          <h4 className="brief-sub">Review items in this quarter</h4>
+          <h4 className="brief-sub">Figures we are still checking</h4>
           {flags.length > 0 ? (
             <ul className="brief-flags">
               {flags.map((r) => (
                 <li key={r.period}>
                   <Flag size={14} aria-hidden />
                   <span>
-                    <strong>{periodLabel(r.period)}</strong> {r.reviewNote} {reviewed.has(r.period) ? '(marked reviewed in this session)' : ''}
+                    <strong>{periodLabel(r.period)}</strong> {r.reviewNote}
                   </span>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="panel-sub">No months in this quarter are flagged in the sample file.</p>
+            <p className="panel-sub">Every month in this quarter has been checked.</p>
           )}
-          <a className="text-link" href={href('review')}>
-            Open data review
-          </a>
         </section>
 
         <div className="stack">
@@ -164,7 +159,7 @@ export function Meetings() {
           </section>
           <section className="card panel panel-advisor">
             <div className="panel-head">
-              <h3 className="chart-card-title">Questions for the owner</h3>
+              <h3 className="chart-card-title">Questions to think about</h3>
               <Basis kind="illustrative" />
             </div>
             <ul className="prompts">

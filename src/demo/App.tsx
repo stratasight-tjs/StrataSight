@@ -1,40 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import {
-  ArrowLeft,
-  Banknote,
-  Briefcase,
-  CalendarCheck,
-  ClipboardCheck,
-  DoorOpen,
-  FileSearch,
-  Gauge,
-  Info,
-  LayoutGrid,
-  Layers,
-  ListChecks,
-  Menu,
-  PieChart,
-  Wrench,
-  X,
-  type LucideIcon,
-} from 'lucide-react';
+import { ArrowLeft, Banknote, CalendarCheck, ClipboardCheck, Gauge, Info, Layers, ListChecks, Menu, PieChart, Wrench, X, type LucideIcon } from 'lucide-react';
 import { Logo } from '../components/Logo';
 import { SITE } from '../config/site';
-import { COMPANY, CSV_URL, RECORDS } from '../lib/dataset';
-import { isFlagged } from '../lib/checks';
-import { DemoProvider, useDemo } from './state';
+import { COMPANY } from '../lib/dataset';
+import { DemoProvider } from './state';
 import { href, useRoute, type Route } from './router';
-import { Practice } from './views/Practice';
 import { Overview } from './views/Overview';
 import { Revenue } from './views/Revenue';
 import { Profitability } from './views/Profitability';
 import { Cash } from './views/Cash';
 import { Operations } from './views/Operations';
-import { Onboarding } from './views/Onboarding';
-import { Review } from './views/Review';
 import { Meetings } from './views/Meetings';
 import { Recommendations } from './views/Recommendations';
-import { ExitPrep } from './views/ExitPrep';
 import { Owner } from './views/Owner';
 
 interface NavItem {
@@ -43,8 +20,9 @@ interface NavItem {
   icon: LucideIcon;
 }
 
+/** What a business owner sees in their workspace. */
 const NAV: { heading: string; items: NavItem[] }[] = [
-  { heading: 'Practice', items: [{ route: 'practice', label: 'All clients', icon: LayoutGrid }] },
+  { heading: 'Your business', items: [{ route: 'owner', label: 'Summary', icon: ClipboardCheck }] },
   {
     heading: 'Performance',
     items: [
@@ -56,40 +34,30 @@ const NAV: { heading: string; items: NavItem[] }[] = [
     ],
   },
   {
-    heading: 'Engagement',
+    heading: 'Working together',
     items: [
-      { route: 'onboarding', label: 'Onboarding', icon: Briefcase },
-      { route: 'review', label: 'Data review', icon: FileSearch },
       { route: 'meetings', label: 'Meetings', icon: CalendarCheck },
       { route: 'recommendations', label: 'Recommendations', icon: ListChecks },
-      { route: 'exit', label: 'Exit preparation', icon: DoorOpen },
     ],
   },
 ];
 
 const VIEWS: Record<Route, () => JSX.Element> = {
-  practice: Practice,
+  owner: Owner,
   overview: Overview,
   revenue: Revenue,
   profitability: Profitability,
   cash: Cash,
   operations: Operations,
-  onboarding: Onboarding,
-  review: Review,
   meetings: Meetings,
   recommendations: Recommendations,
-  exit: ExitPrep,
-  owner: Owner,
 };
 
 function Shell() {
   const route = useRoute();
-  const { reviewed } = useDemo();
   const [navOpen, setNavOpen] = useState(false);
   const aboutRef = useRef<HTMLDialogElement>(null);
   const View = VIEWS[route];
-  const ownerMode = route === 'owner';
-  const openFlags = RECORDS.filter((r) => isFlagged(r) && !reviewed.has(r.period)).length;
 
   useEffect(() => setNavOpen(false), [route]);
 
@@ -101,7 +69,7 @@ function Shell() {
 
       <div className="demo-banner" role="note">
         <span className="demo-banner-text">
-          <strong>Demonstration.</strong> Fictional company, synthetic data.<span className="demo-banner-more"> No accounts, nothing saved.</span>
+          <strong>Demonstration.</strong> Fictional company, synthetic data.<span className="demo-banner-more"> Nothing you do here is saved.</span>
         </span>
         <button type="button" className="demo-banner-btn" onClick={() => aboutRef.current?.showModal()}>
           <Info size={14} aria-hidden /> About this demo
@@ -119,56 +87,28 @@ function Shell() {
           </button>
         </div>
 
-        <div className="viewas" role="group" aria-label="View as">
-          <a href={href('overview')} className={ownerMode ? '' : 'is-selected'} aria-current={ownerMode ? undefined : 'true'}>
-            Advisor
-          </a>
-          <a href={href('owner')} className={ownerMode ? 'is-selected' : ''} aria-current={ownerMode ? 'true' : undefined}>
-            Business owner
-          </a>
-        </div>
-
         <div className="sidebar-client">
           <span className="sidebar-client-name">{COMPANY.shortName}</span>
           <span className="sidebar-client-meta">{COMPANY.industry}</span>
           <span className="demo-tag">Fictional company</span>
         </div>
 
-        <nav aria-label="Demo views" className="sidebar-nav">
-          {ownerMode ? (
-            <ul>
-              <li>
-                <a href={href('owner')} className="is-current" aria-current="page">
-                  <ClipboardCheck size={17} aria-hidden /> Your business
-                </a>
-              </li>
-            </ul>
-          ) : (
-            NAV.map((group) => (
-              <div key={group.heading}>
-                <h2>{group.heading}</h2>
-                <ul>
-                  {group.items.map((item) => (
-                    <li key={item.route}>
-                      <a
-                        href={href(item.route)}
-                        className={route === item.route ? 'is-current' : ''}
-                        aria-current={route === item.route ? 'page' : undefined}
-                      >
-                        <item.icon size={17} aria-hidden />
-                        {item.label}
-                        {item.route === 'review' && openFlags > 0 && (
-                          <span className="nav-count" aria-label={`${openFlags} months to review`}>
-                            {openFlags}
-                          </span>
-                        )}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))
-          )}
+        <nav aria-label="Workspace" className="sidebar-nav">
+          {NAV.map((group) => (
+            <div key={group.heading}>
+              <h2>{group.heading}</h2>
+              <ul>
+                {group.items.map((item) => (
+                  <li key={item.route}>
+                    <a href={href(item.route)} className={route === item.route ? 'is-current' : ''} aria-current={route === item.route ? 'page' : undefined}>
+                      <item.icon size={17} aria-hidden />
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </nav>
 
         <a className="sidebar-back" href={SITE.homeFromDemo}>
@@ -190,11 +130,7 @@ function Shell() {
           <View />
         </main>
         <footer className="app-foot">
-          Every figure in this demo is calculated in your browser from one synthetic CSV file about a fictional company.
-          It is not client data, a financial statement, or evidence of StrataSight results.{' '}
-          <a href={CSV_URL} download="stratasight_demo_company_monthly.csv">
-            Download the sample file
-          </a>
+          Every figure here describes a fictional company and is calculated from synthetic records. None of it is client data, a financial statement, or a StrataSight result.
         </footer>
       </div>
 
@@ -203,26 +139,21 @@ function Shell() {
           About this demonstration
         </h2>
         <p>
-          This is a preview of the advisory platform StrataSight is building. It is a static web page. There is no
-          server, database, login, or stored information behind it.
+          This is what a business owner sees in a StrataSight client workspace, shown for Aster Ridge Property Services, a fictional landscaping company. Every figure is synthetic. Nothing you
+          click here is saved or sent anywhere.
         </p>
         <h3>What is calculated</h3>
         <p>
-          Charts and figures come from a synthetic monthly dataset for Aster Ridge Property Services, a fictional
-          landscaping company (January 2023 to October 2026). Totals are sums of the months shown, ratios are computed
-          from those sums, and balances are month-end values that are never added together.
+          Charts and figures come from monthly records running from January 2023 to October 2026. Totals are sums of the months shown, ratios are computed from those sums, and balances are
+          month-end values that are never added together.
         </p>
-        <h3>What is illustrative</h3>
+        <h3>What is written as an example</h3>
         <p>
-          Recommendations, meeting notes, document lists, and onboarding steps are written examples of how the product
-          would be used. They are marked as illustrative, are not derived from the data, and are not advice.
+          Recommendations, meeting agendas, and questions are written examples of how the work runs. They are marked Illustrative, are not drawn from the figures, and are not advice.
         </p>
-        <h3>What this demo leaves out</h3>
+        <h3>What is left out</h3>
         <p>
-          Figures exclude taxes and depreciation and are not a full set of accounts. Nothing here is EBITDA, seller's
-          discretionary earnings, net income, or a business valuation. Real client workspaces will need secure
-          accounts, access controls, audit history, and an independent security review before any confidential record
-          is loaded.
+          The figures leave out taxes and depreciation and are not a full set of accounts. Nothing here is a business valuation.
         </p>
         <form method="dialog">
           <button className="btn btn-solid" type="submit">

@@ -73,22 +73,24 @@ function measureFor(kind: Recommendation['measure']): Measure {
   }
 }
 
-const STATUS_LABEL: Record<ActionStatus, string> = { proposed: 'Proposed', 'in-progress': 'In progress', done: 'Done' };
+export const STATUS_LABEL: Record<ActionStatus, string> = { proposed: 'To decide', accepted: 'Accepted', declined: 'Declined', 'in-progress': 'In progress', done: 'Done' };
+
+export const STATUS_TONE: Record<ActionStatus, string> = { proposed: 'warning', accepted: 'neutral', declined: 'neutral', 'in-progress': 'neutral', done: 'good' };
 
 export function Recommendations() {
   const { actionStatus, setActionStatus } = useDemo();
   const statusOf = (r: Recommendation): ActionStatus => actionStatus[r.id] ?? r.defaultStatus;
-  const counts = (Object.keys(STATUS_LABEL) as ActionStatus[]).map((s) => ({ s, n: RECOMMENDATIONS.filter((r) => statusOf(r) === s).length }));
+  const counts = (Object.keys(STATUS_LABEL) as ActionStatus[]).map((s) => ({ s, n: RECOMMENDATIONS.filter((r) => statusOf(r) === s).length })).filter((c) => c.n > 0);
 
   return (
     <>
       <PageHeader
         title="Recommendations"
-        lede="Each recommendation is logged with the measure it is meant to move, so later meetings can look at what actually happened."
+        lede="What we suggest, and the measure each one is meant to move, so later meetings can look at what actually happened. The ones waiting on you can be accepted or declined here."
       />
 
       <Callout title="How to read this page">
-        The recommendations and their statuses are written examples. The measure beside each one is calculated from the demo records. The demo does not claim that any recommendation caused a change in its measure.
+        The recommendations are written examples. The measure beside each one is calculated from the demo records. Nothing here claims that a recommendation caused a change in its measure.
       </Callout>
 
       <ul className="rec-counts">
@@ -111,16 +113,25 @@ export function Recommendations() {
                 </div>
                 <h3 className="heading">{rec.title}</h3>
                 <p className="rec-why">{rec.rationale}</p>
-                <label className="rec-status">
-                  <span>Status</span>
-                  <select value={status} className={`is-${status}`} onChange={(e) => setActionStatus(rec.id, e.target.value as ActionStatus)}>
-                    {(Object.keys(STATUS_LABEL) as ActionStatus[]).map((s) => (
-                      <option key={s} value={s}>
-                        {STATUS_LABEL[s]}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+                <div className="rec-decide">
+                  <span className={`status status-${STATUS_TONE[status]}`}>{STATUS_LABEL[status]}</span>
+                  {status === 'proposed' ? (
+                    <>
+                      <button type="button" className="btn btn-solid btn-sm" onClick={() => setActionStatus(rec.id, 'accepted')}>
+                        Accept
+                      </button>
+                      <button type="button" className="btn btn-ghost btn-sm" onClick={() => setActionStatus(rec.id, 'declined')}>
+                        Decline
+                      </button>
+                    </>
+                  ) : (
+                    (status === 'accepted' || status === 'declined') && (
+                      <button type="button" className="btn-link" onClick={() => setActionStatus(rec.id, 'proposed')}>
+                        Undo
+                      </button>
+                    )
+                  )}
+                </div>
               </div>
               <div className="rec-measure">
                 <div className="rec-tags">
