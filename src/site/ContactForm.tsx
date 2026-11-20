@@ -4,10 +4,10 @@ import { SITE } from '../config/site';
 const REVENUE_RANGES = ['Under $1M', '$1M to $5M', '$5M to $15M', '$15M to $50M', '$50M or more', 'Prefer not to say'];
 
 const FOCUS_AREAS = [
-  'Strategic Value Assessment',
-  'Operational Efficiency',
+  'Strategic Value Assessments',
+  'Operational Efficiency Consulting',
   'Strategic Growth Advisory',
-  'Preparing for a sale or transition',
+  'Preparing the business for a sale or transition',
   'Not sure yet',
 ];
 
@@ -18,8 +18,8 @@ const NOTE: Record<Status, string> = {
     ? 'Your message goes to StrataSight through a hosted form service. This site stores nothing.'
     : 'This opens your own email app with the message filled in. The website itself sends and stores nothing.',
   sending: 'Sending your message.',
-  sent: 'Thank you. Your message has been sent and we will reply to arrange a call.',
-  failed: `The message could not be sent. Please write to ${SITE.contactEmail} instead.`,
+  sent: "Thank you. We've received your message and will reply to arrange a call.",
+  failed: `We couldn't send your message. Try again or email ${SITE.contactEmail}.`,
   'mail-opened': `Your email app should now be open with the message filled in. If it did not open, write to ${SITE.contactEmail}.`,
 };
 
@@ -37,7 +37,7 @@ export function ContactForm() {
     const data = new FormData(form);
     const get = (key: string) => String(data.get(key) ?? '').trim();
     const name = `${get('firstName')} ${get('lastName')}`.trim();
-    const subject = `Discovery call request from ${get('company') || name}`;
+    const subject = `Introductory call request from ${get('company') || name}`;
 
     if (!SITE.formEndpoint) {
       const details = [
@@ -45,7 +45,7 @@ export function ContactForm() {
         `Email: ${get('email')}`,
         `Company: ${get('company')}`,
         get('revenue') ? `Approximate annual revenue: ${get('revenue')}` : '',
-        get('focus') ? `Primary focus area: ${get('focus')}` : '',
+        get('focus') ? `Topic: ${get('focus')}` : '',
       ].filter((line) => line !== '');
       const body = [...details, '', get('message')].join('\n');
       window.location.href = `mailto:${SITE.formRecipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -111,9 +111,9 @@ export function ContactForm() {
           </select>
         </label>
         <label className="field">
-          <span>Primary focus area</span>
+          <span>What would you like to discuss?</span>
           <select name="focus" defaultValue="">
-            <option value="">Select a focus area</option>
+            <option value="">Select a topic</option>
             {FOCUS_AREAS.map((area) => (
               <option key={area}>{area}</option>
             ))}
@@ -121,7 +121,7 @@ export function ContactForm() {
         </label>
       </div>
       <label className="field">
-        <span>Tell us about your business and what you are trying to accomplish</span>
+        <span>Tell us about your business and what you'd like help with</span>
         <textarea name="message" rows={4} required />
       </label>
       {/* Spam trap read by the form service. People never see or fill it. */}

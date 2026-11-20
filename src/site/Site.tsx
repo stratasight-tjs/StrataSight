@@ -3,18 +3,26 @@ import { Check, Menu, X } from 'lucide-react';
 import { Logo } from '../components/Logo';
 import { SITE } from '../config/site';
 import { StrataHero } from './StrataHero';
-import { Questions } from './Questions';
 import { ContactForm } from './ContactForm';
 import { scrollToTop } from './scroll';
-import { FIT, HEADINGS, HERO, INTROS, LEGAL, OUR_JOB, PRINCIPLES, SERVICES, STEPS, TEAM, WHO, YOUR_JOB } from './content';
+import { FIT, FOOTER, HEADINGS, HERO, INTROS, LEGAL, OUR_JOB, PRINCIPLES, SERVICES, STEPS, TEAM, WHO, YOUR_JOB } from './content';
 
 /*
- * The public website: five pages on hash routes, so any static host serves them from this one file.
+ * The public website: four pages on hash routes, so any static host serves them from this one file.
  * The words live in content.ts, which the build also turns into the plain HTML that crawlers read.
+ * The pages match the platform's public pages, except that this site links to the demo instead of a sign-in.
  */
 
-type Page = 'home' | 'services' | 'who' | 'about' | 'contact';
-const PAGES: Page[] = ['home', 'services', 'who', 'about', 'contact'];
+type Page = 'home' | 'services' | 'about' | 'contact';
+const PAGES: Page[] = ['home', 'services', 'about', 'contact'];
+
+/** What the browser tab says on each page. */
+const TAB_TITLE: Record<Page, string> = {
+  home: 'StrataSight | Value Growth Advisory',
+  services: 'Services | StrataSight',
+  about: 'About StrataSight',
+  contact: 'Request an introductory call | StrataSight',
+};
 
 interface Route {
   page: Page;
@@ -24,11 +32,10 @@ interface Route {
 
 function parse(hash: string): Route {
   const [section, spot] = hash.replace(/^#\/?/, '').split('/');
+  // Who it is for became part of Services.
+  if (section === 'who') return { page: 'services', spot: 'who' };
   return PAGES.includes(section as Page) ? { page: section as Page, spot: spot || null } : { page: 'home', spot: null };
 }
-
-/** An id for a heading, used in links to that spot: "Operational Efficiency" becomes "operational-efficiency". */
-const spotId = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 /**
  * Brings a spot into view under the pinned header, then marks it for a moment so the eye finds it.
@@ -114,16 +121,14 @@ function usePage() {
 const NAV: { href: string; page: Page; label: string }[] = [
   { href: '#/', page: 'home', label: 'Home' },
   { href: '#/services', page: 'services', label: 'Services' },
-  { href: '#/who', page: 'who', label: 'Who it is for' },
   { href: '#/about', page: 'about', label: 'About' },
   { href: '#/contact', page: 'contact', label: 'Contact' },
 ];
 
 const PAGE_TITLE: Record<Exclude<Page, 'home'>, string> = {
   services: 'Services',
-  who: 'Who it is for',
   about: 'About StrataSight',
-  contact: HEADINGS.contact.replace(/\.$/, ''),
+  contact: HEADINGS.contact,
 };
 
 const HEADER_PHOTO: Partial<Record<Page, { name: string; alt: string }>> = {
@@ -137,6 +142,9 @@ export function Site() {
   useReveal(page);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => setMenuOpen(false), [page]);
+  useEffect(() => {
+    document.title = TAB_TITLE[page];
+  }, [page]);
   const photo = HEADER_PHOTO[page];
 
   return (
@@ -176,10 +184,10 @@ export function Site() {
               <p className="hero-lede">{HERO.lede}</p>
               <div className="hero-actions">
                 <a className="btn btn-primary" href="#/contact">
-                  Schedule a discovery call
+                  Request an introductory call
                 </a>
                 <a className="btn btn-solid hero-secondary" href="#/services">
-                  See what we do
+                  Explore our services
                 </a>
               </div>
             </div>
@@ -198,7 +206,6 @@ export function Site() {
       <main id="main">
         {page === 'home' && <Home />}
         {page === 'services' && <Services />}
-        {page === 'who' && <Who />}
         {page === 'about' && <About />}
         {page === 'contact' && <Contact />}
       </main>
@@ -207,7 +214,7 @@ export function Site() {
         <div className="footer-inner">
           <div>
             <Logo onDark />
-            <p>Business value advisory for privately held companies: value assessment, operational improvement, and growth planning.</p>
+            <p>{FOOTER}</p>
           </div>
           <ul>
             {NAV.map((item) => (
@@ -234,9 +241,9 @@ export function Site() {
   );
 }
 
-function Section({ title, intro, aside, media, children }: { title: string; intro?: ReactNode; aside?: boolean; media?: ReactNode; children: ReactNode }) {
+function Section({ title, intro, aside, id, media, children }: { title: string; intro?: ReactNode; aside?: boolean; id?: string; media?: ReactNode; children: ReactNode }) {
   return (
-    <section className={`section ${aside ? 'section-aside' : ''}`}>
+    <section className={`section ${aside ? 'section-aside' : ''}`} id={id}>
       <div className="section-head">
         <h2 className="display section-title">{title}</h2>
         {intro && <div className="prose">{intro}</div>}
@@ -289,7 +296,7 @@ function Home() {
           <ul className="service-cards">
             {SERVICES.map((service, index) => (
               <li key={service.title}>
-                <a className="service-card" href={`#/services/${spotId(service.title)}`}>
+                <a className="service-card" href={`#/services/${service.spot}`}>
                   <span className="service-number tabular" aria-hidden>
                     0{index + 1}
                   </span>
@@ -304,17 +311,17 @@ function Home() {
 
       <Screens />
 
-      <Section title={HEADINGS.how} aside intro={<p>{INTROS.how}</p>} media={<Photo name="table-meeting" alt="Two people at a table with coffee, notes, and a tablet" />}>
+      <Section title={HEADINGS.how} aside intro={<p>{INTROS.how}</p>} media={<Photo name="table-meeting" alt="Two people reviewing notes at a table" />}>
         <ol className="steps">
           {STEPS.map((step, index) => (
-            <li key={step.title} className={step.recurring ? 'is-recurring' : ''}>
+            <li key={step.title} className={step.tag ? 'is-recurring' : ''}>
               <span className="step-number" aria-hidden>
                 {index + 1}
               </span>
               <div>
                 <h3 className="heading">{step.title}</h3>
                 <p>{step.body}</p>
-                {step.recurring && <span className="step-tag">Repeats every meeting cycle</span>}
+                {step.tag && <span className="step-tag">{step.tag}</span>}
               </div>
             </li>
           ))}
@@ -324,9 +331,9 @@ function Home() {
       <section className="band on-dark band-photo">
         <Photo name="carving-hands" alt="Hands carving wood with a chisel" className="band-photo-image photo-full reveal" />
         <div className="band-inner cta-band">
-          <h2 className="display section-title">{HEADINGS.contact}</h2>
+          <h2 className="display section-title">{HEADINGS.cta}</h2>
           <a className="btn btn-primary" href="#/contact">
-            Schedule a discovery call
+            Request an introductory call
           </a>
         </div>
       </section>
@@ -344,16 +351,16 @@ function Screens() {
     <section className="screens" id="platform">
       <div className="screens-inner">
         <div className="screens-copy">
-          <p className="eyebrow">Your workspace</p>
+          <p className="eyebrow">{HEADINGS.screensEyebrow}</p>
           <h2 className="display section-title">{HEADINGS.screens}</h2>
           <p className="screens-text">{INTROS.screens}</p>
           <p className="screens-note">
-            Shown with a fictional demonstration company. <a href={SITE.demoPath}>Try the demo</a>
+            Screens shown with data from a fictional business. <a href={SITE.demoPath}>Try the demo</a>
           </p>
         </div>
         <div className="screens-stage">
           {shot('cash', 'The cash and debt page of the workspace', 'screen-1')}
-          {shot('customers', 'The customers page, with revenue by customer', 'screen-2')}
+          {shot('customers', 'Customer view showing revenue by account', 'screen-2')}
           {shot('summary', 'The summary page of the workspace', 'screen-3')}
         </div>
       </div>
@@ -363,50 +370,42 @@ function Screens() {
 
 function Services() {
   return (
-    <section className="section">
-      <div className="services">
-        {SERVICES.map((service, index) => (
-          <article className="service spot" key={service.title} id={spotId(service.title)}>
-            <div className="service-main">
-              <span className="service-number tabular" aria-hidden>
-                0{index + 1}
-              </span>
-              <h2 className="heading">{service.title}</h2>
-              {service.body.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
-            <div className="service-included">
-              <h4>What is included</h4>
-              <ul>
-                {service.included.map((item) => (
-                  <li key={item}>
-                    <Check size={15} aria-hidden />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Who() {
-  return (
     <>
-      <Section title="Owners who want to decide with the numbers in front of them" aside intro={<p>{INTROS.who}</p>} media={<Photo name="store-owner" alt="An owner standing in his shop" />}>
+      <section className="section">
+        <div className="services">
+          {SERVICES.map((service, index) => (
+            <article className="service spot" key={service.title} id={service.spot}>
+              <div className="service-main">
+                <span className="service-number tabular" aria-hidden>
+                  0{index + 1}
+                </span>
+                <h2 className="heading">{service.title}</h2>
+                {service.body.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+              <div className="service-included">
+                <h4>{service.listTitle}</h4>
+                <ul>
+                  {service.included.map((item) => (
+                    <li key={item}>
+                      <Check size={15} aria-hidden />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <Section title={HEADINGS.who} id="who" aside intro={<p>{INTROS.who}</p>} media={<Photo name="store-owner" alt="Business owner standing in his shop" />}>
         <ul className="who-list">
           {WHO.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
-      </Section>
-
-      <Section title={HEADINGS.questions} intro={<p>{INTROS.questions}</p>}>
-        <Questions />
       </Section>
     </>
   );
@@ -432,13 +431,13 @@ function About() {
       </Section>
 
       <div className="photo-strip-wrap reveal">
-        <Photo name="blueprints" alt="Plans with drafting pencils and a ruler" className="photo-strip photo-full" />
+        <Photo name="blueprints" alt="Plans, drafting pencils, and a ruler" className="photo-strip photo-full" />
       </div>
 
       <Section title={HEADINGS.ourJob}>
         <div className="jobs">
           <div className="job job-ours">
-            <h3 className="heading">What we take on</h3>
+            <h3 className="heading">What we handle</h3>
             <ul>
               {OUR_JOB.map(([title, body]) => (
                 <li key={title}>
@@ -462,7 +461,7 @@ function About() {
         </div>
       </Section>
 
-      <Section title={HEADINGS.team} intro={<p>{INTROS.team}</p>}>
+      <Section title={HEADINGS.team}>
         <ul className="team-grid">
           {TEAM.map((member) => (
             <li key={member.name}>
@@ -485,9 +484,9 @@ function Contact() {
       <ContactForm />
       <aside className="contact-aside">
         <div className="section-photo reveal">
-          <Photo name="cafe-conversation" alt="Two people talking at a cafe table" />
+          <Photo name="cafe-conversation" alt="Two people in conversation at a café table" />
         </div>
-        <p className="contact-care">Please do not send financial statements or other confidential records. We will arrange a proper way to share them once we have spoken.</p>
+        <p className="contact-care">Please leave financial statements and confidential records out of this form. We'll arrange a way to share them after we speak.</p>
         <p className="contact-direct">
           {SITE.formOpen ? (
             <>

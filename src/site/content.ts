@@ -1,44 +1,45 @@
 /*
  * The words on the public site, in one place. The page renders them, and the build turns the same text into the
  * plain HTML, structured data, and llms.txt that search engines and answer engines read (see seo.ts), so what
- * crawlers see can never drift from what visitors see.
+ * crawlers see can never drift from what visitors see. The copy matches the platform's public pages word for word.
  */
 
 export const HERO = {
-  title: 'Know what your company is worth. Then build on it.',
-  lede: 'StrataSight is a business value advisory for privately held companies. We assess what your business is worth and why, set the strategy, and work with you over a period of years to improve operations and growth, so that when you sell, you sell from a position of strength.',
+  title: 'Value growth advisory for business owners',
+  lede: 'StrataSight helps owners of privately held businesses understand what their company is worth and where they can improve profitability. We organize your records, assess what drives the value of your business, and meet with you regularly to review recommendations and track results.',
 };
 
 export const HEADINGS = {
   fit: 'Where we fit',
-  fitTitle: 'Between building a company and selling it, there are years. That is where we work.',
-  services: 'Three disciplines, one aim: a more valuable company.',
-  who: 'Who it is for',
-  ourJob: 'We do the paperwork. You run the company.',
-  how: 'How it works',
-  questions: 'A buyer will study your company layer by layer. See it that way first.',
-  screens: 'See your company the way a buyer would.',
-  principles: 'Depth over decoration',
-  team: 'Who is behind the analysis',
-  contact: 'Start with a conversation.',
+  fitTitle: 'Building business value before a sale',
+  services: 'Business value, operations, and growth',
+  screensEyebrow: 'Client workspace',
+  screens: 'Business performance and open decisions',
+  how: 'How we work with you',
+  cta: 'Discuss your business with us',
+  who: 'Who we work with',
+  principles: 'Our approach to value growth',
+  ourJob: 'Working with StrataSight',
+  team: 'Our team',
+  contact: 'Request an introductory call',
 };
 
 /** The short paragraph under each section heading. */
 export const INTROS = {
-  services: 'Think of the value creation plan a private equity firm would run, without anyone buying in. You keep the company and you make the decisions.',
-  who: 'Owners of privately held businesses in any industry: services, manufacturing, distribution, healthcare, professional firms, technology, and more. The common thread is an owner who wants to make deliberate, well supported decisions about the company.',
-  questions: 'Most owners know their business by feel and have rarely seen it the way a buyer would. These are the kinds of questions the work answers, shown here for a sample company.',
-  how: 'Ongoing work, not a one-time report. The middle two steps repeat for as long as we work together.',
-  fit: 'You keep the company and make the decisions. We sit between your own financial planning and the eventual sale.',
+  fit: 'An owner who expects to sell can start preparing years in advance. We focus on the parts of the business you can influence while you still run it.',
+  services: 'Our work starts with an assessment of the company. Your priorities help determine whether we look more closely at current operations, opportunities for growth, or both.',
   screens:
-    'Every client gets a private workspace: what needs your attention, how the business is doing, who your largest customers are, and where your cash stands. We keep it current between meetings, and you can open it whenever you like.',
+    'Your workspace brings earnings, cash, and customer activity together with our recommendations. Between meetings, you can review a figure we discussed, revisit a decision, or see which records we need from you.',
+  how: 'We begin with your goals and existing records. Regular meetings give us time to examine decisions as they come up and see how the business responds.',
+  who: 'We advise owners of privately held businesses who want a clearer view of company value or a specific operating decision. A sale may be several years away.',
   about: [
-    'Most privately held businesses never get the depth of strategic analysis that institutional investors take for granted. The gap between what a company is worth and what it could be worth is usually operational. It builds up quietly through process gaps, cost structures that have not kept pace, and blind spots that accumulate over years.',
-    'StrataSight exists to find that gap and work on it with you. We sit between your own financial planning and the eventual sale, and we start from your actual data.',
+    'A business owner may have a clear timeline for stepping away and still face practical questions about the company itself. Which work generates dependable earnings? Which customer relationships or decisions still depend on the owner?',
+    'StrataSight brings financial analysis and operating records together to help answer those questions. We discuss our findings with you, recommend where to focus, and follow the decisions you make over time.',
   ],
-  team: 'StrataSight was formed by a team with complementary expertise in business strategy, quantitative analysis, and data infrastructure.',
-  contact: 'Thirty minutes, no commitment. Tell us about your business and we will reply to arrange a call.',
+  contact: "Tell us a little about your business and what you'd like to discuss. We'll reply to arrange a 30-minute call. There's no commitment.",
 };
+
+export const FOOTER = 'Value growth advisory for privately held businesses.';
 
 export const LEGAL = {
   advisory:
@@ -48,163 +49,169 @@ export const LEGAL = {
 
 export const FIT = [
   {
-    stage: 'First',
-    title: 'You build the business',
-    body: 'Years of work, customers, and people. Most of what the company is worth is already there.',
+    stage: 'Today',
+    title: "The business you've built",
+    body: 'Your customers, team, and operating history provide the starting point. You know which parts of the company work well and which still take up too much of your time.',
   },
   {
-    stage: 'Then, over a period of years',
-    title: 'StrataSight builds its value',
-    body: 'We assess what the company is worth and why, set the strategy, and improve operations and growth alongside you.',
+    stage: 'During our engagement',
+    title: 'Value growth advisory',
+    body: 'We examine earnings, cash flow, and the way work gets done. Together, we choose which opportunities to pursue and review what changes.',
   },
   {
-    stage: 'When you are ready',
-    title: 'An exit partner handles the sale',
-    body: 'A specialist in exits takes a well documented company to market from the strongest position it can be in.',
+    stage: "When you're ready",
+    title: 'Preparing for a transition',
+    body: "You can share the financial history and operating information we've organized with the professionals you choose to advise on a sale.",
   },
 ];
 
+// `spot` is the id links use to reach each service. It keeps the ids the earlier titles produced, so old links still land.
 export const SERVICES = [
   {
-    title: 'Strategic Value Assessment',
-    short: 'What the company is worth today, and what moves that figure up or down.',
+    title: 'Strategic Value Assessments',
+    spot: 'strategic-value-assessment',
+    short: 'An advisory opinion of what the business is worth and the factors that influence the estimate.',
     body: [
-      'Most owners carry a number in their head for what the business is worth. Without disciplined analysis behind it, that number is usually wrong, sometimes by a wide margin.',
-      'The assessment gives you an evidence-based advisory opinion of what the company is worth today and a clear map of what is pushing that figure up or holding it back. We look at financial trends, market comparables, customer concentration, operational risk, management depth, and growth trajectory.',
-      'It is a working document and it does not sit still. We return to it at our regular meetings as the business changes.',
+      'We assess what your business is worth today and explain how we reached that opinion. The starting point is what the company earns, how consistently it earns it, and what a change of ownership might mean for those earnings.',
+      'We review financial trends alongside the circumstances behind them. A large customer relationship, a one-time expense, or a responsibility only the owner can handle may change how we interpret the figures.',
+      'We walk you through the estimate, its assumptions, and the factors worth addressing. At follow-up meetings, we review changes that could affect the estimate.',
     ],
+    listTitle: 'What we review',
     included: [
-      'Enterprise value advisory opinion',
-      'Comparable market benchmarking',
-      'Value drivers identified and ranked',
-      'Gap analysis and opportunity map',
-      'Multiple analysis (EBITDA, SDE, revenue)',
-      'Risk factor assessment',
-      'Written report and walkthrough in person',
-      'Revisited at regular meetings',
+      'An advisory opinion of enterprise value',
+      'Comparable businesses or transactions where relevant data is available',
+      'Factors supporting or limiting value',
+      'Gaps in the available records',
+      'Earnings adjustments and valuation multiples',
+      'Customer concentration and reliance on the owner',
+      'The estimate and its assumptions, discussed with you',
+      'Changes since the previous assessment',
     ],
   },
   {
-    title: 'Operational Efficiency',
-    short: 'Where margin is leaking, ranked by what fixing it is worth.',
+    title: 'Operational Efficiency Consulting',
+    spot: 'operational-efficiency',
+    short: 'A closer look at costs, margins, and where the business uses its time and resources.',
     body: [
-      'Inefficiency rarely announces itself. It shows up as margins that slip a little each year, departments that are busy without producing more, and overhead that grows faster than output.',
-      'Left alone, it compounds, and a buyer prices it in. We review your cost centers, workflows, and profitability measures in a structured way, using your own numbers.',
-      'You get a ranked list of specific improvements with an estimate of what each could be worth, so you know where to start. Then we follow the results with you.',
+      'We examine which work contributes most to profit, where costs have risen, and how quickly sales turn into cash. The detail available in your records helps determine where we can look more closely.',
+      'We discuss the findings with you before recommending a change. A margin decline might reflect higher material costs, a different mix of jobs, or work that took longer than expected. Each points to a different decision.',
+      'We recommend where to start, identify a measure to follow, and review the results with you as new figures come in.',
     ],
+    listTitle: 'Areas we examine',
     included: [
-      'Profitability analysis by product or segment',
-      'Cost structure review and benchmarking',
-      'Workflow and resource allocation review',
-      'Margin improvement modeling',
-      'Productivity and output analysis',
-      'Ranked recommendations with estimated impact',
-      'Implementation sequencing guide',
-      'Results tracked at later meetings',
+      'Profitability by job, product, or service where records allow',
+      'Direct costs and overhead',
+      'How work moves through the business',
+      'The effect of pricing and costs on margins',
+      'Staffing, capacity, and output',
+      'Opportunities to improve cash flow',
+      'Priorities and next steps',
+      'Results after a change',
     ],
   },
   {
     title: 'Strategic Growth Advisory',
-    short: 'A growth plan built around your business, worked meeting by meeting.',
+    spot: 'strategic-growth-advisory',
+    short: 'An assessment of growth opportunities and the people, capacity, and cash they would require.',
     body: [
-      'Growth without a strategy is spending faster. We build the growth plan around your business model, your market, and what your operation can actually carry, not around a framework borrowed from another industry.',
-      'The plan is prioritized, sequenced, and tied to milestones you can reach. It stays at the level of the business: corporate strategy, market position, and the ability to scale.',
-      'We keep working it with you, meeting by meeting, and adjust as the results come in.',
+      'We help you evaluate where to grow and what the business can support. We look at the customers you serve, the demand you see, and the capacity available to take on more work.',
+      'Together, we examine what an opportunity would require in staffing, equipment, or working capital. We compare those requirements with the earnings you expect and make the assumptions clear.',
+      'Once you choose a direction, we agree on milestones and review progress as demand, costs, and capacity change.',
     ],
+    listTitle: 'Growth decisions we support',
     included: [
-      'Market opportunity and competitive analysis',
-      'Revenue growth modeling and scenario planning',
-      'Customer and channel expansion strategy',
-      'Operational scalability assessment',
-      'Strategic initiative prioritization',
-      'Return framing for major decisions',
-      'Roadmap with clear milestones',
-      'Progress reviewed at regular meetings',
+      'Which customer groups or markets to pursue',
+      'How much revenue a growth opportunity could bring',
+      'Ways to reach additional customers',
+      'Staffing and capacity requirements',
+      'Which opportunities to pursue first',
+      'Expected costs and potential returns',
+      'Milestones for the chosen plan',
+      'Adjustments as results come in',
     ],
   },
 ];
 
 export const WHO = [
-  'Owners considering a sale or transition in the next one to five years',
-  'Owners who want to know what their company is actually worth, and why',
-  'Companies whose margins are slipping or whose growth has stalled',
-  'Owners who want to scale without giving up profitability',
-  'Partners or co-owners who want a shared, documented view of the company',
-  'Owners whose personal financial plan depends on what the business will one day sell for',
+  'Owners preparing for a future sale or transition',
+  'Owners seeking an informed estimate of business value',
+  'Companies facing narrower margins or slower growth',
+  'Owners weighing the cost of taking on more work',
+  'Co-owners who need a common basis for decisions',
+  'Owners preparing the company to run with less day-to-day involvement from them',
 ];
 
 export const OUR_JOB = [
-  ['Gather the records', 'Accounting exports, bank statements, invoices, payroll reports, job logs. Whatever exists, in whatever shape it is in.'],
-  ['Digitize the paper', 'Filing cabinets and folders become organized, searchable records with a note of where each figure came from.'],
-  ['Consolidate the picture', 'Several years of financial and operating history, brought into one consistent view of the company.'],
-  ['Analyze value and performance', 'What the company is worth, what drives that, and how revenue, margins, costs, and cash move together.'],
-  ['Prepare recommendations', 'Specific, practical options to consider, each tied to the numbers behind it.'],
-  ['Keep it current', 'New months are added, checked, and reconciled as they close, so the picture never goes stale.'],
+  ['Collect the records', 'We gather relevant accounting exports, bank statements, invoices, payroll reports, and job records.'],
+  [
+    'Work with paper records',
+    'We use relevant paper records in the assessment. If substantial scanning or data entry is needed, we’ll agree on the scope and cost with you before we begin.',
+  ],
+  ['Assemble the business history', 'We bring records from different periods and sources into a consistent view of the company.'],
+  ['Assess performance and value', 'We examine earnings, cash flow, and operating trends to understand what influences business value.'],
+  ['Prepare recommendations', 'We identify options, explain the reasoning, and bring the decisions to you for discussion.'],
+  ['Update the analysis', 'We incorporate new records as they become available and review material changes with you.'],
 ];
 
 export const YOUR_JOB = [
-  ['Share what you already have', 'No new software to learn and no forms to fill in every week.'],
-  ['Meet with us regularly', 'We walk through what changed and what it means, in plain language.'],
-  ['Make the decisions', 'It is your company. We bring the analysis. You decide what to do with it.'],
+  ['Share existing records', 'Share the records you already have and let us know if any are only available on paper.'],
+  ['Meet with us regularly', "Tell us what's happening in the business and help us interpret changes in the numbers."],
+  ['Choose the next steps', 'Decide which recommendations fit your priorities and what you want to put into practice.'],
 ];
 
-export const STEPS = [
+// `tag` is the small caption on the steps that repeat.
+export const STEPS: { title: string; body: string; tag?: string }[] = [
+  { title: 'Introductory call', body: "In a 30-minute conversation, we discuss your business, your priorities, and whether our services fit. There's nothing to prepare." },
   {
-    title: 'A first conversation',
-    body: 'Thirty minutes. We learn about the business, what you want from it, and when. You need no preparation, and we will tell you plainly whether we can help.',
+    title: 'Records collection',
+    body: 'We start with the statements, spreadsheets, and invoices you already use. If relevant information is only on paper, we’ll identify what we need and discuss how to handle it.',
   },
   {
-    title: 'We collect what exists',
-    body: 'The work starts with your records as they are today. We take in exports, statements, and paper, then organize and digitize them. Anything unclear is marked for review instead of guessed at.',
+    title: 'Initial assessment',
+    body: "We review the company's financial history and operations, develop an advisory opinion of value, and explain the assumptions behind it.",
   },
   {
-    title: 'We assess the value and what drives it',
-    body: 'Your history goes into a consistent financial and operating model. From it we form an advisory opinion of what the company is worth today, and a ranked list of what raises or lowers that figure.',
+    title: 'Review and recommendations',
+    body: "We sit down with you to discuss what the figures show, hear what's changed in the business, and agree on the next decision that needs attention.",
+    tag: 'At each meeting',
   },
+  { title: 'Follow-up on decisions', body: 'We record the actions you choose and review the relevant measures as new information comes in.', tag: 'Between meetings' },
   {
-    title: 'We meet regularly and work the plan',
-    body: 'On a regular schedule we sit down to go through what the numbers show, what to improve in operations and growth, and what we would look at next. You ask questions until it makes sense.',
-    recurring: true,
-  },
-  {
-    title: 'We track what you decide',
-    body: 'Each recommendation you take on is recorded along with the measures it was meant to move. At later meetings we look at what actually happened and update the picture of value.',
-    recurring: true,
-  },
-  {
-    title: 'An exit partner takes it to market',
-    body: 'When you decide to sell, a partner who specializes in exits handles the sale. They start with a company whose history is documented and whose value is already understood.',
+    title: 'Preparation for a future sale',
+    body: 'If you decide to pursue a sale, we review the business history and outstanding questions with you so you can brief your chosen exit advisor.',
   },
 ];
 
 export const PRINCIPLES = [
-  ['Evidence only', 'Every recommendation rests on your own financial and operating data. Not gut feel, and not industry averages loosely applied.'],
-  ['A defined scope', 'We work at the level of the business: value, operations, and growth. Personal finances, legal work, and the sale itself belong to other professionals.'],
-  ['Built to be used', 'Ranked findings, specific next steps, and measures to check them against. We stay with the work through implementation.'],
-  ['A person explains it', 'Software does the arithmetic. An advisor sits across the table, answers questions, and knows your business by name.'],
-  ['We say what the numbers cannot tell us', 'Every figure carries its source and review status. When a record is incomplete or reconstructed, you will see that it is.'],
-  ['No promises about price', 'Our view of value is an advisory opinion, not a certified valuation. We do not promise a sale price or a guaranteed increase.'],
+  ['Company records', 'We start with the books and operating records you already use. Your knowledge of the business helps explain changes in the figures.'],
+  ['Business-level advice', 'Our engagements cover company value, operations, and growth. Personal financial planning and transaction services fall outside that scope.'],
+  ['Practical recommendations', 'We explain what we suggest changing, why it deserves attention, and how we can assess the result.'],
+  ['Regular advisor meetings', 'You meet with the people reviewing your business. Meetings give you time to question an assumption, explain a change, or weigh a decision.'],
+  ['Clear assumptions', 'We distinguish documented figures from estimates and identify missing information that could affect a conclusion.'],
+  [
+    'An advisory opinion of value',
+    'Our assessment reflects the records, assumptions, and market information available at the time. It is a non-certified opinion of value. An eventual sale price depends on the transaction.',
+  ],
 ];
 
-// Role cards, not names. Facts come from each person's own background; nothing here claims client results,
-// small-business advisory track records, or StrataSight titles. Other employers and firms are not named.
+// Names, credentials, and bios as each person approved them. Nothing here claims client results or names another firm.
 export const TEAM = [
   {
-    name: 'Owner planning',
-    role: 'Transition, retirement, and estate planning',
-    bio: 'More than 20 years in financial services, starting in banking before moving into financial planning. Works with owners nearing retirement on retirement, estate, and legacy planning, and is used to coordinating with tax and legal professionals.',
-    skills: ['Certified Business Exit Consultant', 'Estate and legacy planning', 'Finance degree'],
+    name: 'Kevin Gianfortune, CBEC, AIF',
+    role: 'Business Exit Planning',
+    bio: 'Kevin is a Certified Business Exit Consultant with more than 20 years in financial services. He founded a financial planning practice and has worked with business owners preparing for retirement. At StrataSight, he helps owners identify which responsibilities they’ll need to hand over and what the business needs to operate when they step away.',
+    skills: ['Owner transition', 'Management succession', 'Exit readiness'],
   },
   {
-    name: 'Valuation and exit',
-    role: 'Valuation, exit planning, and acquisitions',
-    bio: 'An electrical engineering background and a CFA charter, with completed training in exit planning and in mergers and acquisitions. Has evaluated acquisition opportunities and supported integration after a purchase, and brings an analyst’s discipline to valuation and modeling.',
-    skills: ['CFA charterholder', 'Certified Exit Planning Advisor', 'Certified M&A Advisor'],
+    name: 'James Owens, CFA, CEPA, CM&AA',
+    role: 'Strategic Value Advisory',
+    bio: 'James leads StrataSight’s assessments of business value and profitability. His experience evaluating acquisition opportunities and helping integrate businesses after purchase gives him insight into what a buyer looks for and what it takes to run a company after ownership changes. He works with owners to understand what drives earnings and which improvements deserve attention.',
+    skills: ['Business valuation', 'Profitability analysis', 'Acquisition evaluation'],
   },
   {
-    name: 'Platform and data',
-    role: 'Software and analysis',
-    bio: 'Builds and runs the platform StrataSight uses to organize business records and turn them into clear, checked figures. Brings a background in software engineering and data analysis, building backend services, real-time dashboards, and automated analysis tools.',
-    skills: ['Software engineering', 'Data analysis'],
+    name: 'Tom Smith',
+    role: 'Data & Business Intelligence',
+    bio: 'Tom built the StrataSight platform and brings professional experience in software engineering and business data analysis. His work spans backend systems, real-time dashboards, and tools that automate reporting. At StrataSight, he brings financial and operating records together so owners can trace the figures behind a recommendation and see what changes after they act on it.',
+    skills: ['Platform development', 'Data analysis', 'Reporting automation'],
   },
 ];

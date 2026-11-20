@@ -4,13 +4,13 @@ import { useWidth } from '../charts/useSize';
 
 /** What each layer stands for, from the surface down. A buyer reads a company in roughly this order. */
 const LAYERS = [
-  { name: 'Revenue', note: 'How much comes in, and how steadily' },
-  { name: 'Recurring work', note: 'How much of next year is already sold' },
-  { name: 'Margins', note: 'What is left after the work is done' },
-  { name: 'Customer mix', note: 'How much depends on a few accounts' },
+  { name: 'Revenue', note: 'How much the business sells and how steadily' },
+  { name: 'Recurring work', note: 'How much work customers have already committed to' },
+  { name: 'Margins', note: 'How much of each sale remains after costs' },
+  { name: 'Customer mix', note: 'How much revenue comes from the largest accounts' },
   { name: 'Cash', note: 'How quickly sales turn into money in the bank' },
-  { name: 'Team depth', note: 'Who can run it day to day' },
-  { name: 'Owner dependence', note: 'How much still runs through you' },
+  { name: 'Team depth', note: 'Who can keep the business running day to day' },
+  { name: 'Owner dependence', note: 'Which decisions and relationships still depend on you' },
 ];
 const COUNT = LAYERS.length;
 const SAMPLES = 64;
@@ -18,6 +18,8 @@ const TS = Array.from({ length: SAMPLES + 1 }, (_, i) => i / SAMPLES);
 /** How much the layer under the pointer thickens, and how much every layer opens up over the first screen of scroll. */
 const HOVER_GROWTH = 1.3;
 const SCROLL_GROWTH = 0.51;
+/** Share of its speed a layer the pointer has left keeps each frame, so it glides to a stop. */
+const GLIDE = 0.86;
 
 /**
  * Top edge of layer k at horizontal position t (0 to 1), as a fraction of the plot height.
@@ -36,19 +38,24 @@ function profile(k: number, t: number) {
 interface Motion {
   /** 0 to 1 per layer: how far it has opened toward the pointer. */
   open: number[];
-  /** Pointer position across the width, 0 to 1. */
-  x: number;
+  /**
+   * Where each layer opened, across the width, 0 to 1. The layer under the pointer follows it. A layer the pointer
+   * has left coasts to a stop while it closes, so its label settles near where it was instead of trailing the pointer.
+   */
+  at: number[];
+  /** How far each layer's position moved on the last frame, carried on and slowed once the pointer leaves it. */
+  drift: number[];
   /** Scroll progress through the first screen, 0 to 1. */
   scroll: number;
 }
 
 /** The y position of every layer edge (COUNT + 1 of them) at horizontal position t. */
 function edgesAt(t: number, height: number, m: Motion) {
-  const distance = (t - m.x) / 0.16;
-  const near = 0.35 + 0.65 * Math.exp(-0.5 * distance * distance);
   const thickness: number[] = [];
   let extra = 0;
   for (let k = 0; k < COUNT; k++) {
+    const distance = (t - m.at[k]) / 0.16;
+    const near = 0.35 + 0.65 * Math.exp(-0.5 * distance * distance);
     const rest = height * (profile(k + 1, t) - profile(k, t));
     const grown = rest * (1 + SCROLL_GROWTH * m.scroll) * (1 + HOVER_GROWTH * m.open[k] * near);
     thickness.push(grown);
@@ -68,7 +75,7 @@ export function StrataHero({ children }: { children: ReactNode }) {
   const [ref, width] = useWidth<HTMLDivElement>();
   const [revealed, setRevealed] = useState(false);
   const [, redraw] = useReducer((n: number) => n + 1, 0);
-  const motion = useRef<Motion>({ open: LAYERS.map(() => 0), x: 0.7, scroll: 0 });
+  const motion = useRef<Motion>({ open: LAYERS.map(() => 0), at: LAYERS.map(() => 0.7), drift: LAYERS.map(() => 0), scroll: 0 });
   const target = useRef({ layer: -1, x: 0.7, scroll: 0 });
   const frame = useRef(0);
   const reducedMotion = useRef(false);
@@ -89,8 +96,20 @@ export function StrataHero({ children }: { children: ReactNode }) {
       moving = true;
       return from + gap * rate;
     };
+    m.at = m.at.map((x, k) => {
+      let next: number;
+      // A layer just entered opens right under the pointer rather than sliding over from where it last was.
+      if (k === goal.layer) next = m.open[k] < 0.02 ? goal.x : ease(x, goal.x);
+      else {
+        // One the pointer has left carries on at the speed it had and slows to a stop.
+        const drift = reducedMotion.current ? 0 : m.drift[k] * GLIDE;
+        next = Math.abs(drift) < 0.0002 ? x : Math.max(0, Math.min(1, x + drift));
+        if (next !== x) moving = true;
+      }
+      m.drift[k] = k === goal.layer && m.open[k] < 0.02 ? 0 : next - x;
+      return next;
+    });
     m.open = m.open.map((value, k) => ease(value, k === goal.layer ? 1 : 0));
-    m.x = ease(m.x, goal.x);
     m.scroll = ease(m.scroll, goal.scroll);
     frame.current = moving ? requestAnimationFrame(tick) : 0;
     redraw();
@@ -146,10 +165,8 @@ export function StrataHero({ children }: { children: ReactNode }) {
   const band = d3area<number>().curve(curveMonotoneX);
   const index = TS.map((_, i) => i);
 
-  // Label for the open layer, centered in it near the pointer and kept clear of the page edges.
+  // Each open layer's label, centered in it where it opened and kept clear of the page edges.
   const pad = compact ? 96 : 190;
-  const labelX = Math.max(pad, Math.min(width - pad, m.x * width));
-  const labelEdges = edgesAt(width > 0 ? labelX / width : 0, height, m);
 
   return (
     <div className="hero-stage" onPointerMove={onPoint} onPointerDown={onPoint} onPointerLeave={onLeave}>
@@ -169,7 +186,9 @@ export function StrataHero({ children }: { children: ReactNode }) {
                 const open = m.open[k];
                 band.x((i) => x(i)).y1((i) => columns[i][k]).y0((i) => Math.min(columns[i][k + 1], height + 2));
                 edge.x((i) => x(i)).y((i) => columns[i][k]);
-                const middle = (labelEdges[k] + Math.min(labelEdges[k + 1], height)) / 2;
+                const labelX = Math.max(pad, Math.min(width - pad, m.at[k] * width));
+                const labelEdges = open > 0.02 ? edgesAt(width > 0 ? labelX / width : 0, height, m) : null;
+                const middle = labelEdges ? (labelEdges[k] + Math.min(labelEdges[k + 1], height)) / 2 : 0;
                 return (
                   <g key={layer.name} className={open > 0.5 ? 'strata-band is-open' : 'strata-band'}>
                     <path d={band(index) ?? ''} className="strata-fill" style={{ opacity: 0.14 + k * 0.085 + open * 0.2 }} />
@@ -194,7 +213,7 @@ export function StrataHero({ children }: { children: ReactNode }) {
         )}
       </div>
       <p className="visually-hidden">
-        The drawing shows the layers a buyer looks through in a company: {LAYERS.map((layer) => layer.name.toLowerCase()).join(', ')}.
+        Seven layers show factors that influence business value, from revenue and margins to the responsibilities that still depend on the owner.
       </p>
     </div>
   );

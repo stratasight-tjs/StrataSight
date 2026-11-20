@@ -9,7 +9,7 @@ import { FIT, HEADINGS, HERO, INTROS, LEGAL, OUR_JOB, PRINCIPLES, SERVICES, STEP
 
 export const SITE_URL = `https://${SITE.domain}/`;
 export const DESCRIPTION =
-  'StrataSight helps owners of privately held businesses understand what the company is worth and why, improve operations and growth over a period of years, and reach a sale in a strong position.';
+  'Value growth advisory for privately held businesses. Explore business value assessments, operational efficiency consulting, and strategic growth advisory.';
 
 const esc = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const list = (items: string[]) => `<ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>`;
@@ -18,15 +18,15 @@ const pairs = (items: string[][]) => `<ul>${items.map(([t, b]) => `<li><strong>$
 /** The page as plain HTML, for readers that do not run JavaScript. */
 export function staticHtml(): string {
   return [
-    `<header><h1>${esc(HERO.title)}</h1><p>${esc(HERO.lede)}</p><p><a href="#/contact">Schedule a discovery call</a></p></header>`,
+    `<header><h1>${esc(HERO.title)}</h1><p>${esc(HERO.lede)}</p><p><a href="#/contact">Request an introductory call</a></p></header>`,
     `<main>`,
     `<section><h2>${esc(HEADINGS.fitTitle)}</h2><p>${esc(INTROS.fit)}</p><ol>${FIT.map((f) => `<li><strong>${esc(f.title)}.</strong> ${esc(f.body)}</li>`).join('')}</ol></section>`,
     `<section id="services"><h2>${esc(HEADINGS.services)}</h2><p>${esc(INTROS.services)}</p>${SERVICES.map(
-      (s) => `<article><h3>${esc(s.title)}</h3>${s.body.map((p) => `<p>${esc(p)}</p>`).join('')}<p>What is included:</p>${list(s.included)}</article>`,
+      (s) => `<article><h3>${esc(s.title)}</h3>${s.body.map((p) => `<p>${esc(p)}</p>`).join('')}<p>${esc(s.listTitle)}:</p>${list(s.included)}</article>`,
     ).join('')}</section>`,
     `<section id="who"><h2>${esc(HEADINGS.who)}</h2><p>${esc(INTROS.who)}</p>${list(WHO)}</section>`,
-    `<section><h2>${esc(HEADINGS.ourJob)}</h2><h3>What we do</h3>${pairs(OUR_JOB)}<h3>What we ask of you</h3>${pairs(YOUR_JOB)}</section>`,
-    `<section id="engagement"><h2>${esc(HEADINGS.how)}</h2><ol>${STEPS.map((s) => `<li><strong>${esc(s.title)}.</strong> ${esc(s.body)}</li>`).join('')}</ol></section>`,
+    `<section id="engagement"><h2>${esc(HEADINGS.how)}</h2><p>${esc(INTROS.how)}</p><ol>${STEPS.map((s) => `<li><strong>${esc(s.title)}.</strong> ${esc(s.body)}</li>`).join('')}</ol></section>`,
+    `<section><h2>${esc(HEADINGS.ourJob)}</h2><h3>What we handle</h3>${pairs(OUR_JOB)}<h3>What we ask of you</h3>${pairs(YOUR_JOB)}</section>`,
     `<section id="about"><h2>${esc(HEADINGS.principles)}</h2>${INTROS.about.map((p) => `<p>${esc(p)}</p>`).join('')}${pairs(PRINCIPLES)}<h3>${esc(HEADINGS.team)}</h3><ul>${TEAM.map(
       (m) => `<li><strong>${esc(m.name)}</strong>, ${esc(m.role)}. ${esc(m.bio)} ${esc(m.skills.join(', '))}.</li>`,
     ).join('')}</ul></section>`,
@@ -81,7 +81,7 @@ export function llmsTxt(): string {
     '',
     '## Services',
     '',
-    ...SERVICES.flatMap((s) => [`### ${s.title}`, '', ...s.body, '', 'Included:', ...s.included.map((i) => `- ${i}`), '']),
+    ...SERVICES.flatMap((s) => [`### ${s.title}`, '', ...s.body, '', `${s.listTitle}:`, ...s.included.map((i) => `- ${i}`), '']),
     `## ${HEADINGS.who}`,
     '',
     ...WHO.map((w) => `- ${w}`),
