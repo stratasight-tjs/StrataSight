@@ -2,6 +2,8 @@
 
 Static Vite + React + TypeScript site for StrataSight. Two entry points: the public site (`index.html`, `src/site/`) and the platform demo (`demo/index.html`, `src/demo/`). Hosted on GitHub Pages at stratasight.net. No backend.
 
+Since 2026-11-23, every page hands visitors to the StrataSight app while it can be reached: a few lines at the top of `index.html`, `demo/index.html`, and `public/404.html` load the app's icon and, once it arrives, open the same page there. If the app cannot be reached, the page here shows as before. The owner asked that the rest of the code stay as it is, so it no longer follows the app's public pages.
+
 ## Commands
 
 - `npm run dev` : dev server
@@ -17,7 +19,7 @@ Run `npm test` and `npm run build` before calling a change done.
 2. **Follow `docs/DATA_DICTIONARY.md`.** Never sum snapshot fields (`cashEnd`, `arEnd`, `apEnd`, `backlogEnd`, `recurringContracts`, `crewFte`). Never label anything EBITDA, SDE, net income, normalized earnings, or valuation. Owner salary is an operating expense counted once. `recurringRevenue` and `topFiveRevenue` are subsets, never added to revenue. 2026 is year to date.
 3. **Numbers come from `src/lib/`.** Views do not do their own aggregation beyond trivial display math. Add a function to `metrics.ts` with a test instead.
 4. **Separate calculated from illustrative.** Hand-written example content lives only in `src/demo/illustrative.ts` and is shown with `<Basis kind="illustrative" />`. Computed content uses `<Basis kind="data" />`. Do not mix a made-up number into a computed panel.
-5. **No persistence, no network.** The demo keeps state in React memory. Do not add localStorage, cookies, analytics, remote fonts, or API calls without an explicit request. The one approved exception is the contact form, which posts to the hosted form endpoint in `src/config/site.ts` when one is set.
+5. **No persistence, no network.** The demo keeps state in React memory. Do not add localStorage, cookies, analytics, remote fonts, or API calls without an explicit request. The approved exceptions are the contact form, which posts to the hosted form endpoint in `src/config/site.ts` when one is set, and the hand-off to the app described above.
 6. **Static hosting.** Keep `base: './'`, the two HTML entries, and hash routing in the demo. Do not introduce path-based client routing.
 7. **Writing style.** Plain, sentence case, active voice. No em dashes or en dashes anywhere in site copy or docs.
 

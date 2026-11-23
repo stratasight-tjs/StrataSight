@@ -3,6 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      Hands visitors to the StrataSight app while it can be reached, so an app address such as /services opens there.
+      See the same lines in index.html.
+    -->
+    <style>
+      html.to-app { background: #071c2c; }
+      html.to-app body { visibility: hidden; }
+    </style>
+    <script>
+      (function () {
+        var app = 'https://desktop-2skpbuc.tail33b333.ts.net:8443';
+        var pages = ['services', 'about', 'contact', 'sign-in'];
+        var hash = location.hash.replace(/^#\/?/, '').split('/');
+        var path = location.pathname.replace(/^\/+|\/+$/g, '');
+        var to = '/';
+        if (pages.indexOf(hash[0]) >= 0) to = '/' + hash[0] + (hash[1] ? '#' + hash[1] : '');
+        else if (pages.indexOf(path) >= 0) to = '/' + path + location.hash;
+        var root = document.documentElement;
+        var settled = false;
+        var stay = function () {
+          if (settled) return;
+          settled = true;
+          root.classList.remove('to-app');
+        };
+        root.classList.add('to-app');
+        var probe = new Image();
+        probe.onload = function () {
+          if (settled) return;
+          settled = true;
+          location.replace(app + to);
+        };
+        probe.onerror = stay;
+        setTimeout(stay, 3000);
+        probe.src = app + '/apple-touch-icon.png?up=' + Date.now();
+      })();
+    </script>
     <title>Page not found | StrataSight</title>
     <meta name="robots" content="noindex" />
     <style>
